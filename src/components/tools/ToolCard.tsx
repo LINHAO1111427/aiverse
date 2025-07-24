@@ -78,7 +78,7 @@ export function ToolCard({ tool, variant = "grid" }: ToolCardProps) {
         {tool.features && tool.features.length > 0 && (
           <div className="mb-4">
             <div className="flex flex-wrap gap-2">
-              {tool.features.slice(0, isGrid ? 3 : 4).map((feature, index) => (
+              {tool.features.slice(0, isGrid ? 3 : 4).map((feature: any, index: number) => (
                 <span
                   key={index}
                   className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded"

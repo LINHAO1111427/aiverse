@@ -183,7 +183,7 @@ export default function ComparePage() {
                           <p className="text-sm text-gray-500">{tool.companyName}</p>
                         </div>
                         <a
-                          href={tool.websiteUrl}
+                          href={tool.websiteUrl || undefined}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700"
@@ -312,7 +312,7 @@ export default function ComparePage() {
                   {tools.map((tool) => (
                     <td key={tool.id} className="p-4">
                       <ul className="space-y-2">
-                        {tool.features?.slice(0, 6).map((feature, index) => (
+                        {tool.features?.slice(0, 6).map((feature: any, index: number) => (
                           <li key={index} className="flex items-start gap-2 text-sm">
                             <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
                             <span>{feature}</span>

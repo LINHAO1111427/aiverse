@@ -101,8 +101,8 @@ export default async function ToolDetailPage({ params }: PageProps) {
               Tools
             </Link>
             <span className="text-gray-400">/</span>
-            <Link href={`/tools?category=${tool.category.slug}`} className="text-gray-500 hover:text-gray-700">
-              {tool.category.name}
+            <Link href={`/tools?category=${tool.category?.slug}`} className="text-gray-500 hover:text-gray-700">
+              {tool.category?.name}
             </Link>
             <span className="text-gray-400">/</span>
             <span className="text-gray-900">{tool.name}</span>
@@ -157,7 +157,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
                     )}
                     <div className="flex items-center gap-1">
                       <Tag className="w-4 h-4" />
-                      <span>{tool.category.name}</span>
+                      <span>{tool.category?.name}</span>
                     </div>
                   </div>
                 </div>
@@ -192,7 +192,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
                   {/* CTA Buttons */}
                   <div className="flex gap-3 mt-4">
                     <a
-                      href={tool.websiteUrl}
+                      href={tool.websiteUrl || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
@@ -225,7 +225,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
               <section className="bg-white rounded-lg border border-gray-200 p-6">
                 <h2 className="text-xl font-semibold text-gray-900 mb-4">Key Features</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {tool.features.map((feature, index) => (
+                  {tool.features.map((feature: any, index: number) => (
                     <div key={index} className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-600">{feature}</span>
@@ -244,7 +244,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
                   <div>
                     <h3 className="font-medium text-green-600 mb-3">Pros</h3>
                     <div className="space-y-2">
-                      {tool.prosAndCons.pros?.map((pro, index) => (
+                      {tool.prosAndCons.pros?.map((pro: any, index: number) => (
                         <div key={index} className="flex items-start gap-2">
                           <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                           <span className="text-gray-600 text-sm">{pro}</span>
@@ -257,7 +257,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
                   <div>
                     <h3 className="font-medium text-red-600 mb-3">Cons</h3>
                     <div className="space-y-2">
-                      {tool.prosAndCons.cons?.map((con, index) => (
+                      {tool.prosAndCons.cons?.map((con: any, index: number) => (
                         <div key={index} className="flex items-start gap-2">
                           <X className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
                           <span className="text-gray-600 text-sm">{con}</span>
