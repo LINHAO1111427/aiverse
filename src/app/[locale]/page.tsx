@@ -21,6 +21,7 @@ import {
 } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 import { WorkflowCard } from "@/components/workflow/WorkflowCard"
+import { getFeaturedWorkflows } from "@/lib/server-api"
 
 // Icon mapping for categories
 const categoryIcons = {
@@ -38,10 +39,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
   const t = await getTranslations()
 
   // Fetch featured workflows
-  const workflowsRes = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflows?featured=true&limit=3`, { 
-    cache: 'no-store' 
-  })
-  const workflowsData = await workflowsRes.json()
+  const workflowsData = await getFeaturedWorkflows(3)
   const featuredWorkflows = workflowsData.workflows || []
 
   const categories = [

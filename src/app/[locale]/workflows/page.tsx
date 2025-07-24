@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { WorkflowsClient } from './workflows-client'
+import { getWorkflowCategories, getWorkflows } from '@/lib/server-api'
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'workflows' })
@@ -19,13 +20,10 @@ export default async function WorkflowsPage({
   const t = await getTranslations({ locale, namespace: 'workflows' })
 
   // Fetch initial data
-  const [categoriesRes, workflowsRes] = await Promise.all([
-    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflow-categories`, { cache: 'no-store' }),
-    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflows?limit=20`, { cache: 'no-store' })
+  const [categoriesData, workflowsData] = await Promise.all([
+    getWorkflowCategories(),
+    getWorkflows({ limit: 20 })
   ])
-
-  const categoriesData = await categoriesRes.json()
-  const workflowsData = await workflowsRes.json()
 
   return (
     <div className="min-h-screen">

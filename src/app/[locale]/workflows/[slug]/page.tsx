@@ -2,21 +2,21 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { WorkflowDetailClient } from './workflow-detail-client'
+import { getWorkflowBySlug } from '@/lib/server-api'
 
 interface PageProps {
   params: { locale: string; slug: string }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflows/${params.slug}`)
+  const workflow = await getWorkflowBySlug(params.slug)
   
-  if (!res.ok) {
+  if (!workflow) {
     return {
       title: 'Workflow Not Found',
     }
   }
   
-  const workflow = await res.json()
   const t = await getTranslations({ locale: params.locale, namespace: 'workflows' })
   
   return {
@@ -34,15 +34,11 @@ export default async function WorkflowDetailPage({ params }: PageProps) {
   const t = await getTranslations({ locale, namespace: 'workflows' })
   
   // Fetch workflow data
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflows/${slug}`, {
-    cache: 'no-store'
-  })
+  const workflow = await getWorkflowBySlug(slug)
   
-  if (!res.ok) {
+  if (!workflow) {
     notFound()
   }
-  
-  const workflow = await res.json()
   
   return (
     <WorkflowDetailClient 
