@@ -36,7 +36,7 @@ export async function GET(
           select: {
             rating: true,
             review: true,
-            userId: true,
+            userEmail: true,
             createdAt: true
           },
           orderBy: {

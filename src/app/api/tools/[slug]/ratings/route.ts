@@ -36,16 +36,7 @@ export async function GET(
         where: { toolId: tool.id },
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
-        take: limit,
-        include: {
-          user: {
-            select: {
-              id: true,
-              name: true,
-              email: true
-            }
-          }
-        }
+        take: limit
       }),
       prisma.rating.count({
         where: { toolId: tool.id }
@@ -87,12 +78,19 @@ export async function POST(
   try {
     const { slug } = params
     const body = await request.json()
-    const { rating, review, userId } = body
+    const { rating, review, userEmail } = body
     
     // Validate input
     if (!rating || rating < 1 || rating > 5) {
       return NextResponse.json(
         { error: "Rating must be between 1 and 5" },
+        { status: 400 }
+      )
+    }
+    
+    if (!userEmail) {
+      return NextResponse.json(
+        { error: "User email is required" },
         { status: 400 }
       )
     }
@@ -111,34 +109,33 @@ export async function POST(
     }
     
     // Check if user already rated this tool
-    if (userId) {
-      const existingRating = await prisma.rating.findFirst({
-        where: {
+    const existingRating = await prisma.rating.findUnique({
+      where: {
+        toolId_userEmail: {
           toolId: tool.id,
-          userId
+          userEmail
+        }
+      }
+    })
+      
+    if (existingRating) {
+      // Update existing rating
+      const updatedRating = await prisma.rating.update({
+        where: { id: existingRating.id },
+        data: {
+          rating,
+          review
         }
       })
       
-      if (existingRating) {
-        // Update existing rating
-        const updatedRating = await prisma.rating.update({
-          where: { id: existingRating.id },
-          data: {
-            rating,
-            review,
-            updatedAt: new Date()
-          }
-        })
-        
-        return NextResponse.json(updatedRating)
-      }
+      return NextResponse.json(updatedRating)
     }
     
     // Create new rating
     const newRating = await prisma.rating.create({
       data: {
         toolId: tool.id,
-        userId: userId || "anonymous",
+        userEmail,
         rating,
         review
       }

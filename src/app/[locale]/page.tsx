@@ -16,7 +16,7 @@ import {
   Users,
   MessageSquare
 } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { getTranslations } from "next-intl/server"
 
 // Icon mapping for categories
 const categoryIcons = {
@@ -30,8 +30,8 @@ const categoryIcons = {
   Zap,
 }
 
-export default function HomePage() {
-  const t = useTranslations()
+export default async function HomePage() {
+  const t = await getTranslations()
 
   const categories = [
     { name: "AI Assistants", icon: Brain, count: 124, slug: "ai-assistants" },

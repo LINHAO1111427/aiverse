@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
-import { Prisma } from "@prisma/client"
+import { Prisma, PricingType } from "@prisma/client"
 
 export async function GET(request: NextRequest) {
   try {
@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     
     // Pricing filter
     if (pricing) {
-      const pricingTypes = pricing.split(",") as Prisma.PricingType[]
+      const pricingTypes = pricing.split(",") as PricingType[]
       where.pricingType = { in: pricingTypes }
     }
     

@@ -28,7 +28,6 @@ export async function GET() {
       slug: category.slug,
       description: category.description,
       icon: category.icon,
-      color: category.color,
       toolCount: category._count.tools,
       createdAt: category.createdAt,
       updatedAt: category.updatedAt
