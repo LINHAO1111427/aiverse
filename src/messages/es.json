@@ -1,0 +1,483 @@
+{
+  "common": {
+    "home": "Home",
+    "tools": "Tools",
+    "workflows": "Workflows",
+    "categories": "Categories",
+    "blog": "Blog",
+    "about": "About",
+    "submitTool": "Submit Tool",
+    "search": "Search",
+    "searchPlaceholder": "Search AI tools...",
+    "loading": "Loading...",
+    "error": "Error",
+    "viewAll": "View All",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "free": "Free",
+    "paid": "Paid",
+    "freemium": "Freemium",
+    "custom": "Custom Pricing",
+    "perMonth": "/month",
+    "startingAt": "Starting at",
+    "from": "From"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Discover 500+ Best AI Tools",
+      "subtitle": "Boost Your Productivity",
+      "description": "Find the perfect AI solution for your needs from our curated collection of tools",
+      "searchPlaceholder": "Search for AI tools...",
+      "suggestions": "Popular searches"
+    },
+    "categories": {
+      "title": "Browse by Category",
+      "subtitle": "Find AI tools organized by use case",
+      "toolCount": "{count} tools"
+    },
+    "featured": {
+      "title": "Featured AI Tools",
+      "subtitle": "Hand-picked tools that deliver exceptional value",
+      "badge": "Featured"
+    },
+    "stats": {
+      "tools": "AI Tools",
+      "categories": "Categories",
+      "users": "Monthly Users",
+      "reviews": "User Reviews"
+    }
+  },
+  "tools": {
+    "pageTitle": "Explore AI Tools",
+    "pageDescription": "Browse through our curated collection of 500+ AI tools. Use filters to find tools that match your specific needs.",
+    "showing": "Showing",
+    "of": "of",
+    "results": "tools",
+    "filters": "Filters",
+    "clearAll": "Clear all",
+    "sortBy": "Sort by",
+    "featured": "Featured",
+    "newest": "Newest First",
+    "popular": "Most Popular",
+    "nameAZ": "Name (A-Z)",
+    "priceLowHigh": "Price: Low to High",
+    "priceHighLow": "Price: High to Low",
+    "compare": "Compare",
+    "inComparison": "In Comparison",
+    "visitWebsite": "Visit Website",
+    "viewDetails": "View Details",
+    "rating": "Rating",
+    "reviews": "reviews",
+    "noResults": "No tools found matching your criteria",
+    "tryDifferentFilters": "Try adjusting your filters or search terms"
+  },
+  "toolDetail": {
+    "about": "About {name}",
+    "keyFeatures": "Key Features",
+    "prosAndCons": "Pros & Cons",
+    "pros": "Pros",
+    "cons": "Cons",
+    "quickInfo": "Quick Info",
+    "apiAvailable": "API Available",
+    "yes": "Yes",
+    "no": "No",
+    "lastUpdated": "Last Updated",
+    "views": "Views",
+    "userRating": "User Rating",
+    "basedOn": "Based on",
+    "similarTools": "Similar Tools",
+    "writeReview": "Write a Review",
+    "pricing": "Pricing"
+  },
+  "categories": {
+    "pageTitle": "Browse by Category",
+    "pageDescription": "Explore our AI tools organized by use case. Each category contains carefully selected tools to help you achieve your goals.",
+    "popular": "Popular",
+    "exploreAll": "Explore 500+ AI Tools Across All Categories",
+    "subtitle": "From creative tools to productivity enhancers, find the perfect AI solution for your needs.",
+    "totalTools": "Total Tools",
+    "totalCategories": "Categories",
+    "monthlyUsers": "Monthly Users",
+    "avgRating": "Avg Rating"
+  },
+  "comparison": {
+    "pageTitle": "Compare AI Tools",
+    "selectTools": "Select at least 2 tools to compare",
+    "browseTools": "Browse Tools",
+    "comparing": "Compare {count} {count, plural, one {tool} other {tools}}",
+    "addMore": "Add {count} more {count, plural, one {tool} other {tools}} to compare",
+    "compareNow": "Compare Now",
+    "clearAll": "Clear All",
+    "feature": "Feature",
+    "pricing": "Pricing",
+    "userRating": "User Rating",
+    "company": "Company",
+    "founded": "Founded",
+    "compareOthers": "Compare Other Tools"
+  },
+  "submit": {
+    "pageTitle": "Submit Your AI Tool",
+    "pageDescription": "Get your AI tool listed in our directory and reach thousands of potential users.",
+    "basicInfo": "Basic Information",
+    "toolName": "Tool Name",
+    "tagline": "Tagline",
+    "description": "Description",
+    "websiteUrl": "Website URL",
+    "category": "Category",
+    "selectCategory": "Select a category",
+    "pricingInfo": "Pricing Information",
+    "pricingType": "Pricing Type",
+    "startingPrice": "Starting Price (USD/month)",
+    "features": "Features & Details",
+    "keyFeatures": "Key Features",
+    "apiAvailable": "API Available",
+    "contactInfo": "Contact Information",
+    "companyName": "Company Name",
+    "contactEmail": "Contact Email",
+    "submit": "Submit Tool",
+    "submitting": "Submitting...",
+    "successTitle": "Tool Submitted Successfully!",
+    "successMessage": "Thank you for submitting your tool. Our team will review it and get back to you within 24-48 hours.",
+    "submitAnother": "Submit Another Tool",
+    "reviewProcess": "Review Process",
+    "reviewNote": "Our team will review your submission within 24-48 hours. We'll notify you via email once your tool is approved and listed."
+  },
+  "rating": {
+    "reviewsAndRatings": "Reviews & Ratings",
+    "writeReview": "Write a Review",
+    "yourRating": "Your Rating",
+    "yourReview": "Your Review (Optional)",
+    "shareExperience": "Share your experience with {toolName}...",
+    "submit": "Submit Review",
+    "submitting": "Submitting...",
+    "cancel": "Cancel",
+    "helpful": "Helpful",
+    "loadMore": "Load More Reviews",
+    "noReviews": "No reviews yet. Be the first to review {toolName}!",
+    "star": "star",
+    "reviewSubmitted": "Review submitted successfully!",
+    "selectRating": "Please select a rating"
+  },
+  "admin": {
+    "loginTitle": "Admin Login",
+    "loginSubtitle": "Enter your password to continue",
+    "password": "Password",
+    "passwordPlaceholder": "Enter admin password",
+    "login": "Login",
+    "loggingIn": "Logging in...",
+    "dashboard": "Dashboard",
+    "welcomeMessage": "Welcome to AIverse admin panel",
+    "totalTools": "Total Tools",
+    "totalUsers": "Total Users",
+    "totalRatings": "Total Ratings",
+    "totalViews": "Total Views",
+    "addNewTool": "Add New Tool",
+    "addToolDesc": "Add a new AI tool to the directory",
+    "manageTools": "Manage Tools",
+    "manageToolsDesc": "Edit or remove existing tools",
+    "moderateReviews": "Moderate Reviews",
+    "moderateReviewsDesc": "Manage user reviews and ratings",
+    "recentTools": "Recent Tools",
+    "recentRatings": "Recent Ratings",
+    "logout": "Logout",
+    "active": "Active",
+    "pending": "Pending"
+  },
+  "errors": {
+    "404Title": "Page Not Found",
+    "404Description": "Sorry, we couldn't find the page you're looking for. It might have been removed, renamed, or doesn't exist.",
+    "goHome": "Go to Homepage",
+    "somethingWrong": "Something went wrong!",
+    "errorDescription": "We encountered an unexpected error. Don't worry, our team has been notified and is working on it.",
+    "tryAgain": "Try Again",
+    "needHelp": "Need help?",
+    "contactUs": "Contact us"
+  },
+  "about": {
+    "pageTitle": "About AIverse",
+    "pageDescription": "Learn about our mission to make AI accessible to everyone.",
+    "hero": {
+      "title": "About AIverse",
+      "subtitle": "Making AI accessible and understandable for everyone"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description1": "We believe in the transformative power of AI technology. Our mission is to help individuals and businesses discover, evaluate, and implement AI tools that can enhance their productivity and creativity.",
+      "description2": "By providing comprehensive information, unbiased reviews, and detailed comparisons, we empower our users to make informed decisions about AI tools that best fit their needs."
+    },
+    "values": {
+      "title": "Our Values",
+      "accuracy": {
+        "title": "Accuracy",
+        "description": "We ensure all tool information is up-to-date and verified"
+      },
+      "trust": {
+        "title": "Trust",
+        "description": "Unbiased reviews and transparent ratings you can rely on"
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Constantly evolving to showcase the latest AI advancements"
+      },
+      "accessibility": {
+        "title": "Accessibility",
+        "description": "Making AI tools discoverable and understandable for all"
+      }
+    },
+    "team": {
+      "title": "Meet Our Team",
+      "ceo": "CEO & Founder",
+      "cto": "CTO",
+      "productLead": "Product Lead",
+      "designLead": "Design Lead"
+    },
+    "stats": {
+      "tools": "AI Tools",
+      "users": "Monthly Users",
+      "reviews": "User Reviews",
+      "countries": "Countries"
+    },
+    "cta": {
+      "title": "Ready to Explore AI Tools?",
+      "description": "Join thousands of users who are already discovering the best AI tools for their needs.",
+      "browseTools": "Browse Tools",
+      "submitTool": "Submit Your Tool"
+    }
+  },
+  "blog": {
+    "pageTitle": "Blog - AIverse",
+    "pageDescription": "Stay updated with the latest AI trends, guides, and insights from our expert team.",
+    "hero": {
+      "title": "AIverse Blog",
+      "subtitle": "Insights, guides, and news about AI tools and technology"
+    },
+    "readMore": "Read more",
+    "newsletter": {
+      "title": "Subscribe to Our Newsletter",
+      "subtitle": "Get the latest AI insights delivered to your inbox weekly",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    }
+  },
+  "contact": {
+    "pageTitle": "Contact Us - AIverse",
+    "pageDescription": "Get in touch with the AIverse team. We're here to help with any questions or feedback.",
+    "hero": {
+      "title": "Contact Us",
+      "subtitle": "Have questions? We'd love to hear from you."
+    },
+    "methods": {
+      "email": {
+        "title": "Email",
+        "description": "Send us an email anytime"
+      },
+      "chat": {
+        "title": "Live Chat",
+        "description": "Chat with our support team",
+        "available": "Available Mon-Fri, 9am-5pm"
+      },
+      "phone": {
+        "title": "Phone",
+        "description": "Call us during business hours"
+      },
+      "office": {
+        "title": "Office",
+        "description": "Visit our headquarters"
+      }
+    },
+    "form": {
+      "title": "Send us a Message",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "How can I submit my AI tool?",
+        "answer": "You can submit your AI tool through our submission form. Click on 'Submit Tool' in the navigation menu and fill out the required information."
+      },
+      "q2": {
+        "question": "Is it free to list my tool?",
+        "answer": "Yes, basic listing is free. We also offer premium placement options for increased visibility."
+      },
+      "q3": {
+        "question": "How are tools reviewed and rated?",
+        "answer": "Tools are rated by our community of users based on their experience. We also have an editorial team that reviews tools for accuracy and quality."
+      },
+      "q4": {
+        "question": "Can I update my tool's information?",
+        "answer": "Yes, tool owners can request updates by contacting us through this form with their tool name and requested changes."
+      }
+    }
+  },
+  "api": {
+    "pageTitle": "API Documentation - AIverse",
+    "pageDescription": "Access our comprehensive database of AI tools programmatically with the AIverse API.",
+    "hero": {
+      "title": "AIverse API",
+      "subtitle": "Build amazing applications with our AI tools database",
+      "getStarted": "Get Started",
+      "viewDocs": "View Documentation"
+    },
+    "features": {
+      "title": "Why Use Our API?",
+      "fast": {
+        "title": "Lightning Fast",
+        "description": "Low latency endpoints with 99.9% uptime guarantee"
+      },
+      "secure": {
+        "title": "Secure & Reliable",
+        "description": "Enterprise-grade security with API key authentication"
+      },
+      "restful": {
+        "title": "RESTful Design",
+        "description": "Clean, intuitive API following REST principles"
+      },
+      "documented": {
+        "title": "Well Documented",
+        "description": "Comprehensive documentation with code examples"
+      }
+    },
+    "endpoints": {
+      "title": "Available Endpoints",
+      "method": "Method",
+      "endpoint": "Endpoint",
+      "description": "Description",
+      "listTools": "List all AI tools with pagination and filtering",
+      "getTool": "Get detailed information about a specific tool",
+      "listCategories": "List all available categories",
+      "search": "Search tools by name, description, or features",
+      "submitRating": "Submit a user rating for a tool"
+    },
+    "example": {
+      "title": "Quick Start Example",
+      "comment": "Fetch all AI tools"
+    },
+    "pricing": {
+      "title": "Simple, Transparent Pricing",
+      "getStarted": "Get Started",
+      "popular": "Most Popular",
+      "contactSales": "Contact Sales",
+      "free": {
+        "name": "Free",
+        "feature1": "1,000 API calls/month",
+        "feature2": "Basic endpoints access",
+        "feature3": "Community support"
+      },
+      "pro": {
+        "name": "Pro",
+        "feature1": "100,000 API calls/month",
+        "feature2": "All endpoints access",
+        "feature3": "Priority support",
+        "feature4": "Advanced filtering"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Custom",
+        "feature1": "Unlimited API calls",
+        "feature2": "Custom endpoints",
+        "feature3": "Dedicated support",
+        "feature4": "SLA guarantee"
+      }
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Create your API key and start building today",
+      "apiKey": "Your API Key",
+      "generate": "Generate New Key",
+      "copy": "Copy"
+    }
+  },
+  "footer": {
+    "description": "Discover the best AI tools to enhance your productivity and creativity.",
+    "product": "Product",
+    "browseTools": "Browse Tools",
+    "categories": "Categories",
+    "submitTool": "Submit Tool",
+    "apiAccess": "API Access",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "blog": "Blog",
+    "contact": "Contact",
+    "press": "Press",
+    "resources": "Resources",
+    "documentation": "Documentation",
+    "helpCenter": "Help Center",
+    "community": "Community",
+    "changelog": "Changelog",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy",
+    "dmca": "DMCA",
+    "newsletter": "Stay Updated",
+    "newsletterDesc": "Get weekly updates on the latest AI tools and trends.",
+    "emailPlaceholder": "Enter your email",
+    "subscribe": "Subscribe",
+    "allRights": "All rights reserved.",
+    "madeWith": "Made with ❤️ by the AIverse team"
+  },
+  "workflows": {
+    "title": "AI Workflows - Complete Solutions",
+    "description": "Discover proven AI tool combinations to solve real-world problems efficiently",
+    "hero": {
+      "title": "Stop Finding Tools, Start Solving Problems",
+      "subtitle": "Curated AI workflow solutions that make complex tasks simple"
+    },
+    "categories": "Categories",
+    "allCategories": "All Categories",
+    "difficulty": "Difficulty",
+    "allDifficulties": "All Difficulties",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "maxCost": "Max Monthly Cost",
+    "sortBy": "Sort by",
+    "featured": "Featured",
+    "newest": "Newest",
+    "popular": "Most Popular",
+    "rating": "Highest Rated",
+    "costLow": "Price: Low to High",
+    "costHigh": "Price: High to Low",
+    "search": "Search",
+    "searchPlaceholder": "Search workflows...",
+    "showingResults": "Showing {count} workflows",
+    "noResults": "No workflows found",
+    "loading": "Loading workflows...",
+    "detail": {
+      "overview": "Overview",
+      "detailedSteps": "Detailed Steps",
+      "costBreakdown": "Cost Breakdown",
+      "userReviews": "User Reviews",
+      "relatedWorkflows": "Related Workflows",
+      "estimatedTime": "Estimated Time",
+      "monthlyCost": "Monthly Cost",
+      "toolsCount": "Tools",
+      "successRate": "Success Rate",
+      "saveWorkflow": "Save Workflow",
+      "share": "Share",
+      "minutes": "minutes",
+      "step": "Step",
+      "alternativeTools": "Alternative Tools",
+      "instructions": "Instructions",
+      "promptTemplates": "Prompt Templates",
+      "examples": "Examples",
+      "tips": "Tips & Tricks",
+      "tool": "Tool",
+      "plan": "Plan",
+      "price": "Price",
+      "usage": "Usage Limit",
+      "valueScore": "Value",
+      "total": "Total",
+      "perMonth": "/month",
+      "reviews": "reviews",
+      "writeReview": "Write Review",
+      "noReviews": "No reviews yet. Be the first to share your experience!",
+      "viewDetails": "View Details"
+    }
+  }
+}
