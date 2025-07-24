@@ -192,6 +192,127 @@
     "needHelp": "需要帮助？",
     "contactUs": "联系我们"
   },
+  "about": {
+    "pageTitle": "关于 AIverse",
+    "pageDescription": "了解我们让AI技术人人可及的使命。",
+    "hero": {
+      "title": "关于 AIverse",
+      "subtitle": "让AI技术变得人人可及、人人可懂"
+    },
+    "mission": {
+      "title": "我们的使命",
+      "description1": "我们相信AI技术的变革力量。我们的使命是帮助个人和企业发现、评估和实施能够提升其生产力和创造力的AI工具。",
+      "description2": "通过提供全面的信息、公正的评价和详细的比较，我们赋能用户做出明智的决策，选择最适合他们需求的AI工具。"
+    },
+    "values": {
+      "title": "我们的价值观",
+      "accuracy": {
+        "title": "准确性",
+        "description": "确保所有工具信息都是最新的和经过验证的"
+      },
+      "trust": {
+        "title": "信任",
+        "description": "您可以信赖的公正评价和透明评分"
+      },
+      "innovation": {
+        "title": "创新",
+        "description": "不断发展以展示最新的AI进展"
+      },
+      "accessibility": {
+        "title": "可及性",
+        "description": "让AI工具对所有人都可发现和可理解"
+      }
+    },
+    "team": {
+      "title": "认识我们的团队",
+      "ceo": "首席执行官兼创始人",
+      "cto": "首席技术官",
+      "productLead": "产品负责人",
+      "designLead": "设计负责人"
+    },
+    "stats": {
+      "tools": "AI工具",
+      "users": "月活用户",
+      "reviews": "用户评价",
+      "countries": "国家"
+    },
+    "cta": {
+      "title": "准备探索AI工具了吗？",
+      "description": "加入成千上万已经在发现最适合他们需求的AI工具的用户。",
+      "browseTools": "浏览工具",
+      "submitTool": "提交您的工具"
+    }
+  },
+  "blog": {
+    "pageTitle": "博客 - AIverse",
+    "pageDescription": "了解最新的AI趋势、指南和来自我们专家团队的见解。",
+    "hero": {
+      "title": "AIverse 博客",
+      "subtitle": "关于AI工具和技术的见解、指南和新闻"
+    },
+    "readMore": "阅读更多",
+    "newsletter": {
+      "title": "订阅我们的通讯",
+      "subtitle": "每周获取最新的AI见解直接发送到您的邮箱",
+      "placeholder": "输入您的邮箱",
+      "subscribe": "订阅"
+    }
+  },
+  "contact": {
+    "pageTitle": "联系我们 - AIverse",
+    "pageDescription": "与AIverse团队取得联系。我们随时准备帮助解答任何问题或接收反馈。",
+    "hero": {
+      "title": "联系我们",
+      "subtitle": "有问题吗？我们很乐意听取您的意见。"
+    },
+    "methods": {
+      "email": {
+        "title": "电子邮件",
+        "description": "随时给我们发送邮件"
+      },
+      "chat": {
+        "title": "在线聊天",
+        "description": "与我们的支持团队聊天",
+        "available": "周一至周五，上午9点至下午5点"
+      },
+      "phone": {
+        "title": "电话",
+        "description": "在工作时间给我们打电话"
+      },
+      "office": {
+        "title": "办公室",
+        "description": "访问我们的总部"
+      }
+    },
+    "form": {
+      "title": "给我们留言",
+      "firstName": "名字",
+      "lastName": "姓氏",
+      "email": "电子邮件",
+      "subject": "主题",
+      "message": "留言",
+      "send": "发送消息"
+    },
+    "faq": {
+      "title": "常见问题",
+      "q1": {
+        "question": "如何提交我的AI工具？",
+        "answer": "您可以通过我们的提交表单提交您的AI工具。点击导航菜单中的"提交工具"并填写所需信息。"
+      },
+      "q2": {
+        "question": "列出我的工具是免费的吗？",
+        "answer": "是的，基本列表是免费的。我们还提供高级展示选项以提高可见性。"
+      },
+      "q3": {
+        "question": "工具是如何被审查和评分的？",
+        "answer": "工具由我们的用户社区根据他们的体验进行评分。我们还有编辑团队审查工具的准确性和质量。"
+      },
+      "q4": {
+        "question": "我可以更新我的工具信息吗？",
+        "answer": "是的，工具所有者可以通过此表单联系我们，提供工具名称和请求的更改来请求更新。"
+      }
+    }
+  },
   "footer": {
     "description": "发现最佳 AI 工具，提升您的生产力和创造力。",
     "product": "产品",

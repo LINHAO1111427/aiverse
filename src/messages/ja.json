@@ -192,6 +192,57 @@
     "needHelp": "ヘルプが必要ですか？",
     "contactUs": "お問い合わせ"
   },
+  "about": {
+    "pageTitle": "AIverseについて",
+    "pageDescription": "AIを誰もが利用できるようにする私たちの使命について学びましょう。",
+    "hero": {
+      "title": "AIverseについて",
+      "subtitle": "AIをすべての人にとってアクセス可能で理解しやすくする"
+    },
+    "mission": {
+      "title": "私たちの使命",
+      "description1": "私たちはAI技術の変革力を信じています。私たちの使命は、個人や企業が生産性と創造性を向上させるAIツールを発見、評価、実装するのを支援することです。",
+      "description2": "包括的な情報、公平なレビュー、詳細な比較を提供することで、ユーザーがニーズに最適なAIツールについて情報に基づいた意思決定を行えるようにします。"
+    },
+    "values": {
+      "title": "私たちの価値観",
+      "accuracy": {
+        "title": "正確性",
+        "description": "すべてのツール情報が最新で検証済みであることを保証します"
+      },
+      "trust": {
+        "title": "信頼",
+        "description": "信頼できる公平なレビューと透明性のある評価"
+      },
+      "innovation": {
+        "title": "革新",
+        "description": "最新のAIの進歩を紹介するため常に進化"
+      },
+      "accessibility": {
+        "title": "アクセシビリティ",
+        "description": "すべての人にとってAIツールを発見しやすく理解しやすくする"
+      }
+    },
+    "team": {
+      "title": "チームを紹介",
+      "ceo": "CEO兼創設者",
+      "cto": "CTO",
+      "productLead": "プロダクトリード",
+      "designLead": "デザインリード"
+    },
+    "stats": {
+      "tools": "AIツール",
+      "users": "月間ユーザー",
+      "reviews": "ユーザーレビュー",
+      "countries": "国"
+    },
+    "cta": {
+      "title": "AIツールを探索する準備はできましたか？",
+      "description": "すでにニーズに最適なAIツールを発見している何千人ものユーザーに参加しましょう。",
+      "browseTools": "ツールを閲覧",
+      "submitTool": "ツールを投稿"
+    }
+  },
   "footer": {
     "description": "生産性と創造性を向上させる最高のAIツールを発見しましょう。",
     "product": "製品",

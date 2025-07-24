@@ -192,6 +192,205 @@
     "needHelp": "Need help?",
     "contactUs": "Contact us"
   },
+  "about": {
+    "pageTitle": "About AIverse",
+    "pageDescription": "Learn about our mission to make AI accessible to everyone.",
+    "hero": {
+      "title": "About AIverse",
+      "subtitle": "Making AI accessible and understandable for everyone"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description1": "We believe in the transformative power of AI technology. Our mission is to help individuals and businesses discover, evaluate, and implement AI tools that can enhance their productivity and creativity.",
+      "description2": "By providing comprehensive information, unbiased reviews, and detailed comparisons, we empower our users to make informed decisions about AI tools that best fit their needs."
+    },
+    "values": {
+      "title": "Our Values",
+      "accuracy": {
+        "title": "Accuracy",
+        "description": "We ensure all tool information is up-to-date and verified"
+      },
+      "trust": {
+        "title": "Trust",
+        "description": "Unbiased reviews and transparent ratings you can rely on"
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Constantly evolving to showcase the latest AI advancements"
+      },
+      "accessibility": {
+        "title": "Accessibility",
+        "description": "Making AI tools discoverable and understandable for all"
+      }
+    },
+    "team": {
+      "title": "Meet Our Team",
+      "ceo": "CEO & Founder",
+      "cto": "CTO",
+      "productLead": "Product Lead",
+      "designLead": "Design Lead"
+    },
+    "stats": {
+      "tools": "AI Tools",
+      "users": "Monthly Users",
+      "reviews": "User Reviews",
+      "countries": "Countries"
+    },
+    "cta": {
+      "title": "Ready to Explore AI Tools?",
+      "description": "Join thousands of users who are already discovering the best AI tools for their needs.",
+      "browseTools": "Browse Tools",
+      "submitTool": "Submit Your Tool"
+    }
+  },
+  "blog": {
+    "pageTitle": "Blog - AIverse",
+    "pageDescription": "Stay updated with the latest AI trends, guides, and insights from our expert team.",
+    "hero": {
+      "title": "AIverse Blog",
+      "subtitle": "Insights, guides, and news about AI tools and technology"
+    },
+    "readMore": "Read more",
+    "newsletter": {
+      "title": "Subscribe to Our Newsletter",
+      "subtitle": "Get the latest AI insights delivered to your inbox weekly",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    }
+  },
+  "contact": {
+    "pageTitle": "Contact Us - AIverse",
+    "pageDescription": "Get in touch with the AIverse team. We're here to help with any questions or feedback.",
+    "hero": {
+      "title": "Contact Us",
+      "subtitle": "Have questions? We'd love to hear from you."
+    },
+    "methods": {
+      "email": {
+        "title": "Email",
+        "description": "Send us an email anytime"
+      },
+      "chat": {
+        "title": "Live Chat",
+        "description": "Chat with our support team",
+        "available": "Available Mon-Fri, 9am-5pm"
+      },
+      "phone": {
+        "title": "Phone",
+        "description": "Call us during business hours"
+      },
+      "office": {
+        "title": "Office",
+        "description": "Visit our headquarters"
+      }
+    },
+    "form": {
+      "title": "Send us a Message",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "How can I submit my AI tool?",
+        "answer": "You can submit your AI tool through our submission form. Click on 'Submit Tool' in the navigation menu and fill out the required information."
+      },
+      "q2": {
+        "question": "Is it free to list my tool?",
+        "answer": "Yes, basic listing is free. We also offer premium placement options for increased visibility."
+      },
+      "q3": {
+        "question": "How are tools reviewed and rated?",
+        "answer": "Tools are rated by our community of users based on their experience. We also have an editorial team that reviews tools for accuracy and quality."
+      },
+      "q4": {
+        "question": "Can I update my tool's information?",
+        "answer": "Yes, tool owners can request updates by contacting us through this form with their tool name and requested changes."
+      }
+    }
+  },
+  "api": {
+    "pageTitle": "API Documentation - AIverse",
+    "pageDescription": "Access our comprehensive database of AI tools programmatically with the AIverse API.",
+    "hero": {
+      "title": "AIverse API",
+      "subtitle": "Build amazing applications with our AI tools database",
+      "getStarted": "Get Started",
+      "viewDocs": "View Documentation"
+    },
+    "features": {
+      "title": "Why Use Our API?",
+      "fast": {
+        "title": "Lightning Fast",
+        "description": "Low latency endpoints with 99.9% uptime guarantee"
+      },
+      "secure": {
+        "title": "Secure & Reliable",
+        "description": "Enterprise-grade security with API key authentication"
+      },
+      "restful": {
+        "title": "RESTful Design",
+        "description": "Clean, intuitive API following REST principles"
+      },
+      "documented": {
+        "title": "Well Documented",
+        "description": "Comprehensive documentation with code examples"
+      }
+    },
+    "endpoints": {
+      "title": "Available Endpoints",
+      "method": "Method",
+      "endpoint": "Endpoint",
+      "description": "Description",
+      "listTools": "List all AI tools with pagination and filtering",
+      "getTool": "Get detailed information about a specific tool",
+      "listCategories": "List all available categories",
+      "search": "Search tools by name, description, or features",
+      "submitRating": "Submit a user rating for a tool"
+    },
+    "example": {
+      "title": "Quick Start Example",
+      "comment": "Fetch all AI tools"
+    },
+    "pricing": {
+      "title": "Simple, Transparent Pricing",
+      "getStarted": "Get Started",
+      "popular": "Most Popular",
+      "contactSales": "Contact Sales",
+      "free": {
+        "name": "Free",
+        "feature1": "1,000 API calls/month",
+        "feature2": "Basic endpoints access",
+        "feature3": "Community support"
+      },
+      "pro": {
+        "name": "Pro",
+        "feature1": "100,000 API calls/month",
+        "feature2": "All endpoints access",
+        "feature3": "Priority support",
+        "feature4": "Advanced filtering"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Custom",
+        "feature1": "Unlimited API calls",
+        "feature2": "Custom endpoints",
+        "feature3": "Dedicated support",
+        "feature4": "SLA guarantee"
+      }
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Create your API key and start building today",
+      "apiKey": "Your API Key",
+      "generate": "Generate New Key",
+      "copy": "Copy"
+    }
+  },
   "footer": {
     "description": "Discover the best AI tools to enhance your productivity and creativity.",
     "product": "Product",
