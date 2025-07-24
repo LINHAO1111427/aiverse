@@ -14,9 +14,13 @@ import {
   Star,
   TrendingUp,
   Users,
-  MessageSquare
+  MessageSquare,
+  Sparkles,
+  PlayCircle,
+  CheckCircle
 } from "lucide-react"
 import { getTranslations } from "next-intl/server"
+import { WorkflowCard } from "@/components/workflow/WorkflowCard"
 
 // Icon mapping for categories
 const categoryIcons = {
@@ -30,8 +34,15 @@ const categoryIcons = {
   Zap,
 }
 
-export default async function HomePage() {
+export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations()
+
+  // Fetch featured workflows
+  const workflowsRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/workflows?featured=true&limit=3`, { 
+    cache: 'no-store' 
+  })
+  const workflowsData = await workflowsRes.json()
+  const featuredWorkflows = workflowsData.workflows || []
 
   const categories = [
     { name: "AI Assistants", icon: Brain, count: 124, slug: "ai-assistants" },
@@ -87,50 +98,95 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-blue-50 to-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              {t('homepage.hero.title')}{" "}
-              <span className="text-blue-600">{t('homepage.hero.subtitle')}</span>
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+        {/* Background gradient mesh */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-purple-900/20" />
+          
+          {/* Animated gradient orbs */}
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+          
+          {/* Grid pattern */}
+          <div 
+            className="absolute inset-0 opacity-5"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+            }}
+          />
+        </div>
+
+        {/* Hero content */}
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-5xl mx-auto text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium mb-6">
+              <Sparkles className="w-4 h-4" />
+              <span>{locale === 'zh' || locale === 'zh-TW' ? 'AI工作流革命' : 'AI Workflow Revolution'}</span>
+            </div>
+            
+            {/* Main heading */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              <span className="bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
+                {locale === 'zh' || locale === 'zh-TW' ? '停止寻找工具' : 'Stop Finding Tools'}
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
+                {locale === 'zh' || locale === 'zh-TW' ? '开始解决问题' : 'Start Solving Problems'}
+              </span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
-              {t('homepage.hero.description')}
+            
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+              {locale === 'zh' || locale === 'zh-TW' 
+                ? '发现500+最佳AI工具和精选工作流方案，让复杂任务变简单。'
+                : 'Discover 500+ best AI tools and curated workflow solutions that make complex tasks simple.'
+              }
             </p>
             
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto mb-8">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder={t('homepage.hero.searchPlaceholder')}
-                  className="w-full pl-12 pr-4 py-4 text-lg bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-                />
-              </div>
-              <div className="flex flex-wrap gap-2 mt-4 justify-center">
-                <span className="text-sm text-gray-500">{t('homepage.hero.suggestions')}:</span>
-                <Link href="/tools?q=chatgpt" className="text-sm text-blue-600 hover:underline">ChatGPT</Link>
-                <Link href="/tools?q=midjourney" className="text-sm text-blue-600 hover:underline">Midjourney</Link>
-                <Link href="/tools?q=ai+assistant" className="text-sm text-blue-600 hover:underline">AI Assistant</Link>
-              </div>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link
-                href="/tools"
-                className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-lg"
+                href={`/${locale}/workflows`}
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-purple-600 text-white rounded-lg hover:from-primary-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl font-medium text-lg"
               >
-                {t('common.getStarted')}
+                {locale === 'zh' || locale === 'zh-TW' ? '探索工作流' : 'Explore Workflows'}
+                <ArrowRight className="w-5 h-5" />
               </Link>
+              
               <Link
-                href="/categories"
-                className="px-8 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition font-medium text-lg"
+                href={`/${locale}/tools`}
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-750 transition-all duration-300 font-medium text-lg"
               >
-                {t('homepage.categories.title')}
+                <Search className="w-5 h-5" />
+                {locale === 'zh' || locale === 'zh-TW' ? '浏览工具' : 'Browse Tools'}
               </Link>
             </div>
+            
+            {/* Trust indicators */}
+            <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500" />
+                <span>{locale === 'zh' || locale === 'zh-TW' ? '100+ 精选工作流' : '100+ Curated Workflows'}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500" />
+                <span>{locale === 'zh' || locale === 'zh-TW' ? '500+ AI工具' : '500+ AI Tools'}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500" />
+                <span>{locale === 'zh' || locale === 'zh-TW' ? '50K+ 活跃用户' : '50K+ Active Users'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="flex flex-col items-center gap-2 text-gray-400">
+            <span className="text-sm">{locale === 'zh' || locale === 'zh-TW' ? '向下滚动' : 'Scroll down'}</span>
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
           </div>
         </div>
       </section>
@@ -152,6 +208,46 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Featured Workflows Section */}
+      {featuredWorkflows.length > 0 && (
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
+                  {locale === 'zh' || locale === 'zh-TW' ? '精选工作流' : 'Featured Workflows'}
+                </span>
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                {locale === 'zh' || locale === 'zh-TW' 
+                  ? '经过验证的AI工具组合方案，立即开始使用'
+                  : 'Proven AI tool combinations ready to use'
+                }
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {featuredWorkflows.map((workflow: any) => (
+                <WorkflowCard
+                  key={workflow.id}
+                  workflow={workflow}
+                />
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                href={`/${locale}/workflows`}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-500 to-purple-600 text-white rounded-lg hover:from-primary-600 hover:to-purple-700 transition-all duration-300 font-medium"
+              >
+                {locale === 'zh' || locale === 'zh-TW' ? '查看所有工作流' : 'View All Workflows'}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Categories Section */}
       <section className="py-16">

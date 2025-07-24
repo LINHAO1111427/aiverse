@@ -11,6 +11,7 @@ export function Header() {
   const t = useTranslations('common')
 
   const navigation = [
+    { name: t('workflows'), href: "/workflows" },
     { name: t('tools'), href: "/tools" },
     { name: t('categories'), href: "/categories" },
     { name: "Compare", href: "/compare" },

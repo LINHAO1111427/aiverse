@@ -61,6 +61,8 @@ model Tool {
   pricingPlans   PricingPlan[]
   comparisons1   Comparison[] @relation("Tool1")
   comparisons2   Comparison[] @relation("Tool2")
+  workflowSteps  WorkflowStep[]
+  workflowCosts  WorkflowToolCost[]
   featured       Boolean     @default(false)
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
@@ -137,4 +139,195 @@ model Comparison {
   createdAt DateTime @default(now())
 
   @@unique([tool1Id, tool2Id])
+}
+
+// Workflow models
+enum WorkflowDifficulty {
+  beginner
+  intermediate
+  advanced
+}
+
+enum WorkflowStatus {
+  draft
+  published
+  archived
+}
+
+model WorkflowCategory {
+  id           Int        @id @default(autoincrement())
+  slug         String     @unique
+  name         String
+  nameZh       String     @map("name_zh")
+  description  String?
+  descriptionZh String?   @map("description_zh")
+  icon         String?
+  sortOrder    Int        @default(0)
+  workflows    Workflow[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Workflow {
+  id                    Int                    @id @default(autoincrement())
+  slug                  String                 @unique
+  name                  String
+  nameZh                String                 @map("name_zh")
+  description           String?
+  descriptionZh         String?                @map("description_zh")
+  categoryId            Int
+  category              WorkflowCategory       @relation(fields: [categoryId], references: [id])
+  subcategory           String?
+  tags                  String[]
+  difficulty            WorkflowDifficulty?
+  estimatedTimeLearning Int?                   @map("estimated_time_learning")
+  estimatedTimeExecution Int?                  @map("estimated_time_execution")
+  monthlyCost           Decimal?               @map("monthly_cost") @db.Decimal(10, 2)
+  perUseCost            Decimal?               @map("per_use_cost") @db.Decimal(10, 2)
+  viewCount             Int                    @default(0) @map("view_count")
+  saveCount             Int                    @default(0) @map("save_count")
+  shareCount            Int                    @default(0) @map("share_count")
+  successRate           Decimal?               @map("success_rate") @db.Decimal(5, 2)
+  avgRating             Decimal?               @map("avg_rating") @db.Decimal(3, 2)
+  metaTitle             String?                @map("meta_title")
+  metaDescription       String?                @map("meta_description")
+  status                WorkflowStatus         @default(draft)
+  featured              Boolean                @default(false)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  publishedAt           DateTime?              @map("published_at")
+  steps                 WorkflowStep[]
+  toolCosts             WorkflowToolCost[]
+  reviews               WorkflowReview[]
+  savedByUsers          UserSavedWorkflow[]
+  usageLogs             WorkflowUsageLog[]
+  resources             WorkflowResource[]
+
+  @@index([categoryId])
+  @@index([difficulty])
+  @@index([monthlyCost])
+  @@index([status])
+  @@index([featured])
+}
+
+model WorkflowStep {
+  id                   Int               @id @default(autoincrement())
+  workflowId           Int
+  workflow             Workflow          @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  stepOrder            Int               @map("step_order")
+  title                String
+  titleZh              String            @map("title_zh")
+  description          String?
+  descriptionZh        String?           @map("description_zh")
+  estimatedTime        Int?              @map("estimated_time")
+  primaryToolId        Int?              @map("primary_tool_id")
+  primaryTool          Tool?             @relation(fields: [primaryToolId], references: [id])
+  primaryToolName      String?           @map("primary_tool_name")
+  primaryToolSlug      String?           @map("primary_tool_slug")
+  primaryToolLogoUrl   String?           @map("primary_tool_logo_url")
+  alternativeToolIds   Int[]             @map("alternative_tool_ids")
+  alternativeToolNames String[]          @map("alternative_tool_names")
+  instructions         Json?
+  instructionsZh       Json?             @map("instructions_zh")
+  templates            Json?
+  templatesZh          Json?             @map("templates_zh")
+  inputFromStep        Int?              @map("input_from_step")
+  outputToStep         Int?              @map("output_to_step")
+  inputType            String?           @map("input_type")
+  outputType           String?           @map("output_type")
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  resources            WorkflowResource[]
+
+  @@unique([workflowId, stepOrder])
+  @@index([workflowId])
+  @@index([primaryToolId])
+}
+
+model WorkflowToolCost {
+  id            Int      @id @default(autoincrement())
+  workflowId    Int
+  workflow      Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  toolId        Int
+  tool          Tool     @relation(fields: [toolId], references: [id])
+  toolName      String?  @map("tool_name")
+  toolSlug      String?  @map("tool_slug")
+  toolLogoUrl   String?  @map("tool_logo_url")
+  planName      String   @map("plan_name")
+  planNameZh    String   @map("plan_name_zh")
+  monthlyPrice  Decimal  @map("monthly_price") @db.Decimal(10, 2)
+  usageLimit    String?  @map("usage_limit")
+  usageLimitZh  String?  @map("usage_limit_zh")
+  isRequired    Boolean  @default(true) @map("is_required")
+  valueScore    Int?     @map("value_score")
+  notes         String?
+  notesZh       String?  @map("notes_zh")
+  createdAt     DateTime @default(now())
+}
+
+model WorkflowReview {
+  id           Int      @id @default(autoincrement())
+  workflowId   Int
+  workflow     Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  userId       String   @map("user_id")
+  rating       Int
+  success      Boolean?
+  timeTaken    Int?     @map("time_taken")
+  reviewText   String?  @map("review_text")
+  helpfulCount Int      @default(0) @map("helpful_count")
+  createdAt    DateTime @default(now())
+
+  @@unique([workflowId, userId])
+  @@index([workflowId])
+  @@index([userId])
+}
+
+model UserSavedWorkflow {
+  userId     String   @map("user_id")
+  workflowId Int
+  workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  savedAt    DateTime @default(now()) @map("saved_at")
+  notes      String?
+  folder     String?
+
+  @@id([userId, workflowId])
+  @@index([userId])
+}
+
+model WorkflowUsageLog {
+  id           Int       @id @default(autoincrement())
+  workflowId   Int
+  workflow     Workflow  @relation(fields: [workflowId], references: [id])
+  userId       String?   @map("user_id")
+  startedAt    DateTime  @default(now()) @map("started_at")
+  completedAt  DateTime? @map("completed_at")
+  currentStep  Int?      @map("current_step")
+  success      Boolean?
+  feedback     String?
+
+  @@index([workflowId])
+  @@index([userId])
+}
+
+enum ResourceType {
+  template
+  example
+  tutorial
+  asset
+}
+
+model WorkflowResource {
+  id            Int           @id @default(autoincrement())
+  workflowId    Int
+  workflow      Workflow      @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  stepId        Int?
+  step          WorkflowStep? @relation(fields: [stepId], references: [id], onDelete: Cascade)
+  resourceType  ResourceType  @map("resource_type")
+  title         String
+  titleZh       String        @map("title_zh")
+  content       String?
+  contentZh     String?       @map("content_zh")
+  fileUrl       String?       @map("file_url")
+  downloadCount Int           @default(0) @map("download_count")
+  createdAt     DateTime      @default(now())
 }
