@@ -1,4 +1,4 @@
-# AIverse - AI Tools Directory
+npm# AIverse - AI Tools Directory
 
 Discover 500+ AI tools to boost your productivity. AIverse is a comprehensive directory of AI tools designed to help users find the perfect AI solution for their needs.
 
