@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { motion } from 'framer-motion'
 import { 
-  Clock, DollarSign, Tool, BarChart3, ChevronRight, 
+  Clock, DollarSign, Wrench as Tool, BarChart3, ChevronRight, 
   Bookmark, Share2, Star, Check, ChevronDown, ChevronUp,
   ExternalLink, Info, Lightbulb, AlertCircle
 } from 'lucide-react'
@@ -540,7 +540,6 @@ export function WorkflowDetailClient({ workflow, translations: t }: WorkflowDeta
                       }, 100)
                     }
                   }}
-                  locale={locale}
                 />
               </CardContent>
             </Card>

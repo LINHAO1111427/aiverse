@@ -35,7 +35,7 @@ import {
   MapPin,
   Package,
   Settings,
-  Tool,
+  Wrench,
   Layers,
   Grid3x3,
   Type,
@@ -49,7 +49,8 @@ import {
   FolderOpen,
   File,
   Link,
-  ExternalLink
+  ExternalLink,
+  DollarSign
 } from 'lucide-react'
 
 // Tool icon mapping by category and common tool names
@@ -179,14 +180,14 @@ export const toolIcons: Record<string, React.ComponentType<any>> = {
   'squarespace': Globe,
   'webflow': Globe,
   'bubble': Globe,
-  'retool': Tool,
-  'appsmith': Tool,
+  'retool': Wrench,
+  'appsmith': Wrench,
   'n8n': Zap,
   'integromat': Zap,
   'automate': Zap,
   
   // Default
-  'default': Tool
+  'default': Wrench
 }
 
 // Get icon for a tool based on name or category

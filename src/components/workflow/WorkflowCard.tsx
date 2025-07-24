@@ -139,7 +139,7 @@ export function WorkflowCard({ workflow, onSave, variant = 'grid' }: WorkflowCar
                   <ToolAvatar
                     logoUrl={tool.logoUrl}
                     name={tool.name}
-                    category={workflow.category?.slug}
+                    category={workflow.category?.name}
                     size="sm"
                     className="ring-2 ring-white dark:ring-gray-900"
                   />
