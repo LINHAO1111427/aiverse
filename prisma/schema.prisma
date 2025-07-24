@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PricingType {
+  free
+  freemium
+  paid
+  custom
+}
+
+enum ToolStatus {
+  active
+  inactive
+  pending
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  slug        String   @unique
+  name        String
+  description String?
+  icon        String?
+  parentId    Int?
+  parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  sortOrder   Int      @default(0)
+  tools       Tool[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Tool {
+  id             Int         @id @default(autoincrement())
+  slug           String      @unique
+  name           String
+  tagline        String?
+  description    String?
+  websiteUrl     String?
+  logoUrl        String?
+  pricingType    PricingType
+  startingPrice  Decimal?    @db.Decimal(10, 2)
+  categoryId     Int
+  category       Category    @relation(fields: [categoryId], references: [id])
+  features       Json?
+  prosAndCons    Json?
+  apiAvailable   Boolean     @default(false)
+  companyName    String?
+  foundedYear    Int?
+  lastUpdated    DateTime?
+  status         ToolStatus  @default(active)
+  viewCount      Int         @default(0)
+  affiliateLink  String?
+  ratings        Rating[]
+  toolTags       ToolTag[]
+  pricingPlans   PricingPlan[]
+  comparisons1   Comparison[] @relation("Tool1")
+  comparisons2   Comparison[] @relation("Tool2")
+  featured       Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@index([slug])
+  @@index([categoryId])
+  @@index([status])
+  @@index([pricingType])
+}
+
+model Tag {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  slug     String    @unique
+  toolTags ToolTag[]
+}
+
+model ToolTag {
+  toolId Int
+  tagId  Int
+  tool   Tool @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  tag    Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([toolId, tagId])
+}
+
+model Rating {
+  id         Int      @id @default(autoincrement())
+  toolId     Int
+  tool       Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  userEmail  String
+  rating     Int
+  review     String?
+  isVerified Boolean  @default(false)
+  helpful    Int      @default(0)
+  createdAt  DateTime @default(now())
+
+  @@unique([toolId, userEmail])
+  @@index([toolId])
+}
+
+model PricingPlan {
+  id           Int      @id @default(autoincrement())
+  toolId       Int
+  tool         Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  planName     String
+  price        Decimal? @db.Decimal(10, 2)
+  billingCycle String?
+  features     Json?
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SearchHistory {
+  id          Int      @id @default(autoincrement())
+  query       String
+  resultCount Int      @default(0)
+  filters     Json?
+  userId      String?
+  createdAt   DateTime @default(now())
+
+  @@index([query])
+  @@index([userId])
+}
+
+model Comparison {
+  id        Int      @id @default(autoincrement())
+  tool1Id   Int
+  tool2Id   Int
+  tool1     Tool     @relation("Tool1", fields: [tool1Id], references: [id])
+  tool2     Tool     @relation("Tool2", fields: [tool2Id], references: [id])
+  viewCount Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@unique([tool1Id, tool2Id])
+}
