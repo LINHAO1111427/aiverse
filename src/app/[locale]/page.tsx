@@ -189,6 +189,316 @@ export default async function HomePage({ params: { locale } }: { params: { local
         </div>
       </section>
 
+      {/* Popular AI Tools Section */}
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+                {locale === 'zh' || locale === 'zh-TW' ? '主流AI工具' : 'Popular AI Tools'}
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                {locale === 'zh' || locale === 'zh-TW' 
+                  ? '探索当前最受欢迎的AI工具，从对话助手到创意生成，找到适合你的完美工具'
+                  : 'Explore the most popular AI tools today, from conversational assistants to creative generators'
+                }
+              </p>
+            </div>
+
+            {/* AI Tools Grid - 4 columns on desktop */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* ChatGPT */}
+              <Link href={`/${locale}/tools/chatgpt`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      AI
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">ChatGPT</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? '一个用于对话、获取见解和自动化任务的免费人工智能。'
+                      : 'A free AI for conversation, insights, and task automation.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">OpenAI</span>
+                    <span>•</span>
+                    <span className="text-green-600 dark:text-green-400 font-medium">Free</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Google Gemini */}
+              <Link href={`/${locale}/tools/google-gemini`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">Google Gemini</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? '谷歌的个人、主办流强大的AI助手。'
+                      : 'Google\'s personal, multimodal AI assistant.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">Google</span>
+                    <span>•</span>
+                    <span className="text-green-600 dark:text-green-400 font-medium">Free</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* OpenAI */}
+              <Link href={`/${locale}/tools/openai`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      O
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">OpenAI</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? '专注于快速安全且有益的AGI的人工智能研究与开发公司。'
+                      : 'AI research company focused on safe and beneficial AGI.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">OpenAI</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Tripo AI */}
+              <Link href={`/${locale}/tools/tripo-ai`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg flex items-center justify-center text-white">
+                      <Code2 className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">Tripo AI</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? '基于AI的3D模型生成器，支持从图像和文本生成3D模型。'
+                      : 'AI-powered 3D model generator from images and text.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">Tripo AI</span>
+                    <span>•</span>
+                    <span className="text-green-600 dark:text-green-400 font-medium">Free</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* DeepSeek */}
+              <Link href={`/${locale}/tools/deepseek`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      DS
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">DeepSeek</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? 'DeepSeek是一家提供基础模型和AI应用程序架构的人工智能公司。'
+                      : 'AI company providing foundation models and AI infrastructure.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">DeepSeek</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Adobe */}
+              <Link href={`/${locale}/tools/adobe`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      A
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">Adobe</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? 'Adobe提供创意、营销和文档管理解决方案。'
+                      : 'Adobe offers creative, marketing, and document management solutions.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">Adobe</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* DeepL */}
+              <Link href={`/${locale}/tools/deepl`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-blue-800 rounded-lg flex items-center justify-center text-white font-bold">
+                      DL
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">DeepL</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? '准确的翻译器和人工智能写作伴侣，用于文本和语音文件。'
+                      : 'Accurate translator and AI writing companion for text and speech.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">DeepL</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Grok */}
+              <Link href={`/${locale}/tools/grok`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center text-white font-bold">
+                      G
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">Grok</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? 'Grok是xAI模仿的一个免费AI助手。专注于实质、幽默他、全部搜索等功能。'
+                      : 'Free AI assistant by xAI with humor and real-time search.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">xAI</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Notion */}
+              <Link href={`/${locale}/tools/notion`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-gray-900 to-black rounded-lg flex items-center justify-center text-white font-bold">
+                      N
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">Notion</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? '全方位工作空间，用于笔记、文档、项目和知识管理的生产力。'
+                      : 'All-in-one workspace for notes, docs, projects, and knowledge management.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">Notion</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Salesforce Platform */}
+              <Link href={`/${locale}/tools/salesforce`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white">
+                      <Users className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">Salesforce Platform</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? '一个统一的数据、人工智能、客户关系管理、开发和安全的平台。'
+                      : 'A unified platform for data, AI, CRM, development, and security.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">Salesforce</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Perplexity AI */}
+              <Link href={`/${locale}/tools/perplexity`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      P
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">Perplexity AI</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? '一种使用大型语言模型和行业最实时的知识回答问题的人工智能搜索引擎。'
+                      : 'AI search engine that answers questions with real-time knowledge.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">Perplexity</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Claude */}
+              <Link href={`/${locale}/tools/claude`} className="group block">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 dark:border-gray-700 h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      C
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">Claude</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
+                    {locale === 'zh' || locale === 'zh-TW' 
+                      ? 'Claude是来自Anthropic的人工智能助手，通过自然会话帮助完成任务。'
+                      : 'AI assistant from Anthropic that helps with tasks through natural conversation.'}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="font-medium">Anthropic</span>
+                    <span>•</span>
+                    <span className="text-green-600 dark:text-green-400 font-medium">Free</span>
+                  </div>
+                </div>
+              </Link>
+
+              {/* View More Tools */}
+              <Link href={`/${locale}/tools`} className="group block lg:col-span-4">
+                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-6 border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-primary-500 dark:hover:border-primary-400 transition-colors h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <p className="text-gray-600 dark:text-gray-400 font-medium mb-2">
+                      {locale === 'zh' || locale === 'zh-TW' ? '探索更多AI工具' : 'Explore More AI Tools'}
+                    </p>
+                    <span className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium group-hover:gap-3 transition-all">
+                      {locale === 'zh' || locale === 'zh-TW' ? '查看全部' : 'View All'}
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
