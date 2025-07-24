@@ -192,6 +192,57 @@
     "needHelp": "需要幫助？",
     "contactUs": "聯絡我們"
   },
+  "about": {
+    "pageTitle": "關於 AIverse",
+    "pageDescription": "了解我們讓 AI 對每個人都可及的使命。",
+    "hero": {
+      "title": "關於 AIverse",
+      "subtitle": "讓 AI 對每個人都可及且易於理解"
+    },
+    "mission": {
+      "title": "我們的使命",
+      "description1": "我們相信 AI 技術的變革力量。我們的使命是幫助個人和企業發現、評估和實施能夠提升其生產力和創造力的 AI 工具。",
+      "description2": "通過提供全面的資訊、公正的評價和詳細的比較，我們使用戶能夠對最適合其需求的 AI 工具做出明智的決定。"
+    },
+    "values": {
+      "title": "我們的價值觀",
+      "accuracy": {
+        "title": "準確性",
+        "description": "我們確保所有工具資訊都是最新的並經過驗證"
+      },
+      "trust": {
+        "title": "信任",
+        "description": "您可以信賴的公正評價和透明評分"
+      },
+      "innovation": {
+        "title": "創新",
+        "description": "不斷發展以展示最新的 AI 進展"
+      },
+      "accessibility": {
+        "title": "可及性",
+        "description": "讓 AI 工具對所有人都可發現和理解"
+      }
+    },
+    "team": {
+      "title": "認識我們的團隊",
+      "ceo": "執行長暨創辦人",
+      "cto": "技術長",
+      "productLead": "產品負責人",
+      "designLead": "設計負責人"
+    },
+    "stats": {
+      "tools": "AI 工具",
+      "users": "月度使用者",
+      "reviews": "使用者評價",
+      "countries": "國家"
+    },
+    "cta": {
+      "title": "準備探索 AI 工具了嗎？",
+      "description": "加入數千名正在發現最適合其需求的 AI 工具的使用者。",
+      "browseTools": "瀏覽工具",
+      "submitTool": "提交您的工具"
+    }
+  },
   "footer": {
     "description": "發現最佳 AI 工具，提升您的生產力和創造力。",
     "product": "產品",

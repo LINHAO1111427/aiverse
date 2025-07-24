@@ -243,6 +243,213 @@
       "submitTool": "ツールを投稿"
     }
   },
+  "blog": {
+    "pageTitle": "ブログ - AIverse",
+    "pageDescription": "専門チームによる最新のAIトレンド、ガイド、インサイトをお届けします。",
+    "hero": {
+      "title": "AIverseブログ",
+      "subtitle": "AIツールとテクノロジーに関するインサイト、ガイド、ニュース"
+    },
+    "readMore": "続きを読む",
+    "newsletter": {
+      "title": "ニュースレターを購読",
+      "subtitle": "最新のAIインサイトを毎週メールでお届けします",
+      "placeholder": "メールアドレスを入力",
+      "subscribe": "購読"
+    }
+  },
+  "contact": {
+    "pageTitle": "お問い合わせ - AIverse",
+    "pageDescription": "AIverseチームにお問い合わせください。ご質問やフィードバックをお待ちしています。",
+    "hero": {
+      "title": "お問い合わせ",
+      "subtitle": "ご質問がございましたら、お気軽にお問い合わせください。"
+    },
+    "methods": {
+      "email": {
+        "title": "メール",
+        "description": "いつでもメールをお送りください"
+      },
+      "chat": {
+        "title": "ライブチャット",
+        "description": "サポートチームとチャット",
+        "available": "月曜〜金曜、午前9時〜午後5時"
+      },
+      "phone": {
+        "title": "電話",
+        "description": "営業時間内にお電話ください"
+      },
+      "office": {
+        "title": "オフィス",
+        "description": "本社を訪問"
+      }
+    },
+    "form": {
+      "title": "メッセージを送信",
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "メール",
+      "subject": "件名",
+      "message": "メッセージ",
+      "send": "メッセージを送信"
+    },
+    "faq": {
+      "title": "よくある質問",
+      "q1": {
+        "question": "AIツールを投稿するにはどうすればよいですか？",
+        "answer": "投稿フォームからAIツールを投稿できます。ナビゲーションメニューの「ツールを投稿」をクリックし、必要な情報を入力してください。"
+      },
+      "q2": {
+        "question": "ツールの掲載は無料ですか？",
+        "answer": "はい、基本的な掲載は無料です。より高い露出を得るためのプレミアム配置オプションも提供しています。"
+      },
+      "q3": {
+        "question": "ツールはどのように審査され評価されますか？",
+        "answer": "ツールは使用経験に基づいてコミュニティのユーザーによって評価されます。また、正確性と品質を確保するための編集チームもあります。"
+      },
+      "q4": {
+        "question": "ツールの情報を更新できますか？",
+        "answer": "はい、ツールオーナーはツール名と変更内容を記載してこのフォームからお問い合わせいただければ更新をリクエストできます。"
+      }
+    }
+  },
+  "api": {
+    "pageTitle": "APIドキュメント - AIverse",
+    "pageDescription": "AIverse APIでAIツールの包括的なデータベースにプログラム的にアクセスします。",
+    "hero": {
+      "title": "AIverse API",
+      "subtitle": "AIツールデータベースで素晴らしいアプリケーションを構築",
+      "getStarted": "始める",
+      "viewDocs": "ドキュメントを見る"
+    },
+    "features": {
+      "title": "なぜ私たちのAPIを使うのか？",
+      "fast": {
+        "title": "超高速",
+        "description": "99.9%の稼働時間保証を備えた低遅延エンドポイント"
+      },
+      "secure": {
+        "title": "安全で信頼性が高い",
+        "description": "APIキー認証によるエンタープライズグレードのセキュリティ"
+      },
+      "restful": {
+        "title": "RESTful設計",
+        "description": "REST原則に従った、クリーンで直感的なAPI"
+      },
+      "documented": {
+        "title": "充実したドキュメント",
+        "description": "コード例を含む包括的なドキュメント"
+      }
+    },
+    "endpoints": {
+      "title": "利用可能なエンドポイント",
+      "method": "メソッド",
+      "endpoint": "エンドポイント",
+      "description": "説明",
+      "listTools": "ページネーションとフィルタリングでAIツールをすべてリスト",
+      "getTool": "特定のツールの詳細情報を取得",
+      "listCategories": "利用可能なすべてのカテゴリーをリスト",
+      "search": "名前、説明、機能でツールを検索",
+      "submitRating": "ツールのユーザー評価を送信"
+    },
+    "example": {
+      "title": "クイックスタート例",
+      "comment": "すべてのAIツールを取得"
+    },
+    "pricing": {
+      "title": "シンプルで透明な価格設定",
+      "getStarted": "始める",
+      "popular": "最も人気",
+      "contactSales": "営業に問い合わせ",
+      "free": {
+        "name": "無料",
+        "feature1": "月1,000回のAPIコール",
+        "feature2": "基本エンドポイントアクセス",
+        "feature3": "コミュニティサポート"
+      },
+      "pro": {
+        "name": "プロ",
+        "feature1": "月100,000回のAPIコール",
+        "feature2": "すべてのエンドポイントアクセス",
+        "feature3": "優先サポート",
+        "feature4": "高度なフィルタリング"
+      },
+      "enterprise": {
+        "name": "エンタープライズ",
+        "price": "カスタム",
+        "feature1": "無制限のAPIコール",
+        "feature2": "カスタムエンドポイント",
+        "feature3": "専用サポート",
+        "feature4": "SLA保証"
+      }
+    },
+    "cta": {
+      "title": "始める準備はできましたか？",
+      "subtitle": "APIキーを作成して今すぐ構築を開始",
+      "apiKey": "あなたのAPIキー",
+      "generate": "新しいキーを生成",
+      "copy": "コピー"
+    }
+  },
+  "workflows": {
+    "title": "AIワークフロー - 完全なソリューション",
+    "description": "実世界の問題を効率的に解決する実証済みのAIツールの組み合わせを発見",
+    "hero": {
+      "title": "ツールを探すのをやめて、問題の解決を始めましょう",
+      "subtitle": "複雑なタスクをシンプルにする厳選されたAIワークフローソリューション"
+    },
+    "categories": "カテゴリー",
+    "allCategories": "すべてのカテゴリー",
+    "difficulty": "難易度",
+    "allDifficulties": "すべての難易度",
+    "beginner": "初級",
+    "intermediate": "中級",
+    "advanced": "上級",
+    "maxCost": "最大月額費用",
+    "sortBy": "並び替え",
+    "featured": "注目",
+    "newest": "新着",
+    "popular": "最も人気",
+    "rating": "最高評価",
+    "costLow": "価格：安い順",
+    "costHigh": "価格：高い順",
+    "search": "検索",
+    "searchPlaceholder": "ワークフローを検索...",
+    "showingResults": "{count}個のワークフローを表示",
+    "noResults": "ワークフローが見つかりません",
+    "loading": "ワークフローを読み込み中...",
+    "detail": {
+      "overview": "概要",
+      "detailedSteps": "詳細な手順",
+      "costBreakdown": "費用内訳",
+      "userReviews": "ユーザーレビュー",
+      "relatedWorkflows": "関連ワークフロー",
+      "estimatedTime": "推定時間",
+      "monthlyCost": "月額費用",
+      "toolsCount": "ツール",
+      "successRate": "成功率",
+      "saveWorkflow": "ワークフローを保存",
+      "share": "共有",
+      "minutes": "分",
+      "step": "ステップ",
+      "alternativeTools": "代替ツール",
+      "instructions": "手順",
+      "promptTemplates": "プロンプトテンプレート",
+      "examples": "例",
+      "tips": "ヒントとコツ",
+      "tool": "ツール",
+      "plan": "プラン",
+      "price": "価格",
+      "usage": "使用制限",
+      "valueScore": "価値",
+      "total": "合計",
+      "perMonth": "/月",
+      "reviews": "レビュー",
+      "writeReview": "レビューを書く",
+      "noReviews": "まだレビューがありません。最初に体験を共有してください！",
+      "viewDetails": "詳細を見る"
+    }
+  },
   "footer": {
     "description": "生産性と創造性を向上させる最高のAIツールを発見しましょう。",
     "product": "製品",
