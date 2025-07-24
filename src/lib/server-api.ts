@@ -33,7 +33,7 @@ export async function getFeaturedWorkflows(limit: number = 3) {
     const workflows = await prisma.workflow.findMany({
       where: {
         featured: true,
-        status: 'active'
+        status: 'published'
       },
       include: {
         category: true,
@@ -105,7 +105,7 @@ export async function getWorkflows(params: {
     } = params
 
     const where: any = {
-      status: 'active'
+      status: 'published'
     }
 
     if (category) {
