@@ -1,31 +1,35 @@
+"use client"
+
 import Link from "next/link"
 import { Github, Twitter, Linkedin, Mail } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export function Footer() {
+  const t = useTranslations()
   const footerLinks = {
     product: [
-      { name: "Features", href: "/features" },
-      { name: "Categories", href: "/categories" },
-      { name: "Pricing", href: "/pricing" },
-      { name: "API", href: "/api" },
+      { name: t('footer.browseTools'), href: "/tools" },
+      { name: t('footer.categories'), href: "/categories" },
+      { name: t('footer.submitTool'), href: "/submit" },
+      { name: t('footer.apiAccess'), href: "/api" },
     ],
     company: [
-      { name: "About", href: "/about" },
-      { name: "Blog", href: "/blog" },
-      { name: "Careers", href: "/careers" },
-      { name: "Contact", href: "/contact" },
+      { name: t('footer.aboutUs'), href: "/about" },
+      { name: t('footer.blog'), href: "/blog" },
+      { name: t('footer.contact'), href: "/contact" },
+      { name: t('footer.press'), href: "/press" },
     ],
     legal: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
-      { name: "Cookie Policy", href: "/cookies" },
-      { name: "DMCA", href: "/dmca" },
+      { name: t('footer.privacy'), href: "/privacy" },
+      { name: t('footer.terms'), href: "/terms" },
+      { name: t('footer.cookies'), href: "/cookies" },
+      { name: t('footer.dmca'), href: "/dmca" },
     ],
     resources: [
-      { name: "Documentation", href: "/docs" },
-      { name: "Help Center", href: "/help" },
-      { name: "Community", href: "/community" },
-      { name: "Newsletter", href: "/newsletter" },
+      { name: t('footer.documentation'), href: "/docs" },
+      { name: t('footer.helpCenter'), href: "/help" },
+      { name: t('footer.community'), href: "/community" },
+      { name: t('footer.changelog'), href: "/changelog" },
     ],
   }
 
@@ -50,7 +54,7 @@ export function Footer() {
               <span className="text-xl font-bold text-white">AIverse</span>
             </Link>
             <p className="text-sm text-gray-400 mb-4">
-              Discover the best AI tools to boost your productivity and transform your workflow.
+              {t('footer.description')}
             </p>
             <div className="flex space-x-3">
               {socialLinks.map((social) => {
@@ -74,7 +78,7 @@ export function Footer() {
           {/* Links Columns */}
           <div className="md:col-span-4 grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="font-semibold text-white mb-4">Product</h3>
+              <h3 className="font-semibold text-white mb-4">{t('footer.product')}</h3>
               <ul className="space-y-2">
                 {footerLinks.product.map((link) => (
                   <li key={link.name}>
@@ -90,7 +94,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="font-semibold text-white mb-4">Company</h3>
+              <h3 className="font-semibold text-white mb-4">{t('footer.company')}</h3>
               <ul className="space-y-2">
                 {footerLinks.company.map((link) => (
                   <li key={link.name}>
@@ -106,7 +110,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="font-semibold text-white mb-4">Legal</h3>
+              <h3 className="font-semibold text-white mb-4">{t('footer.legal')}</h3>
               <ul className="space-y-2">
                 {footerLinks.legal.map((link) => (
                   <li key={link.name}>
@@ -122,7 +126,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="font-semibold text-white mb-4">Resources</h3>
+              <h3 className="font-semibold text-white mb-4">{t('footer.resources')}</h3>
               <ul className="space-y-2">
                 {footerLinks.resources.map((link) => (
                   <li key={link.name}>
@@ -143,10 +147,10 @@ export function Footer() {
         <div className="pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} AIverse. All rights reserved.
+              © {new Date().getFullYear()} AIverse. {t('footer.allRights')}
             </p>
             <p className="text-sm text-gray-400">
-              Made with ❤️ by the AIverse team
+              {t('footer.madeWith')}
             </p>
           </div>
         </div>

@@ -3,16 +3,19 @@
 import Link from "next/link"
 import { useState } from "react"
 import { Search, Menu, X } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const t = useTranslations('common')
 
   const navigation = [
-    { name: "Tools", href: "/tools" },
-    { name: "Categories", href: "/categories" },
+    { name: t('tools'), href: "/tools" },
+    { name: t('categories'), href: "/categories" },
     { name: "Compare", href: "/compare" },
-    { name: "Blog", href: "/blog" },
-    { name: "About", href: "/about" },
+    { name: t('blog'), href: "/blog" },
+    { name: t('about'), href: "/about" },
   ]
 
   return (
@@ -40,11 +43,16 @@ export function Header() {
             ))}
           </div>
 
-          {/* Search and Mobile Menu */}
-          <div className="flex items-center space-x-4">
-            <button className="p-2 hover:bg-gray-100 rounded-lg transition">
+          {/* Search, Language Switcher and Mobile Menu */}
+          <div className="flex items-center space-x-2">
+            <button className="p-2 hover:bg-gray-100 rounded-lg transition" aria-label={t('search')}>
               <Search className="w-5 h-5 text-gray-600" />
             </button>
+            
+            {/* Language Switcher */}
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
             
             {/* Mobile Menu Button */}
             <button
@@ -73,6 +81,10 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
+            {/* Language Switcher for Mobile */}
+            <div className="pt-4 border-t border-gray-200">
+              <LanguageSwitcher />
+            </div>
           </div>
         )}
       </nav>
