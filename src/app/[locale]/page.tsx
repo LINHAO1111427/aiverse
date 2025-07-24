@@ -38,7 +38,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
   const t = await getTranslations()
 
   // Fetch featured workflows
-  const workflowsRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/workflows?featured=true&limit=3`, { 
+  const workflowsRes = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflows?featured=true&limit=3`, { 
     cache: 'no-store' 
   })
   const workflowsData = await workflowsRes.json()

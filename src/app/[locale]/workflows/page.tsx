@@ -20,8 +20,8 @@ export default async function WorkflowsPage({
 
   // Fetch initial data
   const [categoriesRes, workflowsRes] = await Promise.all([
-    fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/workflow-categories`, { cache: 'no-store' }),
-    fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/workflows?limit=20`, { cache: 'no-store' })
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflow-categories`, { cache: 'no-store' }),
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflows?limit=20`, { cache: 'no-store' })
   ])
 
   const categoriesData = await categoriesRes.json()

@@ -8,7 +8,7 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/workflows/${params.slug}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflows/${params.slug}`)
   
   if (!res.ok) {
     return {
@@ -34,7 +34,7 @@ export default async function WorkflowDetailPage({ params }: PageProps) {
   const t = await getTranslations({ locale, namespace: 'workflows' })
   
   // Fetch workflow data
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/workflows/${slug}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/v1/workflows/${slug}`, {
     cache: 'no-store'
   })
   
