@@ -250,6 +250,81 @@
     "needHelp": "需要帮助？",
     "contactUs": "联系我们"
   },
+  "api": {
+    "pageTitle": "API文档 - AIverse",
+    "pageDescription": "通过AIverse API以编程方式访问我们的AI工具综合数据库。",
+    "hero": {
+      "title": "AIverse API",
+      "subtitle": "使用我们的AI工具数据库构建令人惊叹的应用程序",
+      "getStarted": "开始使用",
+      "viewDocs": "查看文档"
+    },
+    "features": {
+      "title": "为什么使用我们的API？",
+      "fast": {
+        "title": "极速响应",
+        "description": "低延迟端点，99.9%的正常运行时间保证"
+      },
+      "secure": {
+        "title": "安全可靠",
+        "description": "企业级安全性，API密钥认证"
+      },
+      "restful": {
+        "title": "RESTful设计",
+        "description": "简单直观的API设计，易于集成"
+      },
+      "comprehensive": {
+        "title": "全面的数据",
+        "description": "访问500多个AI工具的完整信息"
+      }
+    },
+    "endpoints": {
+      "title": "可用端点",
+      "tools": {
+        "title": "工具端点",
+        "listTools": "列出所有工具",
+        "getTool": "获取工具详情",
+        "searchTools": "搜索工具"
+      },
+      "categories": {
+        "title": "分类端点",
+        "listCategories": "列出所有分类",
+        "getCategory": "获取分类详情"
+      }
+    },
+    "pricing": {
+      "title": "定价计划",
+      "free": {
+        "title": "免费",
+        "description": "适合个人项目",
+        "features": [
+          "每月1,000次请求",
+          "基础端点访问",
+          "社区支持"
+        ]
+      },
+      "pro": {
+        "title": "专业版",
+        "description": "适合小型团队",
+        "features": [
+          "每月100,000次请求",
+          "所有端点访问",
+          "优先支持",
+          "Webhook支持"
+        ]
+      },
+      "enterprise": {
+        "title": "企业版",
+        "description": "适合大型组织",
+        "features": [
+          "无限请求",
+          "专属支持",
+          "自定义端点",
+          "SLA保证"
+        ]
+      }
+    }
+  },
   "about": {
     "pageTitle": "关于 AIverse",
     "pageDescription": "了解我们让AI技术人人可及的使命。",
