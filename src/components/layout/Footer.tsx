@@ -7,7 +7,7 @@ import { useState, useEffect } from "react"
 
 export function Footer() {
   const t = useTranslations()
-  const [currentYear, setCurrentYear] = useState<number | null>(null)
+  const [currentYear, setCurrentYear] = useState(2024) // Default to current year
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear())
@@ -154,7 +154,7 @@ export function Footer() {
         <div className="pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-gray-400">
-              © {currentYear || '2024'} AIverse. {t('footer.allRights')}
+              © {currentYear} AIverse. {t('footer.allRights')}
             </p>
             <p className="text-sm text-gray-400">
               {t('footer.madeWith')}

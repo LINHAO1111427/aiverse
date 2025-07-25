@@ -8,14 +8,15 @@ interface ToolCombinationsClientProps {
 }
 
 export function ToolCombinationsClient({ locale }: ToolCombinationsClientProps) {
-  const [isClient, setIsClient] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const isZh = locale === 'zh' || locale === 'zh-TW'
 
   useEffect(() => {
-    setIsClient(true)
+    setMounted(true)
   }, [])
 
-  if (!isClient) {
+  // Return empty during SSR since we're using dynamic import with ssr: false
+  if (!mounted) {
     return null
   }
 
