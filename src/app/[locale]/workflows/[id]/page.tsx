@@ -117,6 +117,18 @@ const workflows = {
   }
 }
 
+export function generateStaticParams() {
+  const workflowIds = Object.keys(workflows)
+  const locales = ['en', 'zh', 'zh-TW', 'ja', 'ko', 'es', 'fr', 'de']
+  
+  return locales.flatMap((locale) =>
+    workflowIds.map((id) => ({
+      locale,
+      id,
+    }))
+  )
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const workflow = workflows[params.id as keyof typeof workflows]
   
