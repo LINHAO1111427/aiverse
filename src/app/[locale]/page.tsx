@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { FeaturedToolsGrid, PopularToolsGrid } from '@/components/features/tools/ToolGrid'
+import { MockedToolGrid } from '@/components/features/tools/MockedToolGrid'
 import { 
   PageTransition, 
   FadeIn, 
@@ -37,7 +38,15 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
             <StatsSection />
           </FadeIn>
 
-          {/* Featured Tools Section */}
+          {/* Tool Combinations Section - 移到顶部 */}
+          <ClientToolCombinations locale={locale} />
+
+          {/* Categories Section */}
+          <FadeIn>
+            <CategoriesSection locale={locale} />
+          </FadeIn>
+
+          {/* Featured Tools Section - 移到下面 */}
           <section className="py-16 bg-white dark:bg-gray-900">
             <div className="container mx-auto px-4">
               <SlideIn direction="up">
@@ -52,7 +61,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
               </SlideIn>
 
               <Suspense fallback={<ToolListSkeleton count={6} />}>
-                <FeaturedToolsGrid 
+                <MockedToolGrid 
                   locale={locale} 
                   limit={6}
                   showLoadMore={true}
@@ -60,14 +69,6 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
               </Suspense>
             </div>
           </section>
-
-          {/* Tool Combinations Section */}
-          <ClientToolCombinations locale={locale} />
-
-          {/* Categories Section */}
-          <FadeIn>
-            <CategoriesSection locale={locale} />
-          </FadeIn>
 
           {/* Popular Tools Section */}
           <section className="py-16 bg-white dark:bg-gray-900">
@@ -85,7 +86,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
 
               <StaggerContainer>
                 <Suspense fallback={<ToolListSkeleton count={12} />}>
-                  <PopularToolsGrid 
+                  <MockedToolGrid 
                     locale={locale} 
                     limit={12}
                   />

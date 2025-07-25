@@ -55,21 +55,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ToolDetailPage({ params }: PageProps) {
   const { slug, locale } = params
-  const tool = await getToolData(slug)
-
-  if (!tool) {
-    notFound()
-  }
-
+  
+  // 暂时使用模拟数据，因为API不可用
+  const { MockedToolDetail } = await import('./MockedToolDetail')
+  
   return (
     <PageErrorBoundary>
       <PageTransition mode="slideUp">
-        <Suspense fallback={<ToolDetailSkeleton />}>
-          <ToolDetailContent 
-            tool={tool} 
-            locale={locale}
-          />
-        </Suspense>
+        <MockedToolDetail 
+          slug={slug} 
+          locale={locale}
+        />
       </PageTransition>
     </PageErrorBoundary>
   )
