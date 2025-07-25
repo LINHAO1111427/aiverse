@@ -14,13 +14,7 @@ const inter = Inter({ subsets: ["latin"] })
 export function generateStaticParams() {
   return [
     { locale: 'en' },
-    { locale: 'zh' },
-    { locale: 'zh-TW' },
-    { locale: 'ja' },
-    { locale: 'ko' },
-    { locale: 'es' },
-    { locale: 'fr' },
-    { locale: 'de' }
+    { locale: 'zh' }
   ]
 }
 

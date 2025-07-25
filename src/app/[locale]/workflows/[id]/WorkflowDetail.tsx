@@ -1,7 +1,9 @@
+'use client'
+
 import dynamic from 'next/dynamic'
 
 const WorkflowDetailClient = dynamic(
-  () => import('./WorkflowDetailClient').then(mod => mod.WorkflowDetailClient),
+  () => import('./WorkflowDetailClient').then(mod => ({ default: mod.WorkflowDetailClient })),
   { 
     ssr: false,
     loading: () => (

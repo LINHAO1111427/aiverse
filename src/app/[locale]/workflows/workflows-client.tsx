@@ -219,7 +219,7 @@ export function WorkflowsClient({
               </Sheet>
 
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                {t.showingResults.replace('{count}', pagination?.total || '0')}
+                {t.showingResults?.replace('{count}', pagination?.total?.toString() || '0') || `Showing ${pagination?.total || 0} workflows`}
               </p>
             </div>
 

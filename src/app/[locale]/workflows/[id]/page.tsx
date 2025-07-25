@@ -119,7 +119,7 @@ const workflows = {
 
 export function generateStaticParams() {
   const workflowIds = Object.keys(workflows)
-  const locales = ['en', 'zh', 'zh-TW', 'ja', 'ko', 'es', 'fr', 'de']
+  const locales = ['en', 'zh'] // Only support English and Chinese for now
   
   return locales.flatMap((locale) =>
     workflowIds.map((id) => ({
