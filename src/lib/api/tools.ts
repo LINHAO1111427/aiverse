@@ -1,5 +1,5 @@
 import { apiClient } from './client'
-import { Tool, ToolsQueryParams, Category, Rating, ApiResponse } from '@/lib/types/api'
+import { Tool, ToolsQueryParams, Category, Rating, ApiResponse, PaginationInfo } from '@/lib/types/api'
 
 /**
  * 工具相关API服务
@@ -22,8 +22,8 @@ export class ToolsApi {
   /**
    * 获取工具评分
    */
-  static async getToolRatings(toolId: number, page: number = 1, limit: number = 10): Promise<ApiResponse<Rating[]>> {
-    return apiClient.get<Rating[]>(`/tools/${toolId}/ratings`, {
+  static async getToolRatings(toolId: number, page: number = 1, limit: number = 10): Promise<ApiResponse<{ items: Rating[], pagination: PaginationInfo }>> {
+    return apiClient.get<{ items: Rating[], pagination: PaginationInfo }>(`/tools/${toolId}/ratings`, {
       page,
       limit,
     })
@@ -75,8 +75,11 @@ export class ToolsApi {
   /**
    * 获取相似工具
    */
-  static async getSimilarTools(toolId: number, limit: number = 4): Promise<ApiResponse<Tool[]>> {
-    return apiClient.get<Tool[]>(`/v1/tools/${toolId}/similar`, { limit })
+  static async getSimilarTools(toolId: number, categoryId?: number, limit: number = 4): Promise<ApiResponse<Tool[]>> {
+    return apiClient.get<Tool[]>(`/v1/tools/${toolId}/similar`, { 
+      limit,
+      categoryId 
+    })
   }
 
   /**

@@ -3,17 +3,8 @@
 import { useState } from "react"
 import { Star, ThumbsUp, MessageSquare, TrendingUp } from "lucide-react"
 import { formatDate } from "@/lib/utils"
+import { Rating } from "@/lib/types/api"
 import toast from "react-hot-toast"
-
-interface Rating {
-  id: number
-  rating: number
-  review: string
-  userId: string
-  userName?: string
-  createdAt: Date
-  helpful: number
-}
 
 interface RatingSectionProps {
   toolId: number

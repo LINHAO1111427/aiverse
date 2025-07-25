@@ -70,14 +70,14 @@ function ToolCardComponent({
 
   // 评分显示
   const renderRating = () => {
-    if (!tool.rating) return null
+    if (!tool.averageRating) return null
 
     return (
       <div className="flex items-center gap-1">
         <Star className="w-4 h-4 text-yellow-400 fill-current" />
-        <span className="text-sm font-medium">{tool.rating.toFixed(1)}</span>
-        {tool.reviewCount && (
-          <span className="text-xs text-gray-500">({tool.reviewCount})</span>
+        <span className="text-sm font-medium">{tool.averageRating.toFixed(1)}</span>
+        {tool.ratingCount && (
+          <span className="text-xs text-gray-500">({tool.ratingCount})</span>
         )}
       </div>
     )
@@ -263,10 +263,10 @@ export function CompactToolCard({ tool, locale = 'en' }: { tool: Tool; locale?: 
           )}
         </div>
         
-        {tool.rating && (
+        {tool.averageRating && (
           <div className="flex items-center gap-1 text-xs">
             <Star className="w-3 h-3 text-yellow-400 fill-current" />
-            <span>{tool.rating.toFixed(1)}</span>
+            <span>{tool.averageRating.toFixed(1)}</span>
           </div>
         )}
       </Link>

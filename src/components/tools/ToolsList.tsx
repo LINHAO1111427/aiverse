@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { ToolCard } from "./ToolCard"
 import { Loader2 } from "lucide-react"
-import { useTools } from "@/hooks/useTools"
+import { useTools } from "@/lib/hooks/useTools"
 
 export function ToolsList() {
   const searchParams = useSearchParams()
@@ -17,14 +17,15 @@ export function ToolsList() {
     limit: 12,
     q: searchParams.get("q") || undefined,
     category: searchParams.get("category") || undefined,
-    pricing: searchParams.get("pricing") || undefined,
-    features: searchParams.get("features") || undefined,
-    sort: searchParams.get("sort") || undefined,
+    pricing: searchParams.get("pricing")?.split(',') || undefined,
+    features: searchParams.get("features")?.split(',') || undefined,
+    sortBy: searchParams.get("sortBy") as any || undefined,
+    sortOrder: searchParams.get("sortOrder") as any || undefined,
   }
   
-  const { tools, loading, error, pagination } = useTools(params)
+  const { data: tools = [], isLoading, error } = useTools(params)
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
         <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
@@ -45,8 +46,7 @@ export function ToolsList() {
       {/* Results header */}
       <div className="flex items-center justify-between mb-6">
         <p className="text-gray-600">
-          Showing <span className="font-semibold">{tools.length}</span> 
-          {pagination && ` of ${pagination.total}`} tools
+          Showing <span className="font-semibold">{tools.length}</span> tools
         </p>
         
         {/* View toggle */}
@@ -91,30 +91,7 @@ export function ToolsList() {
         ))}
       </div>
 
-      {/* Pagination */}
-      {pagination && pagination.totalPages > 1 && (
-        <div className="mt-8 flex justify-center gap-2">
-          <button
-            onClick={() => setPage(page - 1)}
-            disabled={page === 1}
-            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Previous
-          </button>
-          
-          <span className="px-4 py-2 text-gray-600">
-            Page {page} of {pagination.totalPages}
-          </span>
-          
-          <button
-            onClick={() => setPage(page + 1)}
-            disabled={page === pagination.totalPages}
-            className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Next
-          </button>
-        </div>
-      )}
+      {/* TODO: Add pagination when API supports it */}
     </div>
   )
 }

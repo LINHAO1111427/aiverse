@@ -20,7 +20,64 @@
     "custom": "自定义定价",
     "perMonth": "/月",
     "startingAt": "起价",
-    "from": "从"
+    "from": "从",
+    "subscribe": "订阅",
+    "compare": "比较"
+  },
+  "nav": {
+    "tools": "工具",
+    "categories": "分类",
+    "workflows": "工作流",
+    "compare": "比较",
+    "submit": "提交工具"
+  },
+  "home": {
+    "hero": {
+      "badge": "探索AI的未来",
+      "title": "找到完美的",
+      "titleHighlight": "AI工具",
+      "subtitle": "探索和比较500多个AI工具，提升您的生产力并改变您的工作流程",
+      "searchPlaceholder": "搜索 ChatGPT、Midjourney、Claude...",
+      "feature1": "精选推荐",
+      "feature1Desc": "由专家测试的精心挑选的AI工具",
+      "feature2": "真实用户评价",
+      "feature2Desc": "来自我们社区的真实评分",
+      "feature3": "持续更新",
+      "feature3Desc": "每日添加新工具，保持领先",
+      "stat1": "500+ AI工具",
+      "stat2": "5万+ 活跃用户",
+      "stat3": "每日更新"
+    },
+    "stats": {
+      "tools": "AI工具",
+      "users": "活跃用户",
+      "reviews": "用户评价",
+      "monthlyGrowth": "月度增长"
+    },
+    "featuredTools": "精选AI工具",
+    "featuredToolsDescription": "精心挑选的提供卓越价值和创新的工具",
+    "popularTools": "热门AI工具",
+    "popularToolsDescription": "发现我们社区最常用的AI工具",
+    "categories": {
+      "title": "按分类探索",
+      "subtitle": "找到适合您特定需求的AI工具",
+      "viewAll": "查看所有分类"
+    },
+    "cta": {
+      "title": "准备好提升您的工作效率了吗？",
+      "description": "加入数千名专业人士，使用AI工具更智能地工作",
+      "exploreTools": "探索AI工具",
+      "submitTool": "提交您的工具",
+      "community": {
+        "title": "加入我们的社区",
+        "description": "与AI爱好者联系，分享经验，向专家学习"
+      },
+      "newsletter": {
+        "title": "保持更新",
+        "description": "获取每周新AI工具更新和独家技巧",
+        "placeholder": "输入您的邮箱"
+      }
+    }
   },
   "homepage": {
     "hero": {

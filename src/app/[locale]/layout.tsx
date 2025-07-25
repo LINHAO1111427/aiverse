@@ -6,6 +6,7 @@ import { notFound } from "next/navigation"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { ComparisonBar } from "@/components/comparison/ComparisonBar"
+import { QueryProvider } from "@/lib/providers/query-provider"
 import "@/styles/globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -91,15 +92,17 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-grow">
-              {children}
-            </main>
-            <Footer />
-          </div>
-          <ComparisonBar />
-          <Toaster position="bottom-right" />
+          <QueryProvider>
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow">
+                {children}
+              </main>
+              <Footer />
+            </div>
+            <ComparisonBar />
+            <Toaster position="bottom-right" />
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

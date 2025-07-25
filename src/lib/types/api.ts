@@ -54,8 +54,8 @@ export interface Tool {
   status: 'active' | 'inactive' | 'pending'
   viewCount: number
   featured: boolean
-  rating?: number
-  reviewCount?: number
+  averageRating?: number
+  ratingCount?: number
   createdAt: Date
   updatedAt: Date
 }

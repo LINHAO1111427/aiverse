@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Star, ExternalLink } from "lucide-react"
-import type { Tool } from "@/types"
+import type { Tool } from "@/lib/types/api"
 import { formatCurrency } from "@/lib/utils"
 import { CompareButton } from "./CompareButton"
 
@@ -100,8 +100,8 @@ export function ToolCard({ tool, variant = "grid" }: ToolCardProps) {
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <span className="text-sm font-medium">4.5</span>
-              <span className="text-sm text-gray-500">(234)</span>
+              <span className="text-sm font-medium">{tool.averageRating?.toFixed(1) || '0.0'}</span>
+              <span className="text-sm text-gray-500">({tool.ratingCount || 0})</span>
             </div>
             
             {isGrid && <PricingBadge tool={tool} />}

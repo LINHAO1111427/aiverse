@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { persist, createJSONStorage } from "zustand/middleware"
-import type { Tool } from "@/types"
+import type { Tool } from "@/lib/types/api"
 
 interface ComparisonStore {
   tools: Tool[]

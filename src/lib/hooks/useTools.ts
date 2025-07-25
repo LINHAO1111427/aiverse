@@ -174,11 +174,11 @@ export const useFeaturedTools = (limit: number = 6) => {
 /**
  * 获取相似工具
  */
-export const useSimilarTools = (toolId: number, limit: number = 4) => {
+export const useSimilarTools = (toolId: number, categoryId?: number, limit: number = 4) => {
   return useQuery({
     queryKey: QUERY_KEYS.similarTools(toolId, limit),
     queryFn: async () => {
-      const response = await toolsApi.getSimilarTools(toolId, limit)
+      const response = await toolsApi.getSimilarTools(toolId, categoryId, limit)
       if (!response.success) {
         throw new Error(response.message || 'Failed to fetch similar tools')
       }
