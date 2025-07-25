@@ -14,7 +14,7 @@ import { CategoriesSection } from '@/components/features/home/CategoriesSection'
 import { CTASection } from '@/components/features/home/CTASection'
 import { ToolListSkeleton } from '@/components/ui/skeleton'
 import { PageErrorBoundary } from '@/components/ui/error-boundary'
-import { ToolCombinations } from '@/components/features/tools/ToolCombinations'
+import { ToolCombinationsWrapper } from '@/components/features/tools/ToolCombinationsWrapper'
 
 interface HomePageProps {
   params: {
@@ -63,7 +63,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
 
           {/* Tool Combinations Section */}
           <FadeIn>
-            <ToolCombinations locale={locale} />
+            <ToolCombinationsWrapper locale={locale} />
           </FadeIn>
 
           {/* Categories Section */}

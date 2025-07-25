@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Play, 
@@ -277,7 +277,12 @@ interface ToolCombinationsProps {
 export function ToolCombinations({ locale }: ToolCombinationsProps) {
   const [selectedCombination, setSelectedCombination] = useState<string | null>(null)
   const [expandedTools, setExpandedTools] = useState<Set<string>>(new Set())
+  const [mounted, setMounted] = useState(false)
   const isZh = locale === 'zh' || locale === 'zh-TW'
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleCombinationClick = (combinationId: string) => {
     setSelectedCombination(combinationId === selectedCombination ? null : combinationId)
@@ -297,6 +302,25 @@ export function ToolCombinations({ locale }: ToolCombinationsProps) {
     if (popularity >= 95) return "text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-400"
     if (popularity >= 90) return "text-blue-600 bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400"
     return "text-orange-600 bg-orange-100 dark:bg-orange-900/30 dark:text-orange-400"
+  }
+
+  // 避免服务端/客户端渲染不匹配
+  if (!mounted) {
+    return (
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <div className="h-10 w-96 bg-gray-200 dark:bg-gray-700 rounded mx-auto mb-4 animate-pulse" />
+            <div className="h-6 w-[600px] bg-gray-200 dark:bg-gray-700 rounded mx-auto animate-pulse" />
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-[400px] bg-gray-200 dark:bg-gray-700 rounded-2xl animate-pulse" />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
   }
 
   return (
