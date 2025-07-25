@@ -19,7 +19,65 @@
     "custom": "自訂定價",
     "perMonth": "/月",
     "startingAt": "起價",
-    "from": "從"
+    "from": "從",
+    "subscribe": "訂閱",
+    "compare": "比較",
+    "workflows": "工作流"
+  },
+  "nav": {
+    "tools": "工具",
+    "categories": "分類",
+    "workflows": "工作流",
+    "compare": "比較",
+    "submit": "提交工具"
+  },
+  "home": {
+    "hero": {
+      "badge": "探索AI的未來",
+      "title": "找到完美的",
+      "titleHighlight": "AI工具",
+      "subtitle": "探索和比較500多個AI工具，提升您的生產力並改變您的工作流程",
+      "searchPlaceholder": "搜尋 ChatGPT、Midjourney、Claude...",
+      "feature1": "精選推薦",
+      "feature1Desc": "由專家測試的精心挑選的AI工具",
+      "feature2": "真實使用者評價",
+      "feature2Desc": "來自我們社群的真實評分",
+      "feature3": "持續更新",
+      "feature3Desc": "每日新增新工具，保持領先",
+      "stat1": "500+ AI工具",
+      "stat2": "5萬+ 活躍使用者",
+      "stat3": "每日更新"
+    },
+    "stats": {
+      "tools": "AI工具",
+      "users": "活躍使用者",
+      "reviews": "使用者評價",
+      "monthlyGrowth": "月度成長"
+    },
+    "featuredTools": "精選AI工具",
+    "featuredToolsDescription": "精心挑選的提供卓越價值和創新的工具",
+    "popularTools": "熱門AI工具",
+    "popularToolsDescription": "發現我們社群最常使用的AI工具",
+    "categories": {
+      "title": "按分類探索",
+      "subtitle": "找到適合您特定需求的AI工具",
+      "viewAll": "檢視所有分類"
+    },
+    "cta": {
+      "title": "準備好提升您的工作效率了嗎？",
+      "description": "加入數千名專業人士，使用AI工具更智慧地工作",
+      "exploreTools": "探索AI工具",
+      "submitTool": "提交您的工具",
+      "community": {
+        "title": "加入我們的社群",
+        "description": "與AI愛好者連結，分享經驗，向專家學習"
+      },
+      "newsletter": {
+        "title": "保持更新",
+        "description": "獲取每週新AI工具更新和獨家技巧",
+        "placeholder": "輸入您的電子郵件"
+      }
+    }
   },
   "homepage": {
     "hero": {
@@ -321,6 +379,76 @@
       "copy": "複製"
     }
   },
+  "contact": {
+    "pageTitle": "聯絡我們 - AIverse",
+    "pageDescription": "與AIverse團隊取得聯繫。我們隨時準備協助解答任何問題或接收意見回饋。",
+    "hero": {
+      "title": "聯絡我們",
+      "subtitle": "有問題嗎？我們很樂意聽取您的意見。"
+    },
+    "methods": {
+      "email": {
+        "title": "電子郵件",
+        "description": "隨時給我們發送電子郵件"
+      },
+      "chat": {
+        "title": "線上聊天",
+        "description": "與我們的支援團隊聊天",
+        "available": "週一至週五，上午9點至下午5點"
+      },
+      "phone": {
+        "title": "電話",
+        "description": "在工作時間給我們打電話"
+      },
+      "office": {
+        "title": "辦公室",
+        "description": "參觀我們的總部"
+      }
+    },
+    "form": {
+      "title": "給我們留言",
+      "firstName": "名字",
+      "lastName": "姓氏",
+      "email": "電子郵件",
+      "subject": "主題",
+      "message": "留言",
+      "send": "發送訊息"
+    },
+    "faq": {
+      "title": "常見問題",
+      "q1": {
+        "question": "如何提交我的AI工具？",
+        "answer": "您可以通過我們的提交表單提交您的AI工具。點擊導航選單中的「提交工具」並填寫所需資訊。"
+      },
+      "q2": {
+        "question": "列出我的工具是免費的嗎？",
+        "answer": "是的，基本列表是免費的。我們還提供高級展示選項以提高能見度。"
+      },
+      "q3": {
+        "question": "工具是如何被審查和評分的？",
+        "answer": "工具由我們的使用者社群根據他們的體驗進行評分。我們還有編輯團隊審查工具的準確性和品質。"
+      },
+      "q4": {
+        "question": "我可以更新我的工具資訊嗎？",
+        "answer": "是的，工具所有者可以通過此表單聯絡我們，提供工具名稱和請求的更改來請求更新。"
+      }
+    }
+  },
+  "blog": {
+    "pageTitle": "部落格 - AIverse",
+    "pageDescription": "了解最新的AI趨勢、指南和來自我們專家團隊的見解。",
+    "hero": {
+      "title": "AIverse 部落格",
+      "subtitle": "關於AI工具和技術的見解、指南和新聞"
+    },
+    "readMore": "閱讀更多",
+    "newsletter": {
+      "title": "訂閱我們的電子報",
+      "subtitle": "每週獲取最新的AI見解直接發送到您的信箱",
+      "placeholder": "輸入您的電子郵件",
+      "subscribe": "訂閱"
+    }
+  },
   "footer": {
     "description": "發現最佳 AI 工具，提升您的生產力和創造力。",
     "product": "產品",
@@ -349,5 +477,64 @@
     "subscribe": "訂閱",
     "allRights": "版權所有。",
     "madeWith": "由 AIverse 團隊用 ❤️ 製作"
+  },
+  "workflows": {
+    "title": "AI工作流 - 完整解決方案",
+    "description": "發現經過驗證的AI工具組合，高效解決實際問題",
+    "hero": {
+      "title": "停止尋找工具，開始解決問題",
+      "subtitle": "精選AI工作流方案，讓複雜任務變簡單"
+    },
+    "categories": "分類",
+    "allCategories": "所有分類",
+    "difficulty": "難度",
+    "allDifficulties": "所有難度",
+    "beginner": "入門",
+    "intermediate": "進階",
+    "advanced": "高級",
+    "maxCost": "最高月費",
+    "sortBy": "排序方式",
+    "featured": "推薦",
+    "newest": "最新",
+    "popular": "最受歡迎",
+    "rating": "評分最高",
+    "costLow": "價格：從低到高",
+    "costHigh": "價格：從高到低",
+    "search": "搜尋",
+    "searchPlaceholder": "搜尋工作流...",
+    "showingResults": "顯示 {count} 個工作流",
+    "noResults": "未找到工作流",
+    "loading": "載入工作流中...",
+    "detail": {
+      "overview": "概覽",
+      "detailedSteps": "詳細步驟",
+      "costBreakdown": "成本明細",
+      "userReviews": "使用者評價",
+      "relatedWorkflows": "相關工作流",
+      "estimatedTime": "預計時間",
+      "monthlyCost": "月費用",
+      "toolsCount": "工具數",
+      "successRate": "成功率",
+      "saveWorkflow": "儲存工作流",
+      "share": "分享",
+      "minutes": "分鐘",
+      "step": "步驟",
+      "alternativeTools": "替代工具",
+      "instructions": "操作說明",
+      "promptTemplates": "提示詞模板",
+      "examples": "範例",
+      "tips": "技巧與訣竅",
+      "tool": "工具",
+      "plan": "套餐",
+      "price": "價格",
+      "usage": "使用限制",
+      "valueScore": "性價比",
+      "total": "總計",
+      "perMonth": "/月",
+      "reviews": "條評價",
+      "writeReview": "撰寫評價",
+      "noReviews": "還沒有評價。成為第一個分享體驗的人！",
+      "viewDetails": "檢視詳情"
+    }
   }
 }
