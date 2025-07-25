@@ -273,7 +273,7 @@ export function ToolComparison({ locale }: ToolComparisonProps) {
                 </td>
                 {tools.map((tool) => (
                   <td key={tool.id} className="p-4 text-center">
-                    {tool.freeTrial ? (
+                    {(tool.pricingType === 'free' || tool.pricingType === 'freemium') ? (
                       <Check className="w-5 h-5 text-green-500 mx-auto" />
                     ) : (
                       <XCircle className="w-5 h-5 text-gray-300 dark:text-gray-600 mx-auto" />

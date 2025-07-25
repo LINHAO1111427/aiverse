@@ -65,8 +65,8 @@ export function SearchResults({ locale }: SearchResultsProps) {
     )
   }
 
-  const tools = results?.items || []
-  const totalCount = results?.total || 0
+  const tools = results || []
+  const totalCount = tools.length
 
   if (tools.length === 0) {
     return (
@@ -128,18 +128,7 @@ export function SearchResults({ locale }: SearchResultsProps) {
         ))}
       </motion.div>
 
-      {/* Load More Button (if pagination is supported) */}
-      {results?.hasMore && (
-        <div className="mt-12 text-center">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-8 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
-          >
-            {isZh ? '加载更多' : 'Load More'}
-          </motion.button>
-        </div>
-      )}
+      {/* Load More Button - removed since API doesn't support pagination yet */}
     </div>
   )
 }
