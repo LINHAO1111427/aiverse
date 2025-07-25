@@ -273,56 +273,59 @@
         "title": "RESTful设计",
         "description": "简单直观的API设计，易于集成"
       },
-      "comprehensive": {
-        "title": "全面的数据",
-        "description": "访问500多个AI工具的完整信息"
+      "documented": {
+        "title": "完善的文档",
+        "description": "包含代码示例的全面文档"
       }
     },
     "endpoints": {
       "title": "可用端点",
-      "tools": {
-        "title": "工具端点",
-        "listTools": "列出所有工具",
-        "getTool": "获取工具详情",
-        "searchTools": "搜索工具"
-      },
-      "categories": {
-        "title": "分类端点",
-        "listCategories": "列出所有分类",
-        "getCategory": "获取分类详情"
-      }
+      "method": "方法",
+      "endpoint": "端点",
+      "description": "描述",
+      "listTools": "列出所有AI工具，支持分页和筛选",
+      "getTool": "获取特定工具的详细信息",
+      "listCategories": "列出所有可用分类",
+      "search": "按名称、描述或功能搜索工具",
+      "submitRating": "为工具提交用户评分"
+    },
+    "example": {
+      "title": "快速开始示例",
+      "comment": "获取所有AI工具"
     },
     "pricing": {
-      "title": "定价计划",
+      "title": "简单透明的定价",
+      "getStarted": "开始使用",
+      "popular": "最受欢迎",
+      "contactSales": "联系销售",
       "free": {
-        "title": "免费",
-        "description": "适合个人项目",
-        "features": [
-          "每月1,000次请求",
-          "基础端点访问",
-          "社区支持"
-        ]
+        "name": "免费",
+        "feature1": "每月1,000次API调用",
+        "feature2": "基础端点访问",
+        "feature3": "社区支持"
       },
       "pro": {
-        "title": "专业版",
-        "description": "适合小型团队",
-        "features": [
-          "每月100,000次请求",
-          "所有端点访问",
-          "优先支持",
-          "Webhook支持"
-        ]
+        "name": "专业版",
+        "feature1": "每月100,000次API调用",
+        "feature2": "所有端点访问",
+        "feature3": "优先支持",
+        "feature4": "高级筛选功能"
       },
       "enterprise": {
-        "title": "企业版",
-        "description": "适合大型组织",
-        "features": [
-          "无限请求",
-          "专属支持",
-          "自定义端点",
-          "SLA保证"
-        ]
+        "name": "企业版",
+        "price": "定制",
+        "feature1": "无限API调用",
+        "feature2": "自定义端点",
+        "feature3": "专属支持",
+        "feature4": "SLA保证"
       }
+    },
+    "cta": {
+      "title": "准备开始了吗？",
+      "subtitle": "创建您的API密钥，立即开始构建",
+      "apiKey": "您的API密钥",
+      "generate": "生成新密钥",
+      "copy": "复制"
     }
   },
   "about": {
