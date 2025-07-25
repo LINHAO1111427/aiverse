@@ -10,8 +10,8 @@ import {
   StaggerItem 
 } from '@/components/common/PageTransition'
 import { HeroSection } from '@/components/features/home/HeroSection'
-import { StatsSection } from '@/components/features/home/StatsSection'
-import { CategoriesSection } from '@/components/features/home/CategoriesSection'
+import { ClientStatsSection } from '@/components/features/home/ClientStatsSection'
+import { ClientCategoriesSection } from '@/components/features/home/ClientCategoriesSection'
 import { CTASection } from '@/components/features/home/CTASection'
 import { ToolListSkeleton } from '@/components/ui/skeleton'
 import { PageErrorBoundary } from '@/components/ui/error-boundary'
@@ -35,7 +35,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
 
           {/* Stats Section */}
           <FadeIn>
-            <StatsSection />
+            <ClientStatsSection />
           </FadeIn>
 
           {/* Tool Combinations Section - 移到顶部 */}
@@ -43,7 +43,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
 
           {/* Categories Section */}
           <FadeIn>
-            <CategoriesSection locale={locale} />
+            <ClientCategoriesSection locale={locale} />
           </FadeIn>
 
           {/* Featured Tools Section - 移到下面 */}
