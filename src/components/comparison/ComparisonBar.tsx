@@ -7,8 +7,10 @@ import { X, ChevronUp, ChevronDown, Layers } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 export function ComparisonBar() {
-  const { tools, isOpen, removeTool, toggleOpen, clearComparison } = useComparisonStore()
+  const { tools, isOpen, removeTool, toggleOpen, clearComparison, _hasHydrated } = useComparisonStore()
 
+  // Prevent hydration mismatch by not rendering until hydrated
+  if (!_hasHydrated) return null
   if (tools.length === 0) return null
 
   return (

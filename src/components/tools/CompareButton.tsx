@@ -11,8 +11,21 @@ interface CompareButtonProps {
 }
 
 export function CompareButton({ tool, className = "" }: CompareButtonProps) {
-  const { tools, addTool, removeTool, canAddMore } = useComparisonStore()
+  const { tools, addTool, removeTool, canAddMore, _hasHydrated } = useComparisonStore()
   const isInComparison = tools.some(t => t.id === tool.id)
+
+  // Show loading state until hydrated to prevent hydration mismatch
+  if (!_hasHydrated) {
+    return (
+      <button 
+        className={`flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 text-gray-400 cursor-not-allowed ${className}`} 
+        disabled
+      >
+        <Layers className="w-4 h-4" />
+        <span className="text-sm font-medium">Compare</span>
+      </button>
+    )
+  }
 
   const handleClick = () => {
     if (isInComparison) {

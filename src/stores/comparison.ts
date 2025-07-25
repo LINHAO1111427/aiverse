@@ -1,10 +1,12 @@
 import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { persist, createJSONStorage } from "zustand/middleware"
 import type { Tool } from "@/types"
 
 interface ComparisonStore {
   tools: Tool[]
   isOpen: boolean
+  _hasHydrated: boolean
+  setHasHydrated: (state: boolean) => void
   addTool: (tool: Tool) => void
   removeTool: (toolId: number) => void
   clearComparison: () => void
@@ -19,6 +21,11 @@ export const useComparisonStore = create<ComparisonStore>()(
     (set, get) => ({
       tools: [],
       isOpen: false,
+      _hasHydrated: false,
+      
+      setHasHydrated: (state: boolean) => {
+        set({ _hasHydrated: state })
+      },
       
       addTool: (tool: Tool) => {
         const { tools } = get()
@@ -49,6 +56,10 @@ export const useComparisonStore = create<ComparisonStore>()(
     }),
     {
       name: "comparison-storage",
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true)
+      },
     }
   )
 )

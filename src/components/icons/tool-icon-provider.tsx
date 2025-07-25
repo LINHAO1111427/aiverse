@@ -32,10 +32,12 @@ export function ToolIconProvider({
   showFallback = true
 }: ToolIconProviderProps) {
   const [imageError, setImageError] = useState(false)
-  const [isLoading, setIsLoading] = useState(!!logoUrl)
+  const [isLoading, setIsLoading] = useState(false) // Start with false to avoid hydration mismatch
+  const [isMounted, setIsMounted] = useState(false)
   const sizeConfig = sizeMap[size]
 
   useEffect(() => {
+    setIsMounted(true)
     setImageError(false)
     setIsLoading(!!logoUrl)
   }, [logoUrl])
@@ -63,13 +65,14 @@ export function ToolIconProvider({
     )
   }
 
-  // Show image with loading state
+  // Show image with loading state (only show loading state after mount)
+  const showLoading = isMounted && isLoading
   return (
     <div 
       className={cn(
         sizeConfig.container,
         'relative flex items-center justify-center rounded-lg overflow-hidden',
-        isLoading && 'bg-gray-100 dark:bg-gray-800 animate-pulse',
+        showLoading && 'bg-gray-100 dark:bg-gray-800 animate-pulse',
         className
       )}
     >
