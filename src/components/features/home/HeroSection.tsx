@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Search, Sparkles, ArrowRight, Zap, Users, Shield } from 'lucide-react'
@@ -15,6 +15,11 @@ export function HeroSection({ locale }: HeroSectionProps) {
   const t = useTranslations()
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -41,6 +46,24 @@ export function HeroSection({ locale }: HeroSectionProps) {
     }
   ]
 
+  if (!mounted) {
+    return (
+      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded-full w-32 mx-auto mb-6"></div>
+              <div className="h-16 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mx-auto mb-4"></div>
+              <div className="h-16 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mx-auto mb-6"></div>
+              <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-2/3 mx-auto mb-10"></div>
+              <div className="h-16 bg-gray-200 dark:bg-gray-700 rounded-2xl max-w-2xl mx-auto mb-8"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+  
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       {/* Background Effects */}

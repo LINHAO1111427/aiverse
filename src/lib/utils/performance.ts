@@ -203,6 +203,14 @@ export function measurePerformance(name: string) {
 
 // React组件性能监控Hook
 export function usePerformanceMonitor(componentName: string) {
+  // Return no-op functions on server-side
+  if (typeof window === 'undefined') {
+    return {
+      startMeasurement: () => {},
+      endMeasurement: () => null,
+    }
+  }
+  
   const monitor = PerformanceMonitor.getInstance()
 
   return {
@@ -332,22 +340,25 @@ export class MemoryMonitor {
 export function initPerformanceMonitoring(): void {
   if (typeof window === 'undefined') return
 
-  const monitor = PerformanceMonitor.getInstance()
-  
-  // 监控Core Web Vitals
-  monitor.observeCoreWebVitals()
-  
-  // 初始化图片优化器
-  ImageOptimizer.init()
-  
-  // 开发环境下启用内存监控
-  if (process.env.NODE_ENV === 'development') {
-    MemoryMonitor.monitorMemoryLeaks()
-  }
-  
-  // 页面卸载时清理
-  window.addEventListener('beforeunload', () => {
-    monitor.cleanup()
-    ImageOptimizer.cleanup()
-  })
+  // Delay initialization to avoid hydration issues
+  setTimeout(() => {
+    const monitor = PerformanceMonitor.getInstance()
+    
+    // 监控Core Web Vitals
+    monitor.observeCoreWebVitals()
+    
+    // 初始化图片优化器
+    ImageOptimizer.init()
+    
+    // 开发环境下启用内存监控
+    if (process.env.NODE_ENV === 'development') {
+      MemoryMonitor.monitorMemoryLeaks()
+    }
+    
+    // 页面卸载时清理
+    window.addEventListener('beforeunload', () => {
+      monitor.cleanup()
+      ImageOptimizer.cleanup()
+    })
+  }, 0)
 }

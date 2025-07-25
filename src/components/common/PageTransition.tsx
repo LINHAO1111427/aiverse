@@ -3,7 +3,6 @@
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { ReactNode, useEffect, useState } from 'react'
-import { usePerformanceMonitor } from '@/lib/utils/performance'
 
 interface PageTransitionProps {
   children: ReactNode
@@ -43,18 +42,15 @@ export function PageTransition({
   duration = 0.3
 }: PageTransitionProps) {
   const pathname = usePathname()
-  const { startMeasurement, endMeasurement } = usePerformanceMonitor('PageTransition')
+  const [isMounted, setIsMounted] = useState(false)
   
   useEffect(() => {
-    startMeasurement('pageTransition')
-    
-    // 页面过渡完成后结束测量
-    const timer = setTimeout(() => {
-      endMeasurement('pageTransition')
-    }, duration * 1000)
-    
-    return () => clearTimeout(timer)
-  }, [pathname, duration, startMeasurement, endMeasurement])
+    setIsMounted(true)
+  }, [])
+  
+  if (!isMounted) {
+    return <div className={className}>{children}</div>
+  }
 
   return (
     <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
