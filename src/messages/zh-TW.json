@@ -243,6 +243,84 @@
       "submitTool": "提交您的工具"
     }
   },
+  "api": {
+    "pageTitle": "API文檔 - AIverse",
+    "pageDescription": "通過AIverse API以程式方式存取我們的AI工具綜合資料庫。",
+    "hero": {
+      "title": "AIverse API",
+      "subtitle": "使用我們的AI工具資料庫構建令人驚嘆的應用程式",
+      "getStarted": "開始使用",
+      "viewDocs": "檢視文檔"
+    },
+    "features": {
+      "title": "為什麼使用我們的API？",
+      "fast": {
+        "title": "極速響應",
+        "description": "低延遲端點，99.9%的正常運行時間保證"
+      },
+      "secure": {
+        "title": "安全可靠",
+        "description": "企業級安全性，API密鑰認證"
+      },
+      "restful": {
+        "title": "RESTful設計",
+        "description": "簡單直觀的API設計，易於整合"
+      },
+      "documented": {
+        "title": "完善的文檔",
+        "description": "包含程式碼範例的全面文檔"
+      }
+    },
+    "endpoints": {
+      "title": "可用端點",
+      "method": "方法",
+      "endpoint": "端點",
+      "description": "描述",
+      "listTools": "列出所有AI工具，支援分頁和篩選",
+      "getTool": "獲取特定工具的詳細資訊",
+      "listCategories": "列出所有可用分類",
+      "search": "按名稱、描述或功能搜尋工具",
+      "submitRating": "為工具提交使用者評分"
+    },
+    "example": {
+      "title": "快速開始範例",
+      "comment": "獲取所有AI工具"
+    },
+    "pricing": {
+      "title": "簡單透明的定價",
+      "getStarted": "開始使用",
+      "popular": "最受歡迎",
+      "contactSales": "聯絡銷售",
+      "free": {
+        "name": "免費",
+        "feature1": "每月1,000次API呼叫",
+        "feature2": "基礎端點存取",
+        "feature3": "社群支援"
+      },
+      "pro": {
+        "name": "專業版",
+        "feature1": "每月100,000次API呼叫",
+        "feature2": "所有端點存取",
+        "feature3": "優先支援",
+        "feature4": "進階篩選功能"
+      },
+      "enterprise": {
+        "name": "企業版",
+        "price": "自訂",
+        "feature1": "無限API呼叫",
+        "feature2": "自訂端點",
+        "feature3": "專屬支援",
+        "feature4": "SLA保證"
+      }
+    },
+    "cta": {
+      "title": "準備開始了嗎？",
+      "subtitle": "建立您的API密鑰，立即開始構建",
+      "apiKey": "您的API密鑰",
+      "generate": "生成新密鑰",
+      "copy": "複製"
+    }
+  },
   "footer": {
     "description": "發現最佳 AI 工具，提升您的生產力和創造力。",
     "product": "產品",
