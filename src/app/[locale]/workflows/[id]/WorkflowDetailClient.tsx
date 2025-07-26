@@ -14,9 +14,12 @@ import {
   BookOpen,
   ChevronDown,
   ChevronUp,
-  Sparkles
+  Sparkles,
+  MousePointer
 } from 'lucide-react'
 import { workflowsData } from '@/data/workflowsData'
+import { getToolByName } from '@/data/tools'
+import { ToolDetailModal } from '@/components/tools/ToolDetailModal'
 
 interface WorkflowDetailClientProps {
   id: string
@@ -25,6 +28,8 @@ interface WorkflowDetailClientProps {
 
 export function WorkflowDetailClient({ id, locale }: WorkflowDetailClientProps) {
   const [expandedTools, setExpandedTools] = useState<Set<string>>(new Set())
+  const [selectedTool, setSelectedTool] = useState<string | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const isZh = locale === 'zh' || locale === 'zh-TW'
   
   const workflow = workflowsData[id]
@@ -42,6 +47,13 @@ export function WorkflowDetailClient({ id, locale }: WorkflowDetailClientProps) 
     }
     setExpandedTools(newExpanded)
   }
+
+  const handleToolClick = (toolName: string) => {
+    setSelectedTool(toolName)
+    setIsModalOpen(true)
+  }
+
+  const selectedToolData = selectedTool ? getToolByName(selectedTool) : null
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
@@ -88,24 +100,37 @@ export function WorkflowDetailClient({ id, locale }: WorkflowDetailClientProps) 
                 className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
               >
                 <div 
-                  className="p-6 cursor-pointer"
-                  onClick={() => toggleToolExpansion(tool.name)}
+                  className="p-6"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                        <button
+                          onClick={() => handleToolClick(tool.name)}
+                          className="text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2 group"
+                        >
                           {index + 1}. {tool.name}
-                        </span>
+                          <MousePointer className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </button>
                         <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium">
                           {isZh ? tool.roleZh : tool.role}
                         </span>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="text-gray-600 dark:text-gray-400 mb-3">
                         {isZh ? tool.descriptionZh : tool.description}
                       </p>
+                      <button
+                        onClick={() => handleToolClick(tool.name)}
+                        className="inline-flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        {isZh ? '查看工具详情' : 'View Tool Details'}
+                      </button>
                     </div>
-                    <button className="ml-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                    <button 
+                      onClick={() => toggleToolExpansion(tool.name)}
+                      className="ml-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                    >
                       {expandedTools.has(tool.name) ? (
                         <ChevronUp className="w-5 h-5" />
                       ) : (
@@ -228,6 +253,17 @@ export function WorkflowDetailClient({ id, locale }: WorkflowDetailClientProps) 
           </Link>
         </section>
       </div>
+
+      {/* Tool Detail Modal */}
+      <ToolDetailModal
+        tool={selectedToolData || null}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false)
+          setSelectedTool(null)
+        }}
+        locale={locale}
+      />
     </div>
   )
 }
