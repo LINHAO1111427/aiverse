@@ -33,12 +33,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
           {/* Hero Section */}
           <HeroSection locale={locale} />
 
-          {/* Stats Section */}
-          <FadeIn>
-            <ClientStatsSection />
-          </FadeIn>
-
-          {/* Tool Combinations Section - 移到顶部 */}
+          {/* Tool Combinations Section - AI工具最佳组合推荐 */}
           <ClientToolCombinations locale={locale} />
 
           {/* Categories Section */}
@@ -46,7 +41,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
             <ClientCategoriesSection locale={locale} />
           </FadeIn>
 
-          {/* Featured Tools Section - 移到下面 */}
+          {/* Featured Tools Section */}
           <section className="py-16 bg-white dark:bg-gray-900">
             <div className="container mx-auto px-4">
               <SlideIn direction="up">
@@ -71,7 +66,7 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
           </section>
 
           {/* Popular Tools Section */}
-          <section className="py-16 bg-white dark:bg-gray-900">
+          <section className="py-16 bg-gray-50 dark:bg-gray-800">
             <div className="container mx-auto px-4">
               <SlideIn direction="up">
                 <div className="text-center mb-12">
@@ -94,6 +89,11 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
               </StaggerContainer>
             </div>
           </section>
+
+          {/* Stats Section - 统计数据移到热门工具下面 */}
+          <FadeIn>
+            <ClientStatsSection />
+          </FadeIn>
 
           {/* CTA Section */}
           <FadeIn>

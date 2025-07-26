@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import { Search, Menu, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
@@ -9,14 +10,19 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const t = useTranslations('common')
+  const pathname = usePathname()
+  
+  // Extract locale from pathname
+  const locale = pathname.split('/')[1] || 'en'
+  const currentLocale = ['en', 'zh'].includes(locale) ? locale : 'en'
 
   const navigation = [
-    { name: t('workflows'), href: "/workflows" },
-    { name: t('tools'), href: "/tools" },
-    { name: t('categories'), href: "/categories" },
-    { name: "Compare", href: "/compare" },
-    { name: t('blog'), href: "/blog" },
-    { name: t('about'), href: "/about" },
+    { name: t('workflows'), href: `/${currentLocale}/workflows` },
+    { name: t('tools'), href: `/${currentLocale}/tools` },
+    { name: t('categories'), href: `/${currentLocale}/categories` },
+    { name: "Compare", href: `/${currentLocale}/compare` },
+    { name: t('blog'), href: `/${currentLocale}/blog` },
+    { name: t('about'), href: `/${currentLocale}/about` },
   ]
 
   return (
@@ -24,7 +30,7 @@ export function Header() {
       <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href={`/${currentLocale}`} className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">A</span>
             </div>
