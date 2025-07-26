@@ -36,8 +36,8 @@
       "badge": "探索AI的未来",
       "title": "找到完美的",
       "titleHighlight": "AI工具",
-      "subtitle": "探索和比较500多个AI工具，提升您的生产力并改变您的工作流程",
-      "searchPlaceholder": "搜索 ChatGPT、Midjourney、Claude...",
+      "subtitle": "输入你的工作内容，为您匹配最佳的AI工具组合",
+      "searchPlaceholder": "描述你的工作内容，例如：视频制作、数据分析、写作...",
       "feature1": "精选推荐",
       "feature1Desc": "由专家测试的精心挑选的AI工具",
       "feature2": "真实用户评价",
@@ -535,6 +535,9 @@
       "writeReview": "写评价",
       "noReviews": "还没有评价。成为第一个分享体验的人！",
       "viewDetails": "查看详情"
-    }
+    },
+    "searchResults": "搜索结果",
+    "tryDifferent": "尝试用不同的方式描述您的工作",
+    "bestMatch": "最佳匹配"
   }
 }

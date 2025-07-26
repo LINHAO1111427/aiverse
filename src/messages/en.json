@@ -36,8 +36,8 @@
       "badge": "Discover the Future of AI",
       "title": "Find the Perfect",
       "titleHighlight": "AI Tools",
-      "subtitle": "Explore and compare 500+ AI tools to boost your productivity and transform your workflow",
-      "searchPlaceholder": "Search for ChatGPT, Midjourney, Claude...",
+      "subtitle": "Enter your work content to match the best AI tool combinations for you",
+      "searchPlaceholder": "Describe your work content, e.g., video production, data analysis, writing...",
       "feature1": "Curated Selection",
       "feature1Desc": "Hand-picked AI tools tested by experts",
       "feature2": "Real User Reviews",
@@ -535,6 +535,9 @@
       "writeReview": "Write Review",
       "noReviews": "No reviews yet. Be the first to share your experience!",
       "viewDetails": "View Details"
-    }
+    },
+    "searchResults": "Search Results for",
+    "tryDifferent": "Try describing your work differently",
+    "bestMatch": "Best Match"
   }
 }

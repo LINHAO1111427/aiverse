@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { Search, Sparkles, ArrowRight, Zap, Users, Shield } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
+import { getBestMatchWorkflow } from '@/services/workflow-search'
 
 interface HeroSectionProps {
   locale: string
@@ -24,7 +25,16 @@ export function HeroSection({ locale }: HeroSectionProps) {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
-      router.push(`/${locale}/tools?q=${encodeURIComponent(searchQuery.trim())}`)
+      // 搜索最匹配的工作流
+      const bestMatch = getBestMatchWorkflow(searchQuery.trim())
+      
+      if (bestMatch) {
+        // 如果找到匹配的工作流，跳转到工作流详情页
+        router.push(`/${locale}/workflows/${bestMatch.id}`)
+      } else {
+        // 如果没有找到匹配的工作流，跳转到工作流列表页并传递查询参数
+        router.push(`/${locale}/workflows?q=${encodeURIComponent(searchQuery.trim())}`)
+      }
     }
   }
 

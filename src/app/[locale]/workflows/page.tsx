@@ -46,6 +46,7 @@ export default async function WorkflowsPage({
 
       {/* Main Content */}
       <WorkflowsClient 
+        locale={locale}
         initialCategories={categoriesData.categories || []}
         initialWorkflows={workflowsData.workflows || []}
         initialPagination={workflowsData.pagination}
@@ -70,6 +71,9 @@ export default async function WorkflowsPage({
           showingResults: t('showingResults'),
           noResults: t('noResults'),
           loading: t('loading'),
+          searchResults: t('searchResults'),
+          tryDifferent: t('tryDifferent'),
+          bestMatch: t('bestMatch'),
         }}
       />
     </div>

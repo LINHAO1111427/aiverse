@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Search, Filter, SlidersHorizontal, Loader2 } from 'lucide-react'
 import { WorkflowCard } from '@/components/workflow/WorkflowCard'
+import { WorkflowSearchResults } from '@/components/workflow/WorkflowSearchResults'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -28,6 +29,7 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 
 interface WorkflowsClientProps {
+  locale: string
   initialCategories: any[]
   initialWorkflows: any[]
   initialPagination: any
@@ -35,6 +37,7 @@ interface WorkflowsClientProps {
 }
 
 export function WorkflowsClient({ 
+  locale,
   initialCategories, 
   initialWorkflows, 
   initialPagination,
@@ -48,11 +51,14 @@ export function WorkflowsClient({
   const [loading, setLoading] = useState(false)
   
   // Filter states
-  const [search, setSearch] = useState(searchParams.get('search') || '')
+  const [search, setSearch] = useState(searchParams.get('search') || searchParams.get('q') || '')
   const [category, setCategory] = useState(searchParams.get('category') || '')
   const [difficulty, setDifficulty] = useState(searchParams.get('difficulty') || '')
   const [maxCost, setMaxCost] = useState(parseInt(searchParams.get('maxCost') || '200'))
   const [sort, setSort] = useState(searchParams.get('sort') || 'featured')
+  
+  // Check if we have a work content query from the home page
+  const workContentQuery = searchParams.get('q') || ''
   
   const fetchWorkflows = useCallback(async (page = 1) => {
     setLoading(true)
@@ -242,8 +248,20 @@ export function WorkflowsClient({
             </Select>
           </div>
 
-          {/* Workflows Grid */}
-          {loading ? (
+          {/* Workflows Grid or Search Results */}
+          {workContentQuery ? (
+            // Show search results when there's a work content query
+            <WorkflowSearchResults 
+              query={workContentQuery}
+              locale={locale}
+              translations={{
+                searchResults: t.searchResults || 'Search Results for',
+                noResults: t.noResults || 'No matching workflows found',
+                tryDifferent: t.tryDifferent || 'Try describing your work differently',
+                bestMatch: t.bestMatch || 'Best Match'
+              }}
+            />
+          ) : loading ? (
             <div className="flex items-center justify-center py-20">
               <Loader2 className="h-8 w-8 animate-spin text-primary-500" />
             </div>
