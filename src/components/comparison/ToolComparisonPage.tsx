@@ -34,10 +34,22 @@ interface ToolComparisonPageProps {
 export default function ToolComparisonPage({ comparison, locale }: ToolComparisonPageProps) {
   const isZh = locale === 'zh'
   
-  // 获取对比工具的详细信息
-  const tools = comparison.tools.map(toolId => toolsData[toolId]).filter(Boolean)
+  // 获取对比工具的详细信息，添加安全检查
+  const tools = comparison.tools
+    .map(toolId => toolsData[toolId])
+    .filter(Boolean)
+    .filter(tool => tool && tool.website) // 确保工具对象完整
+  
   const primaryTool = toolsData[comparison.primaryTool]
-  const alternativeTools = comparison.alternatives.map(toolId => toolsData[toolId]).filter(Boolean)
+  if (!primaryTool || !primaryTool.website) {
+    console.error(`Primary tool "${comparison.primaryTool}" not found or incomplete in toolsData`)
+    return <div>Error: Tool data not found</div>
+  }
+  
+  const alternativeTools = comparison.alternatives
+    .map(toolId => toolsData[toolId])
+    .filter(Boolean)
+    .filter(tool => tool && tool.website)
 
   // 生成结构化数据
   const breadcrumbSchema = generateBreadcrumbSchema([

@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { setRequestLocale } from 'next-intl/server'
 import { toolComparisons } from '@/data/tool-comparisons'
 import ToolComparisonPage from '@/components/comparison/ToolComparisonPage'
 
@@ -206,6 +207,10 @@ export async function generateMetadata({ params }: ComparisonPageProps): Promise
 
 export default function ComparisonPage({ params }: ComparisonPageProps) {
   const { locale, slug } = params
+  
+  // Enable static rendering for next-intl
+  setRequestLocale(locale)
+  
   const comparison = toolComparisons.find(c => c.slug === slug)
   
   if (!comparison) {

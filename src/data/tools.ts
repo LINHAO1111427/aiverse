@@ -631,6 +631,56 @@ export const toolsData: Record<string, ToolData> = {
     features: ['AI triage', 'Email insights', 'Shortcuts', 'Read receipts'],
     featuresZh: ['AI分类', '邮件洞察', '快捷键', '已读回执'],
     pricing: { type: 'subscription', starting: '$30/month' }
+  },
+
+  // Note-taking and Knowledge Management Tools
+  'notion': {
+    id: 'notion',
+    name: 'Notion',
+    nameZh: 'Notion',
+    description: 'All-in-one workspace for notes, docs, wikis, and project management',
+    descriptionZh: '集笔记、文档、wiki和项目管理于一体的全能工作空间',
+    website: 'https://www.notion.so',
+    category: 'productivity',
+    features: ['Database', 'Templates', 'Collaboration', 'AI assistant', 'Web clipper'],
+    featuresZh: ['数据库', '模板', '协作', 'AI助手', '网页剪藏'],
+    pricing: { type: 'freemium', starting: '$8/month' }
+  },
+  'obsidian': {
+    id: 'obsidian',
+    name: 'Obsidian',
+    nameZh: 'Obsidian',
+    description: 'Powerful knowledge base on top of a local folder of plain text Markdown files',
+    descriptionZh: '基于本地Markdown文件的强大知识库',
+    website: 'https://obsidian.md',
+    category: 'productivity',
+    features: ['Graph view', 'Linking notes', 'Plugin ecosystem', 'Local storage', 'Markdown support'],
+    featuresZh: ['关系图谱', '笔记链接', '插件生态', '本地存储', 'Markdown支持'],
+    pricing: { type: 'freemium', starting: '$50/year' }
+  },
+  'logseq': {
+    id: 'logseq',
+    name: 'Logseq',
+    nameZh: 'Logseq',
+    description: 'Local-first, non-linear, block-based note taking application',
+    descriptionZh: '本地优先的非线性块状笔记应用',
+    website: 'https://logseq.com',
+    category: 'productivity', 
+    features: ['Block-based', 'Graph database', 'Privacy-first', 'Bi-directional links'],
+    featuresZh: ['块状结构', '图形数据库', '隐私优先', '双向链接'],
+    pricing: { type: 'free' }
+  },
+  'roam-research': {
+    id: 'roam-research',
+    name: 'Roam Research',
+    nameZh: 'Roam Research',
+    description: 'A note-taking tool for networked thought',
+    descriptionZh: '用于网络化思考的笔记工具',
+    website: 'https://roamresearch.com',
+    category: 'productivity',
+    features: ['Bi-directional linking', 'Daily notes', 'Graph database', 'Block references'],
+    featuresZh: ['双向链接', '每日笔记', '图形数据库', '块引用'],
+    pricing: { type: 'subscription', starting: '$15/month' }
   }
 }
 
