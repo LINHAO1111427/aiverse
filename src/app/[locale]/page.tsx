@@ -17,6 +17,9 @@ import { ToolListSkeleton } from '@/components/ui/skeleton'
 import { PageErrorBoundary } from '@/components/ui/error-boundary'
 import { ClientToolCombinations } from '@/components/features/home/ClientToolCombinations'
 import PersonalizedRecommendations from '@/components/recommendations/PersonalizedRecommendations'
+import { PersonalizedToolStackGenerator } from '@/components/features/home/PersonalizedToolStackGenerator'
+import { ValueProofSection } from '@/components/features/home/ValueProofSection'
+import { SocialSharingIncentives } from '@/components/features/home/SocialSharingIncentives'
 
 interface HomePageProps {
   params: {
@@ -36,6 +39,21 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
         <div className="min-h-screen">
           {/* Hero Section */}
           <HeroSection locale={locale} />
+
+          {/* Personalized Tool Stack Generator Section */}
+          <section className="py-16 bg-gray-50 dark:bg-gray-900">
+            <div className="container mx-auto px-4">
+              <FadeIn>
+                <PersonalizedToolStackGenerator locale={locale} />
+              </FadeIn>
+            </div>
+          </section>
+
+          {/* Value Proof and User Cases Section */}
+          <ValueProofSection locale={locale} />
+
+          {/* Social Sharing Incentives Section */}
+          <SocialSharingIncentives locale={locale} />
 
           {/* Personalized Recommendations Section */}
           <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
