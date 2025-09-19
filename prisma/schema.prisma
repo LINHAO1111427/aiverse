@@ -7,6 +7,154 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// NextAuth.js required models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // For credential auth
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  profile       UserProfile?
+  ratings       UserRating[]
+  forumPosts    ForumPost[]
+  forumReplies  ForumReply[]
+  reviews       DetailedToolReview[]
+  interactions      UserInteraction[]
+  reputation        UserReputation?
+  savedWorkflows    UserSavedWorkflow[]
+  recommendations   SmartRecommendation[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+// User Profile and Personalization
+enum JobRole {
+  MARKETING_MANAGER
+  CONTENT_CREATOR
+  DEVELOPER
+  DESIGNER
+  DATA_ANALYST
+  ENTREPRENEUR
+  CONSULTANT
+  STUDENT
+  OTHER
+}
+
+enum Industry {
+  TECHNOLOGY
+  HEALTHCARE
+  FINANCE
+  EDUCATION
+  ECOMMERCE
+  CONSULTING
+  MARKETING
+  STARTUP
+  OTHER
+}
+
+enum CompanySize {
+  SOLO
+  STARTUP
+  SMALL
+  MEDIUM
+  ENTERPRISE
+}
+
+enum ExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+enum BudgetRange {
+  FREE_ONLY
+  UNDER_50
+  UNDER_200
+  UNDER_500
+  ENTERPRISE
+}
+
+model UserProfile {
+  id                String             @id @default(cuid())
+  userId            String             @unique
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Basic profile
+  jobRole           JobRole?
+  industry          Industry?
+  companySize       CompanySize?
+  experienceLevel   ExperienceLevel?
+  budgetRange       BudgetRange?
+  
+  // AI tool preferences
+  preferredToolTypes String[]
+  currentToolsUsed   String[]
+  primaryUseCases    String[]
+  workflowComplexity String? // 'simple', 'moderate', 'complex'
+  timeInvestment     String? // 'quick_wins', 'moderate_setup', 'long_term_investment'
+  
+  // Learning preferences
+  learningStyle      String? // 'visual', 'hands_on', 'documentation', 'video'
+  supportNeeds       String? // 'self_service', 'community', 'professional'
+  
+  // Behavior tracking
+  toolsViewed        String[]
+  toolsBookmarked    String[]
+  workflowsCompleted String[]
+  searchHistory      String[]
+  
+  isCompleted        Boolean            @default(false)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+}
+
 enum PricingType {
   free
   freemium
@@ -57,12 +205,16 @@ model Tool {
   viewCount      Int         @default(0)
   affiliateLink  String?
   ratings        Rating[]
+  userRatings    UserRating[]
   toolTags       ToolTag[]
   pricingPlans   PricingPlan[]
   comparisons1   Comparison[] @relation("Tool1")
   comparisons2   Comparison[] @relation("Tool2")
   workflowSteps  WorkflowStep[]
   workflowCosts  WorkflowToolCost[]
+  reviews        DetailedToolReview[]
+  currentSuggestions     ToolReplacementSuggestion[] @relation("CurrentTool")
+  suggestedReplacements  ToolReplacementSuggestion[] @relation("SuggestedTool")
   featured       Boolean     @default(false)
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
@@ -284,6 +436,7 @@ model WorkflowReview {
 
 model UserSavedWorkflow {
   userId     String   @map("user_id")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   workflowId Int
   workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
   savedAt    DateTime @default(now()) @map("saved_at")
@@ -330,4 +483,283 @@ model WorkflowResource {
   fileUrl       String?       @map("file_url")
   downloadCount Int           @default(0) @map("download_count")
   createdAt     DateTime      @default(now())
+}
+
+// Smart Recommendation System
+model SmartRecommendation {
+  id                String      @id @default(cuid())
+  userId            String
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  recommendationType String     // 'tool', 'workflow', 'combination'
+  itemId             String     // tool_id or workflow_id
+  score              Float      // 0-1 recommendation score
+  reasoning          String?    // recommendation reason
+  contextTags        String[]   // recommendation context
+  
+  clicked            Boolean    @default(false)
+  dismissed          Boolean    @default(false)
+  createdAt          DateTime   @default(now())
+  
+  @@index([userId, score])
+  @@index([recommendationType, score])
+}
+
+// Enhanced Rating System
+model UserRating {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  toolId     Int
+  tool       Tool     @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  rating     Int      // 1-5
+  review     String?
+  isVerified Boolean  @default(false)
+  helpful    Int      @default(0)
+  createdAt  DateTime @default(now())
+  
+  @@unique([userId, toolId])
+  @@index([toolId, rating])
+}
+
+// Forum System
+enum PostType {
+  DISCUSSION
+  QUESTION
+  SHOWCASE
+  REVIEW
+  COMPARISON
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  LOCKED
+  DELETED
+}
+
+model ForumCategory {
+  id            String      @id @default(cuid())
+  slug          String      @unique
+  name          String
+  nameZh        String
+  description   String?
+  descriptionZh String?
+  icon          String?
+  parentId      String?
+  parent        ForumCategory? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children      ForumCategory[] @relation("CategoryHierarchy")
+  sortOrder     Int         @default(0)
+  postCount     Int         @default(0)
+  lastPostId    String?
+  posts         ForumPost[]
+  createdAt     DateTime    @default(now())
+  
+  @@index([sortOrder])
+}
+
+model ForumPost {
+  id                String        @id @default(cuid())
+  categoryId        String
+  category          ForumCategory @relation(fields: [categoryId], references: [id])
+  userId            String
+  user              User          @relation(fields: [userId], references: [id])
+  
+  title             String
+  content           String        @db.Text
+  postType          PostType      @default(DISCUSSION)
+  status            PostStatus    @default(PUBLISHED)
+  
+  // Related tools/workflows
+  relatedToolIds    String[]
+  relatedWorkflowIds String[]
+  
+  // Statistics
+  viewCount         Int           @default(0)
+  replyCount        Int           @default(0)
+  likeCount         Int           @default(0)
+  bookmarkCount     Int           @default(0)
+  
+  // Status flags
+  isPinned          Boolean       @default(false)
+  isLocked          Boolean       @default(false)
+  isFeatured        Boolean       @default(false)
+  isSolved          Boolean       @default(false)
+  
+  // SEO
+  metaTitle         String?
+  metaDescription   String?
+  
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  lastActivityAt    DateTime      @default(now())
+  
+  replies           ForumReply[]
+  tags              PostTag[]
+  
+  @@index([categoryId, lastActivityAt])
+  @@index([postType, createdAt])
+  @@index([userId])
+}
+
+model ForumReply {
+  id              String       @id @default(cuid())
+  postId          String
+  post            ForumPost    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  parentReplyId   String?
+  parentReply     ForumReply?  @relation("ReplyHierarchy", fields: [parentReplyId], references: [id])
+  childReplies    ForumReply[] @relation("ReplyHierarchy")
+  userId          String
+  user            User         @relation(fields: [userId], references: [id])
+  
+  content         String       @db.Text
+  replyType       String       @default("normal") // 'normal', 'solution', 'moderator'
+  likeCount       Int          @default(0)
+  isSolution      Boolean      @default(false)
+  isDeleted       Boolean      @default(false)
+  
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  
+  @@index([postId, createdAt])
+  @@index([userId])
+}
+
+// Detailed Tool Review System
+model DetailedToolReview {
+  id                      String   @id @default(cuid())
+  toolId                  Int
+  tool                    Tool     @relation(fields: [toolId], references: [id])
+  userId                  String
+  user                    User     @relation(fields: [userId], references: [id])
+  
+  // Detailed ratings (1-5)
+  overallRating           Int
+  easeOfUseRating         Int?
+  valueForMoneyRating     Int?
+  customerSupportRating   Int?
+  featureRichnessRating   Int?
+  
+  // Usage context
+  useCase                 String?
+  jobRole                 JobRole?
+  experienceLevel         ExperienceLevel?
+  usageDuration           String? // 'less_than_month', '1_3_months', etc.
+  
+  // Review content
+  title                   String
+  pros                    String?  @db.Text
+  cons                    String?  @db.Text
+  detailedReview          String   @db.Text
+  
+  // Recommendations
+  wouldRecommend          Boolean?
+  recommendedFor          String?  @db.Text
+  previouslyUsedTools     String[]
+  alternativeSuggestions  String[]
+  
+  // Evidence
+  screenshotUrls          String[]
+  resultsData             Json?
+  
+  // Interaction
+  helpfulCount            Int      @default(0)
+  notHelpfulCount         Int      @default(0)
+  replyCount              Int      @default(0)
+  
+  // Moderation
+  isVerified              Boolean  @default(false)
+  verificationNotes       String?
+  moderationStatus        String   @default("pending") // 'pending', 'approved', 'rejected'
+  
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  
+  @@unique([toolId, userId])
+  @@index([toolId, overallRating])
+  @@index([jobRole, useCase])
+}
+
+// User Interaction System
+model UserInteraction {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  targetType      String   // 'post', 'reply', 'review', 'tool'
+  targetId        String
+  interactionType String   // 'like', 'bookmark', 'follow', 'share', 'helpful'
+  createdAt       DateTime @default(now())
+  
+  @@unique([userId, targetType, targetId, interactionType])
+  @@index([userId, targetType])
+}
+
+// User Reputation System
+model UserReputation {
+  userId                  String   @id
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  totalPoints             Int      @default(0)
+  levelName               String   @default("Newcomer") // 'Newcomer', 'Contributor', 'Expert', 'Guru'
+  
+  // Point breakdown
+  postPoints              Int      @default(0)
+  replyPoints             Int      @default(0)
+  reviewPoints            Int      @default(0)
+  helpfulVotesReceived    Int      @default(0)
+  solutionCount           Int      @default(0)
+  
+  // Badges (JSON array of badge objects)
+  badges                  Json?
+  
+  // Statistics
+  postsCount              Int      @default(0)
+  repliesCount            Int      @default(0)
+  reviewsCount            Int      @default(0)
+  daysActive              Int      @default(0)
+  
+  updatedAt               DateTime @updatedAt
+  
+  @@index([totalPoints])
+  @@index([levelName])
+}
+
+// Topic Tags
+model TopicTag {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  nameZh    String?
+  description String?
+  useCount  Int       @default(0)
+  createdAt DateTime  @default(now())
+  
+  posts     PostTag[]
+}
+
+model PostTag {
+  postId String
+  post   ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tagId  String
+  tag    TopicTag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  
+  @@id([postId, tagId])
+}
+
+// Tool Replacement Suggestions
+model ToolReplacementSuggestion {
+  id                    String   @id @default(cuid())
+  currentToolId         Int
+  currentTool           Tool     @relation("CurrentTool", fields: [currentToolId], references: [id])
+  suggestedToolId       Int
+  suggestedTool         Tool     @relation("SuggestedTool", fields: [suggestedToolId], references: [id])
+  workflowId            String?
+  reason                String
+  improvementPercentage Int?
+  status                String   @default("pending") // 'pending', 'approved', 'rejected', 'implemented'
+  reviewedBy            String?
+  reviewedAt            DateTime?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@index([status])
+  @@index([currentToolId])
 }

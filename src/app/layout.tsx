@@ -1,4 +1,7 @@
 import { ReactNode } from 'react'
+import SessionProvider from '@/components/providers/SessionProvider'
+import { Toaster } from 'react-hot-toast'
+import '@/styles/globals.css'
 
 type Props = {
   children: ReactNode
@@ -8,8 +11,22 @@ type Props = {
 // is required, even if it's just passing children through.
 export default function RootLayout({ children }: Props) {
   return (
-    <html>
-      <body>{children}</body>
+    <html lang="en">
+      <body>
+        <SessionProvider>
+          {children}
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: '#363636',
+                color: '#fff',
+              },
+            }}
+          />
+        </SessionProvider>
+      </body>
     </html>
   )
 }

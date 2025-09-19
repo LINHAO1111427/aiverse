@@ -3,14 +3,24 @@
 import Link from "next/link"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
-import { Search, Menu, X } from "lucide-react"
+import { Search, Menu, X, User, LogOut, Sparkles } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { useSession, signOut } from "next-auth/react"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const t = useTranslations('common')
   const pathname = usePathname()
+  const { data: session, status } = useSession()
   
   // Extract locale from pathname
   const locale = pathname.split('/')[1] || 'en'
@@ -50,11 +60,77 @@ export function Header() {
             ))}
           </div>
 
-          {/* Search, Language Switcher and Mobile Menu */}
+          {/* Search, Auth, Language Switcher and Mobile Menu */}
           <div className="flex items-center space-x-2">
             <button className="p-2 hover:bg-gray-100 rounded-lg transition" aria-label={t('search')}>
               <Search className="w-5 h-5 text-gray-600" />
             </button>
+            
+            {/* Auth Section */}
+            {status === 'loading' ? (
+              <div className="w-8 h-8 animate-pulse bg-gray-200 rounded-full"></div>
+            ) : session ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                    {session.user.image ? (
+                      <img
+                        src={session.user.image}
+                        alt={session.user.name || 'User'}
+                        className="h-8 w-8 rounded-full"
+                      />
+                    ) : (
+                      <User className="h-4 w-4" />
+                    )}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <div className="flex flex-col space-y-1 p-2">
+                    <p className="text-sm font-medium leading-none">
+                      {session.user.name}
+                    </p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {session.user.email}
+                    </p>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href={`/${currentLocale}/recommendations`}>
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      <span>My Recommendations</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard">
+                      <span>Dashboard</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    className="cursor-pointer"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="hidden md:flex items-center space-x-2">
+                <Button variant="ghost" asChild>
+                  <Link href="/auth/signin">Sign in</Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/auth/signup">Sign up</Link>
+                </Button>
+              </div>
+            )}
             
             {/* Language Switcher */}
             <div className="hidden md:block">
@@ -88,6 +164,23 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
+            
+            {/* Mobile Auth */}
+            {!session && (
+              <div className="pt-4 border-t border-gray-200 space-y-2">
+                <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>
+                  <Button variant="ghost" className="w-full justify-start">
+                    Sign in
+                  </Button>
+                </Link>
+                <Link href="/auth/signup" onClick={() => setIsMenuOpen(false)}>
+                  <Button className="w-full">
+                    Sign up
+                  </Button>
+                </Link>
+              </div>
+            )}
+            
             {/* Language Switcher for Mobile */}
             <div className="pt-4 border-t border-gray-200">
               <LanguageSwitcher />

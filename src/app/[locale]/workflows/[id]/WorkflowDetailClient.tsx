@@ -20,6 +20,7 @@ import {
 import { workflowsData } from '@/data/workflowsData'
 import { getToolByName } from '@/data/tools'
 import { ToolDetailModal } from '@/components/tools/ToolDetailModal'
+import { ToolRating } from '@/components/feedback/ToolRating'
 
 interface WorkflowDetailClientProps {
   id: string
@@ -54,6 +55,26 @@ export function WorkflowDetailClient({ id, locale }: WorkflowDetailClientProps) 
   }
 
   const selectedToolData = selectedTool ? getToolByName(selectedTool) : null
+
+  const handleRatingSubmit = async (ratingData: any) => {
+    try {
+      const response = await fetch('/api/tools/rating', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...ratingData,
+          workflowId: id
+        })
+      })
+      
+      if (response.ok) {
+        console.log('Rating submitted successfully')
+        // 可以添加成功提示
+      }
+    } catch (error) {
+      console.error('Error submitting rating:', error)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
@@ -171,6 +192,16 @@ export function WorkflowDetailClient({ id, locale }: WorkflowDetailClientProps) 
                           ))}
                         </ul>
                       </div>
+                    </div>
+                    
+                    {/* 评分组件 */}
+                    <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                      <ToolRating
+                        toolId={tool.name.toLowerCase().replace(/\s+/g, '-')}
+                        toolName={tool.name}
+                        workflowId={id}
+                        onSubmit={handleRatingSubmit}
+                      />
                     </div>
                   </div>
                 )}

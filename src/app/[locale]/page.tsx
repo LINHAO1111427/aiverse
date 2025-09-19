@@ -16,6 +16,7 @@ import { CTASection } from '@/components/features/home/CTASection'
 import { ToolListSkeleton } from '@/components/ui/skeleton'
 import { PageErrorBoundary } from '@/components/ui/error-boundary'
 import { ClientToolCombinations } from '@/components/features/home/ClientToolCombinations'
+import PersonalizedRecommendations from '@/components/recommendations/PersonalizedRecommendations'
 
 interface HomePageProps {
   params: {
@@ -32,6 +33,15 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
         <div className="min-h-screen">
           {/* Hero Section */}
           <HeroSection locale={locale} />
+
+          {/* Personalized Recommendations Section */}
+          <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+            <div className="container mx-auto px-4">
+              <FadeIn>
+                <PersonalizedRecommendations className="max-w-4xl mx-auto" />
+              </FadeIn>
+            </div>
+          </section>
 
           {/* Tool Combinations Section - AI工具最佳组合推荐 */}
           <ClientToolCombinations locale={locale} />
