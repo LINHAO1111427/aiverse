@@ -20,54 +20,104 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://aiverse.com'),
   title: {
-    default: "AIverse - Discover 500+ Best AI Tools to Boost Your Productivity",
+    default: "AIverse - 发现最适合你的AI工具组合 | 3分钟找到完美AI工具栈",
     template: "%s | AIverse"
   },
-  description: "Explore the most comprehensive directory of AI tools. Find the perfect AI solution for your needs from our curated collection of 500+ tools.",
-  keywords: ["AI tools", "artificial intelligence", "machine learning", "productivity", "AI directory"],
+  description: "AIverse是最专业的AI工具发现平台。基于你的工作场景，智能推荐最佳AI工具组合，帮你节省时间和成本。涵盖写作、设计、编程、营销等500+精选AI工具。",
+  keywords: [
+    "AI工具", "人工智能工具", "AI工具推荐", "AI工具对比", "最好的AI工具",
+    "AI tools", "best AI tools", "AI tools comparison", "artificial intelligence",
+    "ChatGPT", "Midjourney", "Claude", "AI写作工具", "AI设计工具", "AI视频工具",
+    "AI tools for content creation", "AI productivity tools", "AI工具评测",
+    "免费AI工具", "AI工具大全", "AI工具导航", "人工智能软件"
+  ],
   authors: [{ name: "AIverse Team" }],
   creator: "AIverse",
+  publisher: "AIverse",
+  category: "Technology",
+  classification: "AI Tools Directory",
+  
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "zh_CN",
+    alternateLocale: ["en_US"],
     url: "/",
     siteName: "AIverse",
-    title: "AIverse - Best AI Tools Directory",
-    description: "Discover 500+ AI tools to boost your productivity",
+    title: "AIverse - 发现最适合你的AI工具组合",
+    description: "3分钟找到完美AI工具栈。基于工作场景智能推荐，涵盖500+精选AI工具，帮你节省时间提升效率。",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image-zh.png",
         width: 1200,
         height: 630,
-        alt: "AIverse - AI Tools Directory"
+        alt: "AIverse - AI工具发现平台"
+      },
+      {
+        url: "/og-image-en.png", 
+        width: 1200,
+        height: 630,
+        alt: "AIverse - AI Tools Discovery Platform"
       }
     ]
   },
+  
   twitter: {
     card: "summary_large_image",
-    title: "AIverse - Best AI Tools Directory",
-    description: "Discover 500+ AI tools to boost your productivity",
-    images: ["/og-image.png"],
-    creator: "@aiverse"
+    site: "@aiverse",
+    creator: "@aiverse",
+    title: "AIverse - 发现最适合你的AI工具组合",
+    description: "3分钟找到完美AI工具栈。智能推荐，500+精选工具，提升工作效率。",
+    images: ["/twitter-card-zh.png"]
   },
+  
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+  
+  alternates: {
+    canonical: "/",
+    languages: {
+      'zh': '/zh',
+      'en': '/en',
+      'zh-CN': '/zh',
+      'en-US': '/en'
+    }
   },
+  
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180" }
+    ],
+    other: [
+      { rel: "icon", url: "/android-chrome-192x192.png", sizes: "192x192" },
+      { rel: "icon", url: "/android-chrome-512x512.png", sizes: "512x512" }
+    ]
+  },
+  
+  manifest: "/manifest.json",
+  
+  other: {
+    "google-site-verification": "your-google-verification-code",
+    "baidu-site-verification": "your-baidu-verification-code",
+    "msvalidate.01": "your-bing-verification-code"
+  }
 }
 
 export default async function LocaleLayout({

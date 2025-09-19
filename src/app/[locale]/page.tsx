@@ -20,6 +20,8 @@ import PersonalizedRecommendations from '@/components/recommendations/Personaliz
 import { PersonalizedToolStackGenerator } from '@/components/features/home/PersonalizedToolStackGenerator'
 import { ValueProofSection } from '@/components/features/home/ValueProofSection'
 import { SocialSharingIncentives } from '@/components/features/home/SocialSharingIncentives'
+import { SEOContentSection } from '@/components/features/home/SEOContentSection'
+import { StructuredData, organizationSchema, websiteSchema } from '@/components/seo/StructuredData'
 
 interface HomePageProps {
   params: {
@@ -33,8 +35,66 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
   
   const t = await getTranslations()
 
+  // 生成本地化的结构化数据
+  const localizedWebsiteSchema = {
+    ...websiteSchema,
+    name: locale === 'zh' ? 'AIverse - AI工具发现平台' : 'AIverse - AI Tools Discovery Platform',
+    description: locale === 'zh' 
+      ? '最专业的AI工具发现平台，3分钟找到最适合你的AI工具组合，帮你节省时间和成本'
+      : 'The most professional AI tools discovery platform, find your perfect AI tool stack in 3 minutes',
+    url: `https://aiverse.com/${locale}`,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `https://aiverse.com/${locale}/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    }
+  }
+
+  const localizedOrganizationSchema = {
+    ...organizationSchema,
+    description: locale === 'zh'
+      ? '专注于AI工具发现和推荐的专业平台，帮助用户找到最适合的AI工具组合'
+      : 'Professional platform focused on AI tools discovery and recommendation, helping users find the perfect AI tool combinations'
+  }
+
+  // 首页FAQs
+  const homepageFAQs = [
+    {
+      question: locale === 'zh' ? '什么是AIverse？' : 'What is AIverse?',
+      answer: locale === 'zh' 
+        ? 'AIverse是最专业的AI工具发现平台，通过智能分析帮助用户在3分钟内找到最适合的AI工具组合，涵盖写作、设计、编程、营销等500+精选AI工具。'
+        : 'AIverse is the most professional AI tools discovery platform that helps users find the perfect AI tool combinations in 3 minutes through intelligent analysis, covering 500+ curated AI tools for writing, design, programming, marketing, and more.'
+    },
+    {
+      question: locale === 'zh' ? '如何使用AI工具智能匹配器？' : 'How to use the AI Tool Smart Matcher?',
+      answer: locale === 'zh'
+        ? '只需描述你的工作场景或选择快速选项，我们的AI会在2秒内分析你的需求并推荐最佳工具组合，同时显示预计节省的时间和成本。'
+        : 'Simply describe your work scenario or choose quick options, our AI will analyze your needs and recommend the best tool combinations in 2 seconds, showing estimated time and cost savings.'
+    },
+    {
+      question: locale === 'zh' ? '个性化工具栈生成器如何工作？' : 'How does the Personalized Tool Stack Generator work?',
+      answer: locale === 'zh'
+        ? '通过4个简单步骤：选择角色、经验水平、预算和关注领域，AI会为你生成专属的工具栈，包含预算分析和使用建议。'
+        : 'Through 4 simple steps: choose your role, experience level, budget, and focus areas, AI will generate a custom tool stack for you, including budget analysis and usage recommendations.'
+    }
+  ]
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: homepageFAQs.map(faq => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
+  }
+
   return (
     <PageErrorBoundary>
+      <StructuredData data={[localizedWebsiteSchema, localizedOrganizationSchema, faqSchema]} />
       <PageTransition mode="fade">
         <div className="min-h-screen">
           {/* Hero Section */}
@@ -120,6 +180,9 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
               </StaggerContainer>
             </div>
           </section>
+
+          {/* SEO Content Section - AI工具详细介绍和指南 */}
+          <SEOContentSection locale={locale} />
 
           {/* Stats Section - 统计数据移到热门工具下面 */}
           <FadeIn>

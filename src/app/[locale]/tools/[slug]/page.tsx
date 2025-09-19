@@ -30,26 +30,92 @@ async function getToolData(slug: string) {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const tool = await getToolData(params.slug)
+  const { slug, locale } = params
+  const isZh = locale === 'zh'
   
-  if (!tool) {
-    return {
-      title: "Tool Not Found",
-    }
-  }
+  // 由于API可能不可用，先使用slug作为工具名
+  const toolName = slug.split('-').map(word => 
+    word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(' ')
+  
+  // 动态生成SEO优化的元数据
+  const title = isZh 
+    ? `${toolName} - AI工具详细评测 | 功能、价格、使用教程 | AIverse`
+    : `${toolName} - Complete AI Tool Review | Features, Pricing, Tutorial | AIverse`
+    
+  const description = isZh
+    ? `${toolName}详细评测：功能介绍、价格对比、使用教程、用户评价。帮你快速了解${toolName}是否适合你的需求。AIverse提供最专业的AI工具分析。`
+    : `Comprehensive ${toolName} review: features, pricing, tutorials, and user reviews. Discover if ${toolName} fits your needs. Professional AI tool analysis by AIverse.`
 
-  const isZh = params.locale === 'zh' || params.locale === 'zh-TW'
-  const name = isZh && tool.nameZh ? tool.nameZh : tool.name
-  const tagline = isZh && tool.taglineZh ? tool.taglineZh : tool.tagline
+  const keywords = isZh ? [
+    `${toolName}`, `${toolName}评测`, `${toolName}价格`, `${toolName}教程`, 
+    `${toolName}怎么用`, `${toolName}好用吗`, `AI工具`, `AI工具评测`,
+    `人工智能工具`, `${toolName}替代品`, `${toolName}对比`
+  ] : [
+    `${toolName}`, `${toolName} review`, `${toolName} pricing`, `${toolName} tutorial`,
+    `${toolName} vs`, `${toolName} alternative`, `AI tools`, `AI tool review`,
+    `artificial intelligence`, `${toolName} features`, `${toolName} comparison`
+  ]
 
   return {
-    title: `${name} - ${isZh ? 'AI工具评测与定价' : 'AI Tool Review & Pricing'}`,
-    description: tagline,
+    title,
+    description,
+    keywords: keywords.join(', '),
+    
     openGraph: {
-      title: `${name} - AIverse`,
-      description: tagline,
-      type: 'website',
+      title: `${toolName} - ${isZh ? 'AI工具评测' : 'AI Tool Review'}`,
+      description,
+      type: 'article',
+      locale: isZh ? 'zh_CN' : 'en_US',
+      url: `https://aiverse.com/${locale}/tools/${slug}`,
+      siteName: 'AIverse',
+      images: [
+        {
+          url: `/og-images/tools/${slug}.png`,
+          width: 1200,
+          height: 630,
+          alt: `${toolName} ${isZh ? '评测' : 'Review'}`,
+        }
+      ],
+      publishedTime: new Date().toISOString(),
+      modifiedTime: new Date().toISOString(),
+      section: isZh ? 'AI工具评测' : 'AI Tool Reviews',
+      tags: keywords,
     },
+    
+    twitter: {
+      card: 'summary_large_image',
+      title: `${toolName} - ${isZh ? 'AI工具评测' : 'AI Tool Review'}`,
+      description,
+      images: [`/twitter-cards/tools/${slug}.png`],
+      creator: '@aiverse',
+    },
+    
+    alternates: {
+      canonical: `https://aiverse.com/${locale}/tools/${slug}`,
+      languages: {
+        'en': `/en/tools/${slug}`,
+        'zh': `/zh/tools/${slug}`,
+      }
+    },
+    
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    
+    other: {
+      'article:author': 'AIverse Team',
+      'article:section': isZh ? 'AI工具评测' : 'AI Tool Reviews',
+      'product:price:amount': '0',
+      'product:price:currency': 'USD',
+    }
   }
 }
 

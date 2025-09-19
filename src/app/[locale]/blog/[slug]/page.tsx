@@ -1,7 +1,11 @@
 import { getTranslations } from 'next-intl/server'
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Calendar, Clock, User, ArrowLeft, Share2, Twitter, Facebook, Linkedin } from 'lucide-react'
+import { Calendar, Clock, User, ArrowLeft, Share2, Twitter, Facebook, Linkedin, Tag } from 'lucide-react'
+import { getBlogPostBySlug, getRelatedPosts, BlogPost } from '@/data/blog-posts'
+import { StructuredData } from '@/components/seo/StructuredData'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 interface Props {
   params: {
@@ -10,131 +14,149 @@ interface Props {
   }
 }
 
-// Mock blog post data - in real app, this would come from database
-const getBlogPost = (slug: string) => {
-  const posts: Record<string, {
-    title: string
-    excerpt: string
-    content: string
-    author: string
-    date: string
-    readTime: string
-    category: string
-    image: string
-  }> = {
-    'future-of-ai-tools-2024': {
-      title: 'The Future of AI Tools in 2024: Trends and Predictions',
-      excerpt: 'Explore the emerging trends in AI tools and what to expect in the coming year.',
-      content: `
-        <p>As we move into 2024, the landscape of AI tools continues to evolve at a rapid pace. From enhanced natural language processing to more sophisticated image generation, the capabilities of AI are expanding in ways that were once thought impossible.</p>
-        
-        <h2>Key Trends Shaping the Future</h2>
-        
-        <h3>1. Multimodal AI Systems</h3>
-        <p>The future of AI is multimodal. We're seeing a shift from specialized tools that excel at one task to comprehensive systems that can understand and generate text, images, audio, and even video. This convergence is creating more versatile and powerful tools.</p>
-        
-        <h3>2. Enhanced Personalization</h3>
-        <p>AI tools are becoming increasingly adept at understanding individual user preferences and adapting their outputs accordingly. This personalization extends beyond simple recommendations to truly customized experiences.</p>
-        
-        <h3>3. Improved Accessibility</h3>
-        <p>One of the most exciting trends is the democratization of AI. Tools that once required technical expertise are now accessible to anyone with an internet connection. This accessibility is driving innovation across all industries.</p>
-        
-        <h2>What This Means for You</h2>
-        <p>Whether you're a developer, designer, writer, or business owner, these trends will impact how you work. The key is to stay informed and experiment with new tools as they emerge. The AI revolution is just beginning, and the opportunities are limitless.</p>
-      `,
-      author: 'Alex Chen',
-      date: '2024-01-15',
-      readTime: '5 min read',
-      category: 'Trends',
-      image: 'https://picsum.photos/seed/blog1/1200/600',
-    },
-    'how-to-choose-right-ai-tool': {
-      title: 'How to Choose the Right AI Tool for Your Business',
-      excerpt: 'A comprehensive guide to evaluating and selecting AI tools that match your needs.',
-      content: `
-        <p>Choosing the right AI tool for your business can be overwhelming. With hundreds of options available, each promising to revolutionize your workflow, how do you make the right choice?</p>
-        
-        <h2>Understanding Your Needs</h2>
-        <p>Before diving into the sea of AI tools, it's crucial to understand what you're trying to achieve. Are you looking to automate repetitive tasks? Enhance creativity? Improve customer service? Your specific needs will guide your selection.</p>
-        
-        <h2>Key Factors to Consider</h2>
-        
-        <h3>1. Integration Capabilities</h3>
-        <p>The best AI tool is one that seamlessly integrates with your existing workflow. Look for tools that offer APIs, plugins, or native integrations with the software you already use.</p>
-        
-        <h3>2. Scalability</h3>
-        <p>Your needs today might not be your needs tomorrow. Choose tools that can grow with your business, offering different tiers or capabilities as you expand.</p>
-        
-        <h3>3. Cost vs. Value</h3>
-        <p>While free tools are attractive, they often come with limitations. Evaluate the true cost of a tool by considering the time it saves and the value it adds to your business.</p>
-        
-        <h3>4. Support and Community</h3>
-        <p>A strong support system and active community can make the difference between success and frustration. Look for tools with comprehensive documentation, responsive support, and engaged user communities.</p>
-        
-        <h2>Making the Decision</h2>
-        <p>Start with trials and free tiers to test tools in your actual workflow. Don't be swayed by hype – focus on tools that solve real problems for your business. Remember, the best AI tool is the one you'll actually use.</p>
-      `,
-      author: 'Sarah Williams',
-      date: '2024-01-10',
-      readTime: '8 min read',
-      category: 'Guide',
-      image: 'https://picsum.photos/seed/blog2/1200/600',
-    },
-  }
-  
-  return posts[slug] || null
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getBlogPost(params.slug)
+  const post = getBlogPostBySlug(params.slug)
+  const isZh = params.locale === 'zh'
   
   if (!post) {
     return {
-      title: 'Blog Post Not Found - AIverse',
-      description: 'The blog post you are looking for could not be found.',
+      title: isZh ? '博客文章未找到 - AIverse' : 'Blog Post Not Found - AIverse',
+      description: isZh ? '您查找的博客文章不存在。' : 'The blog post you are looking for could not be found.',
     }
   }
   
+  const title = isZh ? post.titleZh : post.title
+  const description = isZh ? post.excerptZh : post.excerpt
+  const keywords = isZh ? post.keywordsZh : post.keywords
+  
   return {
-    title: `${post.title} - AIverse Blog`,
-    description: post.excerpt,
+    title: `${title} | AIverse`,
+    description,
+    keywords: keywords.join(', '),
+    authors: [{ name: post.author }],
+    category: isZh ? post.categoryZh : post.category,
+    publishedTime: post.publishedAt,
+    modifiedTime: post.updatedAt,
+    openGraph: {
+      title: `${title} | AIverse`,
+      description,
+      type: 'article',
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      authors: [post.author],
+      tags: isZh ? post.tagsZh : post.tags,
+      images: [{
+        url: post.image,
+        width: 1200,
+        height: 630,
+        alt: title
+      }]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | AIverse`,
+      description,
+      images: [post.image]
+    },
+    alternates: {
+      canonical: `https://aiverse.com/${params.locale}/blog/${params.slug}`,
+      languages: {
+        'zh': `https://aiverse.com/zh/blog/${params.slug}`,
+        'en': `https://aiverse.com/en/blog/${params.slug}`
+      }
+    }
   }
+}
+
+// 生成静态参数用于SEO
+export function generateStaticParams() {
+  // 这里可以返回所有已发布的博客文章slugs
+  return [
+    { slug: 'best-ai-tools-2024-comprehensive-guide' },
+    { slug: 'chatgpt-vs-claude-comprehensive-comparison' },
+    { slug: 'free-ai-tools-ultimate-guide-2024' }
+  ]
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const t = await getTranslations({ locale: params.locale })
-  const post = getBlogPost(params.slug)
+  const post = getBlogPostBySlug(params.slug)
+  const isZh = params.locale === 'zh'
   
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Post Not Found</h1>
-          <p className="text-gray-600 mb-8">The blog post you're looking for doesn't exist.</p>
+          <h1 className="text-4xl font-bold mb-4">
+            {isZh ? '文章未找到' : 'Post Not Found'}
+          </h1>
+          <p className="text-gray-600 mb-8">
+            {isZh ? '您查找的博客文章不存在。' : "The blog post you're looking for doesn't exist."}
+          </p>
           <Link
             href={`/${params.locale}/blog`}
             className="text-blue-600 hover:underline"
           >
-            Back to Blog
+            {isZh ? '返回博客' : 'Back to Blog'}
           </Link>
         </div>
       </div>
     )
   }
   
+  const relatedPosts = getRelatedPosts(post.id, 3)
+  const title = isZh ? post.titleZh : post.title
+  const content = isZh ? post.contentZh : post.content
+  const category = isZh ? post.categoryZh : post.category
+  const tags = isZh ? post.tagsZh : post.tags
+  
   const shareUrl = `https://aiverse.com/${params.locale}/blog/${params.slug}`
   
+  // 生成文章结构化数据
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description: isZh ? post.excerptZh : post.excerpt,
+    image: [post.image],
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
+    author: {
+      "@type": "Person",
+      name: post.author
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "AIverse",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://aiverse.com/logo.png"
+      }
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": shareUrl
+    },
+    articleSection: category,
+    keywords: (isZh ? post.keywordsZh : post.keywords).join(', '),
+    wordCount: post.wordCount,
+    timeRequired: `PT${post.readTime}M`,
+    inLanguage: isZh ? 'zh-CN' : 'en-US'
+  }
+  
   return (
-    <article className="min-h-screen">
-      {/* Hero Image */}
-      <div className="relative h-96 bg-gray-900">
-        <img
-          src={post.image}
-          alt={post.title}
-          className="w-full h-full object-cover opacity-80"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
-      </div>
+    <>
+      <StructuredData data={articleSchema} />
+      <article className="min-h-screen">
+        {/* Hero Image */}
+        <div className="relative h-96 bg-gray-900">
+          <img
+            src={post.image}
+            alt={title}
+            className="w-full h-full object-cover opacity-80"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+        </div>
       
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 -mt-32 relative z-10">
@@ -145,16 +167,16 @@ export default async function BlogPostPage({ params }: Props) {
             className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Blog
+            {isZh ? '返回博客' : 'Back to Blog'}
           </Link>
           
           {/* Category */}
           <span className="inline-block px-3 py-1 bg-blue-100 text-blue-600 text-sm font-medium rounded-full mb-4">
-            {post.category}
+            {category}
           </span>
           
           {/* Title */}
-          <h1 className="text-4xl font-bold mb-6">{post.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">{title}</h1>
           
           {/* Meta Info */}
           <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500 mb-8 pb-8 border-b">
@@ -164,7 +186,7 @@ export default async function BlogPostPage({ params }: Props) {
             </span>
             <span className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
-              {new Date(post.date).toLocaleDateString(params.locale, {
+              {new Date(post.publishedAt).toLocaleDateString(params.locale, {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
@@ -172,26 +194,75 @@ export default async function BlogPostPage({ params }: Props) {
             </span>
             <span className="flex items-center gap-2">
               <Clock className="w-4 h-4" />
-              {post.readTime}
+              {post.readTime} {isZh ? '分钟阅读' : 'min read'}
+            </span>
+            <span className="flex items-center gap-2">
+              <Tag className="w-4 h-4" />
+              {post.wordCount} {isZh ? '字' : 'words'}
             </span>
           </div>
           
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {tags.map((tag, index) => (
+              <span 
+                key={index}
+                className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 transition-colors"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          
           {/* Content */}
-          <div 
-            className="prose prose-lg max-w-none mb-12"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <div className="prose prose-lg prose-blue max-w-none mb-12 prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-li:text-gray-700 prose-strong:text-gray-900 prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-gray-100">
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]}
+              components={{
+                h1: ({ children }) => <h1 className="text-3xl font-bold mt-8 mb-4 text-gray-900">{children}</h1>,
+                h2: ({ children }) => <h2 className="text-2xl font-bold mt-6 mb-3 text-gray-900">{children}</h2>,
+                h3: ({ children }) => <h3 className="text-xl font-bold mt-4 mb-2 text-gray-900">{children}</h3>,
+                h4: ({ children }) => <h4 className="text-lg font-bold mt-3 mb-2 text-gray-900">{children}</h4>,
+                p: ({ children }) => <p className="mb-4 text-gray-700 leading-relaxed">{children}</p>,
+                ul: ({ children }) => <ul className="mb-4 space-y-2 text-gray-700">{children}</ul>,
+                ol: ({ children }) => <ol className="mb-4 space-y-2 text-gray-700">{children}</ol>,
+                li: ({ children }) => <li className="ml-4">{children}</li>,
+                strong: ({ children }) => <strong className="font-semibold text-gray-900">{children}</strong>,
+                em: ({ children }) => <em className="italic text-gray-800">{children}</em>,
+                blockquote: ({ children }) => (
+                  <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-50 italic text-gray-800">
+                    {children}
+                  </blockquote>
+                ),
+                code: ({ children }) => (
+                  <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono text-gray-800">
+                    {children}
+                  </code>
+                ),
+                pre: ({ children }) => (
+                  <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto my-4">
+                    {children}
+                  </pre>
+                )
+              }}
+            >
+              {content}
+            </ReactMarkdown>
+          </div>
           
           {/* Share */}
           <div className="border-t pt-8">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold">Share this article</h3>
+              <h3 className="font-semibold text-gray-900">
+                {isZh ? '分享这篇文章' : 'Share this article'}
+              </h3>
               <div className="flex items-center gap-4">
                 <a
-                  href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(post.title)}`}
+                  href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${encodeURIComponent(title)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition"
+                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-100 hover:text-blue-600 transition-all duration-200"
+                  aria-label={isZh ? '分享到Twitter' : 'Share on Twitter'}
                 >
                   <Twitter className="w-5 h-5" />
                 </a>
@@ -199,7 +270,8 @@ export default async function BlogPostPage({ params }: Props) {
                   href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition"
+                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-100 hover:text-blue-600 transition-all duration-200"
+                  aria-label={isZh ? '分享到Facebook' : 'Share on Facebook'}
                 >
                   <Facebook className="w-5 h-5" />
                 </a>
@@ -207,7 +279,8 @@ export default async function BlogPostPage({ params }: Props) {
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition"
+                  className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-blue-100 hover:text-blue-600 transition-all duration-200"
+                  aria-label={isZh ? '分享到LinkedIn' : 'Share on LinkedIn'}
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
@@ -217,31 +290,61 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
         
         {/* Related Posts */}
-        <section className="mt-16 mb-16">
-          <h2 className="text-2xl font-bold mb-8">Related Articles</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <img
-                  src={`https://picsum.photos/seed/related${i}/400/250`}
-                  alt="Related post"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="font-semibold mb-2">
-                    <Link href="#" className="hover:text-blue-600">
-                      Getting Started with AI Tools for Beginners
-                    </Link>
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    Learn the basics of AI tools and how to integrate them into your workflow.
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        {relatedPosts.length > 0 && (
+          <section className="mt-16 mb-16">
+            <h2 className="text-2xl font-bold mb-8 text-gray-900">
+              {isZh ? '相关文章' : 'Related Articles'}
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              {relatedPosts.map((relatedPost) => {
+                const relatedTitle = isZh ? relatedPost.titleZh : relatedPost.title
+                const relatedExcerpt = isZh ? relatedPost.excerptZh : relatedPost.excerpt
+                const relatedCategory = isZh ? relatedPost.categoryZh : relatedPost.category
+                
+                return (
+                  <article key={relatedPost.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200">
+                    <img
+                      src={relatedPost.image}
+                      alt={relatedTitle}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-6">
+                      <span className="inline-block px-2 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded mb-2">
+                        {relatedCategory}
+                      </span>
+                      <h3 className="font-semibold mb-2 text-gray-900">
+                        <Link 
+                          href={`/${params.locale}/blog/${relatedPost.slug}`} 
+                          className="hover:text-blue-600 transition-colors"
+                        >
+                          {relatedTitle}
+                        </Link>
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                        {relatedExcerpt}
+                      </p>
+                      <div className="flex items-center gap-4 text-xs text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {relatedPost.readTime} {isZh ? '分钟' : 'min'}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {new Date(relatedPost.publishedAt).toLocaleDateString(params.locale, {
+                            month: 'short',
+                            day: 'numeric'
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+          </section>
+        )}
       </div>
-    </article>
+      </article>
+    </>
   )
 }

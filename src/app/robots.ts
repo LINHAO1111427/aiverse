@@ -12,15 +12,23 @@ export default function robots(): MetadataRoute.Robots {
           "/admin/",         // 管理员页面
           "/private/",       // 私有页面
           "/auth/",          // 认证页面
+          "/login/",         // 登录页面
+          "/signin/",        // 登录页面
+          "/signup/",        // 注册页面
           "/onboarding/",    // 用户引导页面
           "/profile/",       // 用户资料页面
           "/dashboard/",     // 用户仪表板
           "/tmp/",           // 临时文件
           "/*.json$",        // JSON文件
-          "/search?",        // 避免爬取搜索结果页面
           "/checkout/",      // 结账页面
           "/cart/",          // 购物车页面
           "/thank-you/",     // 感谢页面
+          "/*?*utm_*",       // UTM参数页面
+          "/*?*fbclid*",     // Facebook追踪参数
+          "/*?*gclid*",      // Google广告追踪参数
+          "/*/page/*",       // 分页参数
+          "/print/",         // 打印版本
+          "/amp/",           // AMP版本（如果不使用）
         ],
         crawlDelay: 1,       // 爬取延迟1秒
       },

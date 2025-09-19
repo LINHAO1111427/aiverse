@@ -138,22 +138,83 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 6. 添加搜索结果页面（热门搜索词）
   const popularSearchTerms = [
     'ai-writing-tools',
-    'best-chatgpt-alternatives',
+    'best-chatgpt-alternatives', 
     'free-ai-tools',
     'ai-design-tools',
     'automation-tools',
     'ai-for-marketing',
     'productivity-apps',
-    'ai-coding-assistants'
+    'ai-coding-assistants',
+    'ai工具推荐',
+    '最好的ai工具',
+    'ai写作工具',
+    'ai设计工具',
+    'chatgpt替代品',
+    '免费ai工具',
+    'ai视频工具',
+    'ai编程助手'
   ]
 
   for (const term of popularSearchTerms) {
     for (const locale of locales) {
       urls.push({
-        url: `${baseUrl}/${locale}/search?q=${term}`,
+        url: `${baseUrl}/${locale}/search?q=${encodeURIComponent(term)}`,
         lastModified,
         changeFrequency: 'weekly',
-        priority: 0.5,
+        priority: 0.6,
+      })
+    }
+  }
+
+  // 7. 添加博客文章页面（SEO重要内容）
+  const blogPosts = [
+    'best-ai-tools-2024',
+    'chatgpt-vs-claude-comparison',
+    'free-ai-tools-guide',
+    'ai-productivity-workflow',
+    'choose-right-ai-tool',
+    'ai-tools-small-business',
+    'ai-writing-tools-review',
+    'ai-design-tools-comparison',
+    '2024年最佳ai工具',
+    'ai工具选择指南',
+    '免费ai工具推荐',
+    'ai提升工作效率',
+    'ai工具对比评测'
+  ]
+
+  for (const post of blogPosts) {
+    for (const locale of locales) {
+      urls.push({
+        url: `${baseUrl}/${locale}/blog/${post}`,
+        lastModified,
+        changeFrequency: 'monthly',
+        priority: 0.7,
+      })
+    }
+  }
+
+  // 8. 添加高价值登陆页面
+  const landingPages = [
+    'ai-tool-finder',
+    'tool-stack-generator', 
+    'ai-recommendations',
+    'tool-comparison-guide',
+    'ai-productivity-suite',
+    'enterprise-ai-tools',
+    'startup-ai-toolkit',
+    'content-creator-tools',
+    'developer-ai-tools',
+    'designer-ai-tools'
+  ]
+
+  for (const page of landingPages) {
+    for (const locale of locales) {
+      urls.push({
+        url: `${baseUrl}/${locale}/${page}`,
+        lastModified,
+        changeFrequency: 'monthly',
+        priority: 0.8,
       })
     }
   }
