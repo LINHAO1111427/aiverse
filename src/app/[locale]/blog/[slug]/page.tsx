@@ -35,8 +35,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: keywords.join(', '),
     authors: [{ name: post.author }],
     category: isZh ? post.categoryZh : post.category,
-    publishedTime: post.publishedAt,
-    modifiedTime: post.updatedAt,
     openGraph: {
       title: `${title} | AIverse`,
       description,
