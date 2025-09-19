@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import AuthForm from '@/components/auth/AuthForm'
+import { AuthErrorBoundary } from '@/components/auth/AuthErrorBoundary'
 
 interface SignInPageProps {
   params: {
@@ -23,20 +24,22 @@ export default async function SignInPage({ params, searchParams }: SignInPagePro
   }
 
   return (
-    <div className="min-h-screen">
-      <Suspense fallback={
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        </div>
-      }>
-        <AuthForm 
-          mode="login" 
-          locale={params.locale}
-          redirectTo={searchParams?.callbackUrl || `/${params.locale}`}
-          error={searchParams?.error}
-        />
-      </Suspense>
-    </div>
+    <AuthErrorBoundary>
+      <div className="min-h-screen">
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          </div>
+        }>
+          <AuthForm 
+            mode="login" 
+            locale={params.locale}
+            redirectTo={searchParams?.callbackUrl || `/${params.locale}`}
+            error={searchParams?.error}
+          />
+        </Suspense>
+      </div>
+    </AuthErrorBoundary>
   )
 }
 

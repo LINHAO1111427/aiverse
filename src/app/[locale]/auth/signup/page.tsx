@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import AuthForm from '@/components/auth/AuthForm'
+import { AuthErrorBoundary } from '@/components/auth/AuthErrorBoundary'
 
 interface SignUpPageProps {
   params: {
@@ -23,20 +24,22 @@ export default async function SignUpPage({ params, searchParams }: SignUpPagePro
   }
 
   return (
-    <div className="min-h-screen">
-      <Suspense fallback={
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        </div>
-      }>
-        <AuthForm 
-          mode="register" 
-          locale={params.locale}
-          redirectTo={searchParams?.callbackUrl || `/${params.locale}/onboarding`}
-          error={searchParams?.error}
-        />
-      </Suspense>
-    </div>
+    <AuthErrorBoundary>
+      <div className="min-h-screen">
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          </div>
+        }>
+          <AuthForm 
+            mode="register" 
+            locale={params.locale}
+            redirectTo={searchParams?.callbackUrl || `/${params.locale}/onboarding`}
+            error={searchParams?.error}
+          />
+        </Suspense>
+      </div>
+    </AuthErrorBoundary>
   )
 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { signIn, getSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
@@ -42,10 +42,35 @@ interface AuthFormProps {
 export default function AuthForm({ mode, locale = 'en', redirectTo = '/', error }: AuthFormProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const router = useRouter()
-  const t = useTranslations('auth')
-  const tCommon = useTranslations('common')
+  
+  // 安全的翻译钩子调用
+  let t: any, tCommon: any
+  try {
+    t = useTranslations('auth')
+    tCommon = useTranslations('common')
+  } catch (error) {
+    console.error('Translation error:', error)
+    t = (key: string) => key
+    tCommon = (key: string) => key
+  }
+  
   const isZh = locale === 'zh'
+
+  // 客户端挂载检查
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // 如果还没有挂载，显示loading状态
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    )
+  }
 
   const isLogin = mode === 'login'
   const schema = isLogin ? loginSchema : registerSchema
@@ -66,11 +91,14 @@ export default function AuthForm({ mode, locale = 'en', redirectTo = '/', error 
         })
 
         if (result?.error) {
+          console.error('Sign in error:', result.error)
           toast.error(t('invalidCredentials'))
-        } else {
+        } else if (result?.ok) {
           toast.success(t('welcomeBack'))
-          router.push(redirectTo)
-          router.refresh()
+          // 使用window.location确保重定向成功
+          setTimeout(() => {
+            window.location.href = redirectTo
+          }, 1000)
         }
       } else {
         // Register user
@@ -85,8 +113,8 @@ export default function AuthForm({ mode, locale = 'en', redirectTo = '/', error 
         })
 
         if (!response.ok) {
-          const error = await response.json()
-          throw new Error(error.error || 'Registration failed')
+          const errorData = await response.json().catch(() => ({ error: 'Registration failed' }))
+          throw new Error(errorData.error || 'Registration failed')
         }
 
         // Automatically sign in after registration
@@ -97,15 +125,20 @@ export default function AuthForm({ mode, locale = 'en', redirectTo = '/', error 
         })
 
         if (result?.error) {
+          console.error('Auto sign in error:', result.error)
           toast.error(t('registrationSuccess'))
-        } else {
+        } else if (result?.ok) {
           toast.success(t('accountCreated'))
-          router.push(`/${locale}/onboarding`)
-          router.refresh()
+          // 使用window.location确保重定向成功
+          setTimeout(() => {
+            window.location.href = `/${locale}/onboarding`
+          }, 1000)
         }
       }
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : t('somethingWrong'))
+      console.error('Auth error:', error)
+      const errorMessage = error instanceof Error ? error.message : t('somethingWrong')
+      toast.error(errorMessage)
     } finally {
       setIsLoading(false)
     }
@@ -114,8 +147,21 @@ export default function AuthForm({ mode, locale = 'en', redirectTo = '/', error 
   const handleGoogleSignIn = async () => {
     setIsLoading(true)
     try {
-      await signIn('google', { callbackUrl: redirectTo })
+      const result = await signIn('google', { 
+        callbackUrl: redirectTo,
+        redirect: false 
+      })
+      
+      if (result?.error) {
+        console.error('Google sign in error:', result.error)
+        toast.error(t('googleSignInFailed'))
+        setIsLoading(false)
+      } else if (result?.url) {
+        // 重定向到回调URL
+        window.location.href = result.url
+      }
     } catch (error) {
+      console.error('Google sign in error:', error)
       toast.error(t('googleSignInFailed'))
       setIsLoading(false)
     }
