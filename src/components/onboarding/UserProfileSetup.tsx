@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -92,6 +93,8 @@ const useCaseOptions = [
 export default function UserProfileSetup({ onComplete, initialData }: UserProfileSetupProps) {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const t = useTranslations('profile.setup')
+  const tCommon = useTranslations('common')
 
   const { register, handleSubmit, formState: { errors }, watch, setValue, getValues } = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),

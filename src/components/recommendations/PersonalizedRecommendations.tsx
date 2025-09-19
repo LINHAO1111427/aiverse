@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -27,6 +28,7 @@ interface PersonalizedRecommendationsProps {
 
 export default function PersonalizedRecommendations({ className }: PersonalizedRecommendationsProps) {
   const { data: session } = useSession()
+  const t = useTranslations('recommendations')
   const [recommendations, setRecommendations] = useState<PersonalizedRecommendation | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
@@ -52,11 +54,11 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
       setRecommendations(result.data)
       
       if (refresh) {
-        toast.success('Recommendations updated!')
+        toast.success(t('loading'))
       }
     } catch (error) {
       console.error('Error loading recommendations:', error)
-      toast.error('Failed to load recommendations')
+      toast.error(t('common.error'))
     } finally {
       setIsLoading(false)
       setIsRefreshing(false)
@@ -81,7 +83,7 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
 
   const handleBookmark = (toolId: string) => {
     trackBehavior('bookmark_tool', { toolId })
-    toast.success('Tool bookmarked!')
+    toast.success(t('common.loading'))
   }
 
   if (!session) {
@@ -90,15 +92,15 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Sparkles className="h-5 w-5 text-blue-600" />
-            <span>Personalized Recommendations</span>
+            <span>{t('title')}</span>
           </CardTitle>
           <CardDescription>
-            Sign in to get AI tool recommendations tailored to your needs
+            {t('setupProfileDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Button asChild className="w-full">
-            <Link href="/auth/signin">Sign In to Get Recommendations</Link>
+            <Link href="/auth/signin">{t('auth.signIn')}</Link>
           </Button>
         </CardContent>
       </Card>
@@ -111,7 +113,7 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Sparkles className="h-5 w-5 text-blue-600" />
-            <span>Personalized Recommendations</span>
+            <span>{t('title')}</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -134,15 +136,15 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Sparkles className="h-5 w-5 text-blue-600" />
-            <span>Personalized Recommendations</span>
+            <span>{t('title')}</span>
           </CardTitle>
           <CardDescription>
-            Complete your profile setup to get personalized recommendations
+            {t('setupProfileFirst')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Button asChild className="w-full">
-            <Link href="/onboarding">Complete Profile Setup</Link>
+            <Link href="/onboarding">{t('getStarted')}</Link>
           </Button>
         </CardContent>
       </Card>
@@ -157,7 +159,7 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
             <div>
               <CardTitle className="flex items-center space-x-2">
                 <Sparkles className="h-5 w-5 text-blue-600" />
-                <span>Your AI Tool Recommendations</span>
+                <span>{t('title')}</span>
               </CardTitle>
               <CardDescription>
                 {recommendations.explanation}
@@ -171,12 +173,12 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
               className="flex items-center space-x-2"
             >
               <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-              <span>Refresh</span>
+              <span>{t('updateProfile')}</span>
             </Button>
           </div>
           
           <div className="flex items-center space-x-2 mt-2">
-            <span className="text-sm text-gray-600">Confidence Score:</span>
+            <span className="text-sm text-gray-600">{t('confidenceScore')}:</span>
             <Progress 
               value={recommendations.confidence_score * 100} 
               className="w-24 h-2"
@@ -192,7 +194,7 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
           <div>
             <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2">
               <Target className="h-5 w-5" />
-              <span>Recommended Tools</span>
+              <span>{t('categories.recommended')}</span>
             </h3>
             
             <div className="grid gap-4">
@@ -207,6 +209,7 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
                     rank={index + 1}
                     onToolClick={handleToolClick}
                     onBookmark={handleBookmark}
+                    t={t}
                   />
                 )
               })}
@@ -218,7 +221,7 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
             <div>
               <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2">
                 <TrendingUp className="h-5 w-5" />
-                <span>Recommended Workflows</span>
+                <span>{t('workflows.title')}</span>
               </h3>
               
               <div className="grid gap-3">
@@ -233,7 +236,7 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
                           {workflowId.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                         </span>
                         <p className="text-sm text-gray-600">
-                          AI workflow optimized for your needs
+                          {t('workflows.description')}
                         </p>
                       </div>
                       <ExternalLink className="h-4 w-4 text-gray-400 group-hover:text-blue-600" />
@@ -247,16 +250,16 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
           {/* 改进建议 */}
           <div className="bg-blue-50 p-4 rounded-lg">
             <h4 className="font-medium text-blue-900 mb-2">
-              💡 Improve Your Recommendations
+              💡 {t('updateProfile')}
             </h4>
             <p className="text-sm text-blue-700 mb-3">
-              Help us provide better recommendations by:
+              {t('setupProfileDescription')}
             </p>
             <ul className="text-sm text-blue-700 space-y-1">
-              <li>• Rating tools you've used</li>
-              <li>• Bookmarking tools you find interesting</li>
-              <li>• Completing workflows that match your goals</li>
-              <li>• Updating your profile preferences</li>
+              <li>• {t('rating.writeReview')}</li>
+              <li>• {t('common.viewAll')}</li>
+              <li>• {t('workflows.description')}</li>
+              <li>• {t('updateProfile')}</li>
             </ul>
           </div>
         </CardContent>
@@ -272,6 +275,7 @@ interface ToolRecommendationCardProps {
   rank: number
   onToolClick: (toolId: string) => void
   onBookmark: (toolId: string) => void
+  t: any
 }
 
 function ToolRecommendationCard({ 
@@ -279,12 +283,13 @@ function ToolRecommendationCard({
   tool, 
   rank, 
   onToolClick, 
-  onBookmark 
+  onBookmark,
+  t
 }: ToolRecommendationCardProps) {
   if (!tool) {
     return (
       <div className="p-4 border rounded-lg bg-gray-50">
-        <p className="text-gray-500">Tool not found: {recommendation.toolName}</p>
+        <p className="text-gray-500">{t('noRecommendations')}: {recommendation.toolName}</p>
       </div>
     )
   }
@@ -338,7 +343,7 @@ function ToolRecommendationCard({
 
       {/* 推荐原因 */}
       <div className="space-y-2">
-        <p className="text-xs font-medium text-gray-700">Why recommended:</p>
+        <p className="text-xs font-medium text-gray-700">{t('whyRecommended')}:</p>
         <div className="flex flex-wrap gap-1">
           {recommendation.reason.slice(0, 3).map((reason, index) => (
             <Badge key={index} variant="outline" className="text-xs">
@@ -352,19 +357,19 @@ function ToolRecommendationCard({
       <div className="mt-3 pt-3 border-t">
         <div className="grid grid-cols-3 gap-2 text-xs">
           <div className="text-center">
-            <div className="font-medium text-gray-600">Role</div>
+            <div className="font-medium text-gray-600">{t('profile.setup.jobRole')}</div>
             <div className="font-bold text-blue-600">
               {Math.round(recommendation.match_factors.role_match * 100)}%
             </div>
           </div>
           <div className="text-center">
-            <div className="font-medium text-gray-600">Budget</div>
+            <div className="font-medium text-gray-600">{t('profile.setup.budgetRange')}</div>
             <div className="font-bold text-green-600">
               {Math.round(recommendation.match_factors.budget_match * 100)}%
             </div>
           </div>
           <div className="text-center">
-            <div className="font-medium text-gray-600">Use Case</div>
+            <div className="font-medium text-gray-600">{t('profile.setup.primaryUseCases')}</div>
             <div className="font-bold text-purple-600">
               {Math.round(recommendation.match_factors.use_case_match * 100)}%
             </div>

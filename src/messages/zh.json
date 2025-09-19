@@ -22,7 +22,9 @@
     "startingAt": "起价",
     "from": "从",
     "subscribe": "订阅",
-    "compare": "比较"
+    "compare": "比较",
+    "next": "下一步",
+    "back": "上一步"
   },
   "nav": {
     "tools": "工具",
@@ -539,5 +541,246 @@
     "searchResults": "搜索结果",
     "tryDifferent": "尝试用不同的方式描述您的工作",
     "bestMatch": "最佳匹配"
+  },
+  "auth": {
+    "signIn": "登录",
+    "signUp": "注册",
+    "signOut": "退出登录",
+    "email": "邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "firstName": "名字",
+    "lastName": "姓氏",
+    "forgotPassword": "忘记密码？",
+    "rememberMe": "记住我",
+    "createAccount": "创建账户",
+    "haveAccount": "已有账户？",
+    "noAccount": "还没有账户？",
+    "signingIn": "登录中...",
+    "signingUp": "注册中...",
+    "orContinueWith": "或继续使用",
+    "continueWithGoogle": "使用 Google 继续",
+    "welcome": "欢迎！",
+    "welcomeBack": "欢迎回来！",
+    "enterCredentials": "输入您的凭据以访问您的账户",
+    "enterDetails": "输入您的详细信息以创建账户"
+  },
+  "profile": {
+    "setup": {
+      "title": "个人资料设置",
+      "subtitle": "告诉我们您的情况，我们将为您推荐最佳的AI工具",
+      "jobRole": "职位角色",
+      "industry": "行业",
+      "companySize": "公司规模",
+      "experienceLevel": "经验水平",
+      "budgetRange": "预算范围",
+      "preferredToolTypes": "偏好的工具类型",
+      "currentToolsUsed": "当前使用的工具",
+      "primaryUseCases": "主要使用场景",
+      "saveProfile": "保存资料",
+      "saving": "保存中...",
+      "skipForNow": "暂时跳过",
+      "profileSaved": "个人资料已保存！",
+      "selectOption": "选择选项",
+      "selectMultiple": "选择多个选项",
+      "jobRoles": {
+        "CONTENT_CREATOR": "内容创作者",
+        "MARKETING_MANAGER": "营销经理",
+        "DEVELOPER": "开发者",
+        "DESIGNER": "设计师",
+        "DATA_ANALYST": "数据分析师",
+        "PRODUCT_MANAGER": "产品经理",
+        "BUSINESS_OWNER": "企业主",
+        "FREELANCER": "自由职业者",
+        "STUDENT": "学生",
+        "RESEARCHER": "研究员",
+        "CONSULTANT": "顾问",
+        "OTHER": "其他"
+      },
+      "industries": {
+        "TECHNOLOGY": "科技",
+        "MARKETING": "营销",
+        "EDUCATION": "教育",
+        "HEALTHCARE": "医疗保健",
+        "FINANCE": "金融",
+        "ECOMMERCE": "电商",
+        "MEDIA": "媒体",
+        "CONSULTING": "咨询",
+        "NONPROFIT": "非营利组织",
+        "GOVERNMENT": "政府",
+        "STARTUP": "初创公司",
+        "OTHER": "其他"
+      },
+      "companySizes": {
+        "SOLO": "个人工作者",
+        "SMALL": "小型（2-10人）",
+        "MEDIUM": "中型（11-50人）",
+        "LARGE": "大型（51-200人）",
+        "ENTERPRISE": "企业级（200+人）"
+      },
+      "experienceLevels": {
+        "BEGINNER": "初学者",
+        "INTERMEDIATE": "中级",
+        "ADVANCED": "高级",
+        "EXPERT": "专家"
+      },
+      "budgetRanges": {
+        "FREE": "免费",
+        "LOW": "低预算（$0-50/月）",
+        "MEDIUM": "中等预算（$50-200/月）",
+        "HIGH": "高预算（$200-500/月）",
+        "ENTERPRISE": "企业预算（$500+/月）"
+      },
+      "toolTypes": {
+        "writing": "写作与内容",
+        "design": "设计与创意",
+        "analysis": "数据分析",
+        "automation": "自动化",
+        "coding": "编程与开发",
+        "marketing": "营销",
+        "productivity": "生产力",
+        "communication": "沟通"
+      },
+      "preferences": "偏好设置"
+    }
+  },
+  "recommendations": {
+    "pageTitle": "个性化推荐",
+    "pageDescription": "基于您的个人资料和需求的定制AI工具推荐",
+    "title": "为您推荐的AI工具",
+    "subtitle": "基于您的个人资料和工作需求精心挑选",
+    "setupProfileFirst": "设置您的个人资料",
+    "setupProfileDescription": "告诉我们您的工作情况，获得个性化的工具推荐",
+    "getStarted": "开始设置",
+    "loading": "加载推荐中...",
+    "noRecommendations": "暂无推荐",
+    "updateProfile": "更新个人资料",
+    "confidenceScore": "推荐置信度",
+    "whyRecommended": "推荐理由",
+    "perfectMatch": "完美匹配",
+    "goodMatch": "良好匹配",
+    "okayMatch": "一般匹配",
+    "reasons": {
+      "roleMatch": "符合您的职位需求",
+      "industryMatch": "适合您的行业",
+      "budgetMatch": "符合您的预算范围",
+      "useCaseMatch": "满足您的使用场景",
+      "experienceMatch": "适合您的经验水平"
+    },
+    "categories": {
+      "highlyRecommended": "强烈推荐",
+      "recommended": "推荐",
+      "maybeInterested": "可能感兴趣"
+    },
+    "filters": {
+      "all": "全部",
+      "free": "免费",
+      "paid": "付费",
+      "category": "分类"
+    }
+  },
+  "compare": {
+    "pageTitle": "AI工具对比",
+    "pageDescription": "详细对比流行的AI工具，找到最适合您需求的解决方案",
+    "chatgptVsClaude": {
+      "title": "ChatGPT vs Claude AI 写作对比 2024",
+      "titleZh": "ChatGPT vs Claude AI 写作工具对比 2024",
+      "metaDescription": "深度对比ChatGPT和Claude AI的写作能力。了解功能、定价、优缺点，选择最适合您的AI写作助手。",
+      "introduction": "在AI写作工具领域，ChatGPT和Claude AI是两个最突出的选择。本文将全面对比这两个平台的写作能力、功能特性和使用体验。",
+      "overview": "两个平台都提供强大的AI写作能力，但在某些方面各有优势。",
+      "winner": "最佳选择：根据具体需求而定",
+      "conclusion": "选择ChatGPT还是Claude AI主要取决于您的具体需求。如果需要最新信息和插件生态，选择ChatGPT；如果注重长文本处理和安全性，选择Claude AI。"
+    },
+    "canvaVsFigma": {
+      "title": "Canva vs Figma 设计工具对比 2024",
+      "titleZh": "Canva vs Figma 设计工具对比 2024",
+      "metaDescription": "详细对比Canva和Figma设计工具。了解功能差异、定价策略、适用场景，选择最适合的设计平台。",
+      "introduction": "Canva和Figma是两个流行的设计工具，但服务于不同的用户群体和使用场景。本文将深入对比它们的功能和优势。",
+      "overview": "Canva专注于易用性和模板，Figma专注于专业设计和协作。",
+      "winner": "最佳选择：Canva适合非专业用户，Figma适合专业设计师",
+      "conclusion": "如果您是初学者或需要快速创建营销素材，选择Canva；如果您是专业设计师或需要团队协作，选择Figma。"
+    },
+    "notionVsObsidian": {
+      "title": "Notion vs Obsidian 笔记应用对比 2024",
+      "titleZh": "Notion vs Obsidian 知识管理工具对比 2024",
+      "metaDescription": "全面对比Notion和Obsidian笔记应用。了解功能特点、组织方式、定价差异，选择最适合的知识管理工具。",
+      "introduction": "在知识管理和笔记应用领域，Notion和Obsidian代表了两种不同的哲学。本文将详细对比它们的特点和适用场景。",
+      "overview": "Notion提供全功能工作空间，Obsidian专注于知识链接和本地存储。",
+      "winner": "最佳选择：取决于您的工作流程偏好",
+      "conclusion": "选择Notion如果您需要团队协作和多功能工作空间；选择Obsidian如果您偏爱本地存储和知识图谱。"
+    },
+    "common": {
+      "features": "功能特性",
+      "pricing": "定价方案",
+      "prosAndCons": "优缺点分析",
+      "userExperience": "用户体验",
+      "integrations": "集成能力",
+      "support": "客户支持",
+      "security": "安全性",
+      "performance": "性能表现",
+      "pros": "优点",
+      "cons": "缺点",
+      "freeOption": "免费选项",
+      "paidPlans": "付费计划",
+      "startingPrice": "起始价格",
+      "features": "功能",
+      "getStarted": "开始使用",
+      "learnMore": "了解更多",
+      "comparison": "对比",
+      "vs": "对比",
+      "winner": "获胜者",
+      "tie": "平局",
+      "category": "类别",
+      "score": "评分",
+      "overall": "总体",
+      "readFullReview": "阅读完整评测",
+      "tryBoth": "建议试用两者",
+      "dependsOnNeeds": "取决于具体需求"
+    },
+    "faq": {
+      "title": "常见问题",
+      "chatgptVsClaude": [
+        {
+          "question": "ChatGPT和Claude AI哪个更适合写作？",
+          "answer": "两者都很适合写作，但各有优势。ChatGPT在创意写作和多样性方面表现出色，Claude AI在长文本处理和逻辑性方面更强。建议根据具体写作需求选择。"
+        },
+        {
+          "question": "哪个平台的定价更合理？",
+          "answer": "两个平台的定价都很合理。ChatGPT Plus月费20美元，Claude Pro月费20美元。选择主要取决于您更看重哪些功能特性。"
+        },
+        {
+          "question": "我可以同时使用两个平台吗？",
+          "answer": "当然可以！许多用户会根据不同的任务选择不同的平台，比如用ChatGPT进行头脑风暴，用Claude AI处理长文档。"
+        }
+      ],
+      "canvaVsFigma": [
+        {
+          "question": "初学者应该选择Canva还是Figma？",
+          "answer": "初学者建议选择Canva。它的界面更友好，模板丰富，学习曲线平缓。Figma虽然功能强大，但需要一定的设计基础。"
+        },
+        {
+          "question": "哪个平台更适合团队协作？",
+          "answer": "Figma在团队协作方面更胜一筹，支持实时协作、版本控制和评论功能。Canva也有团队功能，但更适合简单的协作场景。"
+        },
+        {
+          "question": "我可以从Canva导出到Figma吗？",
+          "answer": "直接导出较困难，但可以导出图片或PDF格式，然后在Figma中作为参考。建议根据项目需求选择合适的起始平台。"
+        }
+      ],
+      "notionVsObsidian": [
+        {
+          "question": "哪个更适合学术研究？",
+          "answer": "Obsidian更适合学术研究，因为它的链接系统和知识图谱功能能帮助建立概念之间的连接。Notion更适合项目管理和团队协作。"
+        },
+        {
+          "question": "数据安全性如何？",
+          "answer": "Obsidian将文件存储在本地，数据完全由用户控制。Notion使用云存储，有严格的安全措施，但数据存储在服务器上。"
+        },
+        {
+          "question": "学习难度如何？",
+          "answer": "Notion的界面更直观，适合快速上手。Obsidian需要一些时间学习markdown语法和链接概念，但一旦掌握会非常强大。"
+        }
+      ]
+    }
   }
 }
