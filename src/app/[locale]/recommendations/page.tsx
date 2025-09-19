@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { redirect } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import PersonalizedRecommendations from '@/components/recommendations/PersonalizedRecommendations'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -12,11 +13,17 @@ export const metadata: Metadata = {
   description: 'Get personalized AI tool recommendations based on your profile and preferences',
 }
 
-export default async function RecommendationsPage() {
+interface RecommendationsPageProps {
+  params: {
+    locale: string
+  }
+}
+
+export default async function RecommendationsPage({ params }: RecommendationsPageProps) {
   const session = await getServerSession(authOptions)
 
   if (!session) {
-    redirect('/auth/signin?callbackUrl=/recommendations')
+    redirect(`/${params.locale}/auth/signin?callbackUrl=/${params.locale}/recommendations`)
   }
 
   return (
@@ -37,13 +44,13 @@ export default async function RecommendationsPage() {
             
             <div className="flex space-x-3">
               <Button variant="outline" asChild>
-                <Link href="/profile" className="flex items-center space-x-2">
+                <Link href={`/${params.locale}/onboarding`} className="flex items-center space-x-2">
                   <Settings className="h-4 w-4" />
                   <span>Profile Settings</span>
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href="/workflows" className="flex items-center space-x-2">
+                <Link href={`/${params.locale}/workflows`} className="flex items-center space-x-2">
                   <BookOpen className="h-4 w-4" />
                   <span>Browse Workflows</span>
                 </Link>
@@ -56,7 +63,7 @@ export default async function RecommendationsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* 推荐内容 */}
           <div className="lg:col-span-2">
-            <PersonalizedRecommendations />
+            <PersonalizedRecommendations locale={params.locale} />
           </div>
 
           {/* 侧边栏 */}
@@ -89,19 +96,19 @@ export default async function RecommendationsPage() {
               <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
               <div className="space-y-3">
                 <Button variant="outline" className="w-full justify-start" asChild>
-                  <Link href="/tools">
+                  <Link href={`/${params.locale}/tools`}>
                     <BookOpen className="h-4 w-4 mr-2" />
                     Browse All Tools
                   </Link>
                 </Button>
                 <Button variant="outline" className="w-full justify-start" asChild>
-                  <Link href="/workflows">
+                  <Link href={`/${params.locale}/workflows`}>
                     <Sparkles className="h-4 w-4 mr-2" />
                     Explore Workflows
                   </Link>
                 </Button>
                 <Button variant="outline" className="w-full justify-start" asChild>
-                  <Link href="/profile">
+                  <Link href={`/${params.locale}/onboarding`}>
                     <Settings className="h-4 w-4 mr-2" />
                     Update Profile
                   </Link>

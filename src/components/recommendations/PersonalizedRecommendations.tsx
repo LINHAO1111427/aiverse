@@ -24,9 +24,10 @@ import type { PersonalizedRecommendation, ToolRecommendation } from '@/services/
 
 interface PersonalizedRecommendationsProps {
   className?: string
+  locale?: string
 }
 
-export default function PersonalizedRecommendations({ className }: PersonalizedRecommendationsProps) {
+export default function PersonalizedRecommendations({ className, locale = 'en' }: PersonalizedRecommendationsProps) {
   const { data: session } = useSession()
   const t = useTranslations('recommendations')
   const [recommendations, setRecommendations] = useState<PersonalizedRecommendation | null>(null)
@@ -100,7 +101,7 @@ export default function PersonalizedRecommendations({ className }: PersonalizedR
         </CardHeader>
         <CardContent>
           <Button asChild className="w-full">
-            <Link href="/auth/signin">{t('auth.signIn')}</Link>
+            <Link href={`/${locale}/auth/signin`}>{t('auth.signIn')}</Link>
           </Button>
         </CardContent>
       </Card>

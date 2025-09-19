@@ -124,10 +124,10 @@ export function Header() {
             ) : (
               <div className="hidden md:flex items-center space-x-2">
                 <Button variant="ghost" asChild>
-                  <Link href="/auth/signin">Sign in</Link>
+                  <Link href={`/${currentLocale}/auth/signin`}>Sign in</Link>
                 </Button>
                 <Button asChild>
-                  <Link href="/auth/signup">Sign up</Link>
+                  <Link href={`/${currentLocale}/auth/signup`}>Sign up</Link>
                 </Button>
               </div>
             )}
@@ -168,12 +168,12 @@ export function Header() {
             {/* Mobile Auth */}
             {!session && (
               <div className="pt-4 border-t border-gray-200 space-y-2">
-                <Link href="/auth/signin" onClick={() => setIsMenuOpen(false)}>
+                <Link href={`/${currentLocale}/auth/signin`} onClick={() => setIsMenuOpen(false)}>
                   <Button variant="ghost" className="w-full justify-start">
                     Sign in
                   </Button>
                 </Link>
-                <Link href="/auth/signup" onClick={() => setIsMenuOpen(false)}>
+                <Link href={`/${currentLocale}/auth/signup`} onClick={() => setIsMenuOpen(false)}>
                   <Button className="w-full">
                     Sign up
                   </Button>

@@ -6,13 +6,14 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import { Eye, EyeOff, Mail, Lock, User, Chrome } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, User, Chrome, AlertCircle } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
 const loginSchema = z.object({
@@ -33,13 +34,18 @@ type RegisterFormData = z.infer<typeof registerSchema>
 
 interface AuthFormProps {
   mode: 'login' | 'register'
+  locale?: string
   redirectTo?: string
+  error?: string
 }
 
-export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
+export default function AuthForm({ mode, locale = 'en', redirectTo = '/', error }: AuthFormProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const t = useTranslations('auth')
+  const tCommon = useTranslations('common')
+  const isZh = locale === 'zh'
 
   const isLogin = mode === 'login'
   const schema = isLogin ? loginSchema : registerSchema
@@ -60,9 +66,9 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
         })
 
         if (result?.error) {
-          toast.error('Invalid credentials')
+          toast.error(t('invalidCredentials'))
         } else {
-          toast.success('Welcome back!')
+          toast.success(t('welcomeBack'))
           router.push(redirectTo)
           router.refresh()
         }
@@ -91,15 +97,15 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
         })
 
         if (result?.error) {
-          toast.error('Registration successful, but login failed. Please try logging in.')
+          toast.error(t('registrationSuccess'))
         } else {
-          toast.success('Account created successfully! Welcome to AIverse!')
-          router.push('/onboarding')
+          toast.success(t('accountCreated'))
+          router.push(`/${locale}/onboarding`)
           router.refresh()
         }
       }
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'Something went wrong')
+      toast.error(error instanceof Error ? error.message : t('somethingWrong'))
     } finally {
       setIsLoading(false)
     }
@@ -110,7 +116,7 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
     try {
       await signIn('google', { callbackUrl: redirectTo })
     } catch (error) {
-      toast.error('Google sign-in failed')
+      toast.error(t('googleSignInFailed'))
       setIsLoading(false)
     }
   }
@@ -120,14 +126,22 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
-            {isLogin ? 'Welcome back' : 'Create account'}
+            {isLogin ? t('welcomeBack') : t('createAccount')}
           </CardTitle>
           <CardDescription className="text-center">
             {isLogin 
-              ? 'Sign in to your account to continue' 
-              : 'Join AIverse to get personalized AI tool recommendations'
+              ? t('enterCredentials')
+              : t('enterDetails')
             }
           </CardDescription>
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-md p-3 flex items-center space-x-2 text-red-700">
+              <AlertCircle className="h-4 w-4" />
+              <span className="text-sm">
+                {error === 'CredentialsSignin' ? t('invalidCredentials') : t('somethingWrong')}
+              </span>
+            </div>
+          )}
         </CardHeader>
 
         <CardContent className="space-y-4">
@@ -138,7 +152,7 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
             className="w-full flex items-center justify-center space-x-2"
           >
             <Chrome className="h-4 w-4" />
-            <span>Continue with Google</span>
+            <span>{t('continueWithGoogle')}</span>
           </Button>
 
           <div className="relative">
@@ -147,7 +161,7 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                Or continue with email
+                {t('orContinueWith')}
               </span>
             </div>
           </div>
@@ -155,13 +169,13 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {!isLogin && (
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">{t('firstName')} {t('lastName')}</Label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
                     id="name"
                     type="text"
-                    placeholder="Enter your full name"
+                    placeholder={t('enterFullName')}
                     className="pl-10"
                     {...register('name')}
                   />
@@ -173,13 +187,13 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('email')}</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t('enterEmail')}
                   className="pl-10"
                   {...register('email')}
                 />
@@ -190,13 +204,13 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('password')}</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Enter your password"
+                  placeholder={t('enterPassword')}
                   className="pl-10 pr-10"
                   {...register('password')}
                 />
@@ -215,13 +229,13 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
 
             {!isLogin && (
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword">{t('confirmPassword')}</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
                     id="confirmPassword"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Confirm your password"
+                    placeholder={t('enterConfirmPassword')}
                     className="pl-10"
                     {...register('confirmPassword')}
                   />
@@ -240,10 +254,10 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
               {isLoading ? (
                 <div className="flex items-center space-x-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  <span>{isLogin ? 'Signing in...' : 'Creating account...'}</span>
+                  <span>{isLogin ? t('signingIn') : t('signingUp')}</span>
                 </div>
               ) : (
-                <span>{isLogin ? 'Sign in' : 'Create account'}</span>
+                <span>{isLogin ? t('signIn') : t('createAccount')}</span>
               )}
             </Button>
           </form>
@@ -251,16 +265,16 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
           <div className="text-center text-sm">
             {isLogin ? (
               <p>
-                Don't have an account?{' '}
-                <Link href="/auth/signup" className="text-primary hover:underline">
-                  Sign up
+                {t('noAccount')}{' '}
+                <Link href={`/${locale}/auth/signup`} className="text-primary hover:underline">
+                  {t('signUp')}
                 </Link>
               </p>
             ) : (
               <p>
-                Already have an account?{' '}
-                <Link href="/auth/signin" className="text-primary hover:underline">
-                  Sign in
+                {t('haveAccount')}{' '}
+                <Link href={`/${locale}/auth/signin`} className="text-primary hover:underline">
+                  {t('signIn')}
                 </Link>
               </p>
             )}
@@ -268,8 +282,8 @@ export default function AuthForm({ mode, redirectTo = '/' }: AuthFormProps) {
 
           {isLogin && (
             <div className="text-center">
-              <Link href="/auth/forgot-password" className="text-sm text-primary hover:underline">
-                Forgot your password?
+              <Link href={`/${locale}/auth/forgot-password`} className="text-sm text-primary hover:underline">
+                {t('forgotPassword')}
               </Link>
             </div>
           )}

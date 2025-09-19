@@ -35,6 +35,7 @@ type ProfileFormData = z.infer<typeof profileSchema>
 interface UserProfileSetupProps {
   onComplete: () => void
   initialData?: Partial<ProfileFormData>
+  locale?: string
 }
 
 const steps = [
@@ -90,7 +91,7 @@ const useCaseOptions = [
   { id: 'coding', label: 'Software Development' },
 ]
 
-export default function UserProfileSetup({ onComplete, initialData }: UserProfileSetupProps) {
+export default function UserProfileSetup({ onComplete, initialData, locale = 'en' }: UserProfileSetupProps) {
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const t = useTranslations('profile.setup')
