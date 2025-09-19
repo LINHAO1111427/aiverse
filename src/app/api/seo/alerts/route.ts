@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { seoDb } from '@/lib/seo-database'
+import { seoDb, getSEODatabase } from '@/lib/seo-database'
 import { getAdminSessionFromRequest } from '@/lib/admin-auth'
 
 export async function GET(request: NextRequest) {
@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
     query += ' ORDER BY created_at DESC LIMIT ?'
     params.push(limit)
 
-    const db = seoDb.getSEODatabase()
+    const db = getSEODatabase()
     const [rows] = await db.execute(query, params)
     
     return NextResponse.json({

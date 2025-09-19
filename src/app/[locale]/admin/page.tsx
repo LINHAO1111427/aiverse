@@ -136,7 +136,7 @@ export default function AdminPage({ params }: Props) {
             })}
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* 主要内容区域 */}
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">

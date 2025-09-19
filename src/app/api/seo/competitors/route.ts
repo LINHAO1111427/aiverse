@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { seoDb } from '@/lib/seo-database'
+import { seoDb, getSEODatabase } from '@/lib/seo-database'
 import { getAdminSessionFromRequest } from '@/lib/admin-auth'
 
 export async function GET(request: NextRequest) {
@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
     `
     params.push(limit)
 
-    const db = seoDb.getSEODatabase()
+    const db = getSEODatabase()
     const [rows] = await db.execute(query, params)
 
     // 计算变化趋势（对比上一个周期）
@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
     let errorCount = 0
     const errors: any[] = []
 
-    const db = seoDb.getSEODatabase()
+    const db = getSEODatabase()
 
     // 批量更新竞争对手数据
     for (const competitor of competitors) {
@@ -268,7 +268,7 @@ export async function GET_DETAIL(request: NextRequest) {
     const dateFrom = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
     const dateTo = new Date().toISOString().split('T')[0]
 
-    const db = seoDb.getSEODatabase()
+    const db = getSEODatabase()
 
     // 获取竞争对手关键词数据
     const keywordsQuery = `
