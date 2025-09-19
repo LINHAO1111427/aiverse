@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { FeaturedToolsGrid, PopularToolsGrid } from '@/components/features/tools/ToolGrid'
 import { MockedToolGrid } from '@/components/features/tools/MockedToolGrid'
 import { 
@@ -25,6 +25,9 @@ interface HomePageProps {
 }
 
 export default async function HomePage({ params: { locale } }: HomePageProps) {
+  // Enable static rendering for next-intl
+  setRequestLocale(locale)
+  
   const t = await getTranslations()
 
   return (

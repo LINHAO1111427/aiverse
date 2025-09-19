@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { setRequestLocale } from 'next-intl/server'
 import { WorkflowDetail } from './WorkflowDetail'
 
 interface PageProps {
@@ -154,6 +155,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default function WorkflowDetailPage({ params }: PageProps) {
+  // Enable static rendering for next-intl
+  setRequestLocale(params.locale)
+  
   const workflow = workflows[params.id as keyof typeof workflows]
   
   if (!workflow) {

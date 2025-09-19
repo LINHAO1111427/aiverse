@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Toaster } from "react-hot-toast"
 import { NextIntlClientProvider } from "next-intl"
+import { setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -19,6 +20,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: {
     default: "AIverse - Discover 500+ Best AI Tools to Boost Your Productivity",
     template: "%s | AIverse"
@@ -30,13 +32,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://aiverse.com",
+    url: "/",
     siteName: "AIverse",
     title: "AIverse - Best AI Tools Directory",
     description: "Discover 500+ AI tools to boost your productivity",
     images: [
       {
-        url: "https://aiverse.com/og-image.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "AIverse - AI Tools Directory"
@@ -47,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AIverse - Best AI Tools Directory",
     description: "Discover 500+ AI tools to boost your productivity",
-    images: ["https://aiverse.com/og-image.png"],
+    images: ["/og-image.png"],
     creator: "@aiverse"
   },
   robots: {
@@ -75,6 +77,9 @@ export default async function LocaleLayout({
   children: React.ReactNode
   params: { locale: string }
 }) {
+  // Enable static rendering for next-intl
+  setRequestLocale(locale)
+  
   let messages
   try {
     messages = (await import(`@/messages/${locale}.json`)).default

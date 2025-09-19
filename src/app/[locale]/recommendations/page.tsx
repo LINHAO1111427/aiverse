@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
+import { setRequestLocale } from 'next-intl/server'
 import { authOptions } from '@/lib/auth'
 import { redirect } from 'next/navigation'
-import { useTranslations } from 'next-intl'
 import PersonalizedRecommendations from '@/components/recommendations/PersonalizedRecommendations'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -20,6 +20,9 @@ interface RecommendationsPageProps {
 }
 
 export default async function RecommendationsPage({ params }: RecommendationsPageProps) {
+  // Enable static rendering for next-intl
+  setRequestLocale(params.locale)
+  
   const session = await getServerSession(authOptions)
 
   if (!session) {

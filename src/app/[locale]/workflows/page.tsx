@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { WorkflowsClient } from './workflows-client'
 import { getWorkflowCategories, getWorkflows } from '@/lib/server-api'
 
@@ -17,6 +17,9 @@ export default async function WorkflowsPage({
 }: {
   params: { locale: string }
 }) {
+  // Enable static rendering for next-intl
+  setRequestLocale(locale)
+  
   const t = await getTranslations({ locale, namespace: 'workflows' })
 
   // Fetch initial data

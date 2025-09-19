@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { setRequestLocale } from 'next-intl/server'
 import { AdvancedSearch } from '@/components/features/search/AdvancedSearch'
 import { ToolsList } from '@/components/tools/ToolsList'
 
@@ -22,6 +23,10 @@ export async function generateMetadata({ params }: ToolsPageProps): Promise<Meta
 
 export default function ToolsPage({ params }: ToolsPageProps) {
   const { locale } = params
+  
+  // Enable static rendering for next-intl
+  setRequestLocale(locale)
+  
   const isZh = locale === 'zh' || locale === 'zh-TW'
 
   return (

@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { getServerSession } from 'next-auth/next'
+import { setRequestLocale } from 'next-intl/server'
 import { authOptions } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import AuthForm from '@/components/auth/AuthForm'
@@ -16,6 +17,9 @@ interface SignInPageProps {
 }
 
 export default async function SignInPage({ params, searchParams }: SignInPageProps) {
+  // Enable static rendering for next-intl
+  setRequestLocale(params.locale)
+  
   const session = await getServerSession(authOptions)
   
   if (session) {
