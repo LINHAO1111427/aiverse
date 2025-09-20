@@ -167,7 +167,7 @@ export class LLMConfigManager {
     return configs.map(config => ({
       ...config,
       api_key_decrypted: config.api_key_encrypted ? decrypt(config.api_key_encrypted) : null
-    }))
+    } as LLMConfig))
   }
 
   // 根据ID获取单个配置
@@ -182,7 +182,7 @@ export class LLMConfigManager {
     return {
       ...config,
       api_key_decrypted: config.api_key_encrypted ? decrypt(config.api_key_encrypted) : null
-    }
+    } as LLMConfig
   }
 
   // 根据provider和model_id获取配置
@@ -197,7 +197,7 @@ export class LLMConfigManager {
     return {
       ...config,
       api_key_decrypted: config.api_key_encrypted ? decrypt(config.api_key_encrypted) : null
-    }
+    } as LLMConfig
   }
 
   // 获取默认模型配置
@@ -212,7 +212,7 @@ export class LLMConfigManager {
     return {
       ...config,
       api_key_decrypted: config.api_key_encrypted ? decrypt(config.api_key_encrypted) : null
-    }
+    } as LLMConfig
   }
 
   // 创建新的模型配置
