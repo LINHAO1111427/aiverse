@@ -1,39 +1,46 @@
-import { getTranslations } from 'next-intl/server'
 import { Metadata } from 'next'
-import { Code, Key, Zap, Shield, Book, Terminal } from 'lucide-react'
+import { Code, Key, Zap, Shield, Book } from 'lucide-react'
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  const t = await getTranslations({ locale, namespace: 'api' })
+  const isZh = locale === 'zh'
   
   return {
-    title: t('pageTitle'),
-    description: t('pageDescription'),
+    title: isZh ? 'API 文档 - AIverse' : 'API Documentation - AIverse',
+    description: isZh ? '使用AIverse API访问AI工具数据' : 'Access AI tools data with AIverse API',
   }
 }
 
-export default async function ApiPage({ params: { locale } }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale, namespace: 'api' })
+// 为静态生成添加参数
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'zh' }
+  ]
+}
+
+export default function ApiPage({ params: { locale } }: { params: { locale: string } }) {
+  const isZh = locale === 'zh'
 
   const features = [
     {
       icon: Zap,
-      title: t('features.fast.title'),
-      description: t('features.fast.description'),
+      title: isZh ? '高性能' : 'High Performance',
+      description: isZh ? '毫秒级响应时间，确保最佳用户体验' : 'Millisecond response times for the best user experience',
     },
     {
       icon: Shield,
-      title: t('features.secure.title'),
-      description: t('features.secure.description'),
+      title: isZh ? '安全可靠' : 'Secure & Reliable',
+      description: isZh ? '企业级安全保障，99.9% 正常运行时间' : 'Enterprise-grade security with 99.9% uptime',
     },
     {
       icon: Code,
-      title: t('features.restful.title'),
-      description: t('features.restful.description'),
+      title: isZh ? 'RESTful API' : 'RESTful API',
+      description: isZh ? '标准RESTful设计，易于集成' : 'Standard RESTful design, easy to integrate',
     },
     {
       icon: Book,
-      title: t('features.documented.title'),
-      description: t('features.documented.description'),
+      title: isZh ? '完整文档' : 'Full Documentation',
+      description: isZh ? '详细的API文档和示例代码' : 'Detailed API documentation with code examples',
     },
   ]
 
@@ -41,31 +48,31 @@ export default async function ApiPage({ params: { locale } }: { params: { locale
     {
       method: 'GET',
       path: '/api/v1/tools',
-      description: t('endpoints.listTools'),
+      description: isZh ? '获取AI工具列表' : 'List all AI tools',
     },
     {
       method: 'GET',
       path: '/api/v1/tools/{id}',
-      description: t('endpoints.getTool'),
+      description: isZh ? '获取单个工具详情' : 'Get tool details',
     },
     {
       method: 'GET',
       path: '/api/v1/categories',
-      description: t('endpoints.listCategories'),
+      description: isZh ? '获取所有分类' : 'List all categories',
     },
     {
       method: 'GET',
       path: '/api/v1/search',
-      description: t('endpoints.search'),
+      description: isZh ? '搜索AI工具' : 'Search AI tools',
     },
     {
       method: 'POST',
       path: '/api/v1/ratings',
-      description: t('endpoints.submitRating'),
+      description: isZh ? '提交工具评分' : 'Submit tool rating',
     },
   ]
 
-  const codeExample = `// ${t('example.comment')}
+  const codeExample = `// ${isZh ? '获取所有AI工具' : 'Fetch all AI tools'}
 const response = await fetch('https://api.aiverse.com/v1/tools', {
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -82,20 +89,24 @@ console.log(tools);`
       <section className="bg-gradient-to-b from-blue-50 to-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('hero.title')}</h1>
-            <p className="text-xl text-gray-600 mb-8">{t('hero.subtitle')}</p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {isZh ? 'AIverse API 文档' : 'AIverse API Documentation'}
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              {isZh ? '强大的API，轻松集成AI工具到您的应用' : 'Powerful API to integrate AI tools into your application'}
+            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="#get-started"
                 className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-                {t('hero.getStarted')}
+                {isZh ? '开始使用' : 'Get Started'}
               </a>
               <a
                 href="#documentation"
                 className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition"
               >
-                {t('hero.viewDocs')}
+                {isZh ? '查看文档' : 'View Documentation'}
               </a>
             </div>
           </div>
@@ -105,7 +116,9 @@ console.log(tools);`
       {/* Features */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">{t('features.title')}</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">
+            {isZh ? 'API 特性' : 'API Features'}
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature) => {
               const Icon = feature.icon
@@ -127,19 +140,21 @@ console.log(tools);`
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">{t('endpoints.title')}</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              {isZh ? 'API 端点' : 'API Endpoints'}
+            </h2>
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
               <table className="w-full">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {t('endpoints.method')}
+                      {isZh ? '方法' : 'Method'}
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {t('endpoints.endpoint')}
+                      {isZh ? '端点' : 'Endpoint'}
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      {t('endpoints.description')}
+                      {isZh ? '描述' : 'Description'}
                     </th>
                   </tr>
                 </thead>
@@ -172,7 +187,9 @@ console.log(tools);`
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">{t('example.title')}</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              {isZh ? '示例代码' : 'Code Example'}
+            </h2>
             <div className="bg-gray-900 rounded-lg p-6 overflow-x-auto">
               <pre className="text-gray-300">
                 <code>{codeExample}</code>
@@ -182,135 +199,23 @@ console.log(tools);`
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">{t('pricing.title')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Free Plan */}
-              <div className="bg-white rounded-lg shadow-sm p-8">
-                <h3 className="text-2xl font-bold mb-4">{t('pricing.free.name')}</h3>
-                <p className="text-4xl font-bold mb-4">
-                  $0<span className="text-lg font-normal text-gray-600">/mo</span>
-                </p>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.free.feature1')}
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.free.feature2')}
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.free.feature3')}
-                  </li>
-                </ul>
-                <button className="w-full py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-                  {t('pricing.getStarted')}
-                </button>
-              </div>
-
-              {/* Pro Plan */}
-              <div className="bg-blue-600 text-white rounded-lg shadow-sm p-8 relative">
-                <div className="absolute top-0 right-0 bg-yellow-400 text-gray-900 px-3 py-1 rounded-bl-lg rounded-tr-lg text-sm font-semibold">
-                  {t('pricing.popular')}
-                </div>
-                <h3 className="text-2xl font-bold mb-4">{t('pricing.pro.name')}</h3>
-                <p className="text-4xl font-bold mb-4">
-                  $49<span className="text-lg font-normal opacity-80">/mo</span>
-                </p>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-white mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.pro.feature1')}
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-white mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.pro.feature2')}
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-white mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.pro.feature3')}
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-white mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.pro.feature4')}
-                  </li>
-                </ul>
-                <button className="w-full py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition">
-                  {t('pricing.getStarted')}
-                </button>
-              </div>
-
-              {/* Enterprise Plan */}
-              <div className="bg-white rounded-lg shadow-sm p-8">
-                <h3 className="text-2xl font-bold mb-4">{t('pricing.enterprise.name')}</h3>
-                <p className="text-4xl font-bold mb-4">
-                  {t('pricing.enterprise.price')}
-                </p>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.enterprise.feature1')}
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.enterprise.feature2')}
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.enterprise.feature3')}
-                  </li>
-                  <li className="flex items-start">
-                    <svg className="w-5 h-5 text-green-500 mt-0.5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {t('pricing.enterprise.feature4')}
-                  </li>
-                </ul>
-                <button className="w-full py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-                  {t('pricing.contactSales')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-16" id="get-started">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">{t('cta.title')}</h2>
-            <p className="text-lg text-gray-600 mb-8">{t('cta.subtitle')}</p>
+            <h2 className="text-3xl font-bold mb-4">
+              {isZh ? '准备开始了吗？' : 'Ready to Get Started?'}
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              {isZh ? '立即获取您的API密钥，开始构建！' : 'Get your API key now and start building!'}
+            </p>
             <div className="bg-gray-100 rounded-lg p-8">
               <div className="flex items-center justify-between mb-4">
-                <label className="text-sm font-medium text-gray-700">{t('cta.apiKey')}</label>
+                <label className="text-sm font-medium text-gray-700">
+                  {isZh ? 'API 密钥' : 'API Key'}
+                </label>
                 <button className="text-sm text-blue-600 hover:text-blue-700">
-                  {t('cta.generate')}
+                  {isZh ? '生成新密钥' : 'Generate New Key'}
                 </button>
               </div>
               <div className="flex items-center gap-2">
@@ -322,7 +227,7 @@ console.log(tools);`
                   className="flex-1 px-4 py-2 bg-white border border-gray-300 rounded-lg font-mono text-sm"
                 />
                 <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                  {t('cta.copy')}
+                  {isZh ? '复制' : 'Copy'}
                 </button>
               </div>
             </div>
