@@ -1,5 +1,4 @@
 import { Suspense } from 'react'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { generateLocaleStaticParams } from '@/lib/static-params'
 import { FeaturedToolsGrid, PopularToolsGrid } from '@/components/features/tools/ToolGrid'
 import { MockedToolGrid } from '@/components/features/tools/MockedToolGrid'
@@ -33,11 +32,7 @@ interface HomePageProps {
 // 为静态生成生成所有支持的路由
 export const generateStaticParams = generateLocaleStaticParams
 
-export default async function HomePage({ params: { locale } }: HomePageProps) {
-  // Enable static rendering for next-intl
-  setRequestLocale(locale)
-  
-  const t = await getTranslations()
+export default function HomePage({ params: { locale } }: HomePageProps) {
 
   // 生成本地化的结构化数据
   const localizedWebsiteSchema = {
@@ -142,10 +137,13 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
               <SlideIn direction="up">
                 <div className="text-center mb-12">
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                    {t('home.featuredTools')}
+                    {locale === 'zh' ? '精选AI工具' : 'Featured AI Tools'}
                   </h2>
                   <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                    {t('home.featuredToolsDescription')}
+                    {locale === 'zh' 
+                      ? '发现最受欢迎的AI工具，提升您的工作效率' 
+                      : 'Discover the most popular AI tools to boost your productivity'
+                    }
                   </p>
                 </div>
               </SlideIn>
@@ -166,10 +164,13 @@ export default async function HomePage({ params: { locale } }: HomePageProps) {
               <SlideIn direction="up">
                 <div className="text-center mb-12">
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                    {t('home.popularTools')}
+                    {locale === 'zh' ? '热门AI工具' : 'Popular AI Tools'}
                   </h2>
                   <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                    {t('home.popularToolsDescription')}
+                    {locale === 'zh' 
+                      ? '浏览使用最多的AI工具，找到适合您需求的解决方案' 
+                      : 'Browse the most used AI tools and find solutions that fit your needs'
+                    }
                   </p>
                 </div>
               </SlideIn>

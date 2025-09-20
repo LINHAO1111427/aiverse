@@ -1,4 +1,3 @@
-import { setRequestLocale } from 'next-intl/server'
 import AuthForm from '@/components/auth/AuthForm'
 import { AuthErrorBoundary } from '@/components/auth/AuthErrorBoundary'
 
@@ -17,9 +16,6 @@ export function generateStaticParams() {
 }
 
 export default function SignUpPage({ params }: SignUpPageProps) {
-  // Enable static rendering for next-intl
-  setRequestLocale(params.locale)
-
   return (
     <AuthErrorBoundary>
       <div className="min-h-screen">

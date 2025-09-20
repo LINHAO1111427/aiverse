@@ -25,7 +25,7 @@ export default function ToolsPage({ params }: ToolsPageProps) {
   const { locale } = params
   
   // Enable static rendering for next-intl
-  setRequestLocale(locale)
+  
   
   const isZh = locale === 'zh' || locale === 'zh-TW'
 

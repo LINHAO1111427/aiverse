@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Toaster } from "react-hot-toast"
-import { NextIntlClientProvider } from "next-intl"
-import { setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -127,32 +125,26 @@ export default async function LocaleLayout({
   children: React.ReactNode
   params: { locale: string }
 }) {
-  // Enable static rendering for next-intl
-  setRequestLocale(locale)
-  
-  let messages
-  try {
-    messages = (await import(`@/messages/${locale}.json`)).default
-  } catch (error) {
+  // Validate locale
+  const validLocales = ['en', 'zh']
+  if (!validLocales.includes(locale)) {
     notFound()
   }
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <ClientProviders>
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">
-                {children}
-              </main>
-              <Footer />
-            </div>
-            <ComparisonBar />
-            <Toaster position="bottom-right" />
-          </ClientProviders>
-        </NextIntlClientProvider>
+        <ClientProviders>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          <ComparisonBar />
+          <Toaster position="bottom-right" />
+        </ClientProviders>
       </body>
     </html>
   )

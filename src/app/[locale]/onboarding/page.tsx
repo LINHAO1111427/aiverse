@@ -1,4 +1,3 @@
-import { setRequestLocale } from 'next-intl/server'
 import OnboardingClient from './OnboardingClient'
 
 interface OnboardingPageProps {
@@ -16,9 +15,6 @@ export function generateStaticParams() {
 }
 
 export default function OnboardingPage({ params }: OnboardingPageProps) {
-  // Enable static rendering for next-intl
-  setRequestLocale(params.locale)
-
   return <OnboardingClient locale={params.locale} />
 }
 

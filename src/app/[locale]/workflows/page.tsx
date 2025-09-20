@@ -18,7 +18,7 @@ export default async function WorkflowsPage({
   params: { locale: string }
 }) {
   // Enable static rendering for next-intl
-  setRequestLocale(locale)
+  
   
   const t = await getTranslations({ locale, namespace: 'workflows' })
 

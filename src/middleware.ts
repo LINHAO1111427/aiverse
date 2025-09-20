@@ -1,35 +1,25 @@
-import { NextRequest } from 'next/server'
-import createMiddleware from 'next-intl/middleware'
-import { locales, defaultLocale } from './i18n/config'
-// import { protectAdminRoute } from './middleware/adminAuth' // 暂时禁用以支持静态导出
+import { NextRequest, NextResponse } from 'next/server'
 
-const intlMiddleware = createMiddleware({
-  // A list of all locales that are supported
-  locales,
-  
-  // Used when no locale matches
-  defaultLocale,
-  
-  // Always use a locale prefix in the URL - 强制前缀以支持静态导出
-  localePrefix: 'always'
-})
+// 简化的语言配置
+const locales = ['en', 'zh']
+const defaultLocale = 'en'
 
 export default function middleware(request: NextRequest) {
-  // 暂时禁用管理员路由认证以支持静态导出
-  // 检查是否是管理员路由
-  // const pathname = request.nextUrl.pathname
-  // const isAdminRoute = pathname.includes('/admin')
+  const pathname = request.nextUrl.pathname
   
-  // 如果是管理员路由，先进行认证检查
-  // if (isAdminRoute) {
-  //   const authResponse = protectAdminRoute(request)
-  //   if (authResponse.status !== 200) {
-  //     return authResponse
-  //   }
-  // }
+  // 如果路径已经包含语言前缀，直接通过
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  )
   
-  // 应用国际化中间件
-  return intlMiddleware(request)
+  if (pathnameHasLocale) {
+    return NextResponse.next()
+  }
+  
+  // 重定向到默认语言
+  const locale = defaultLocale
+  const newUrl = new URL(`/${locale}${pathname}`, request.url)
+  return NextResponse.redirect(newUrl)
 }
 
 export const config = {

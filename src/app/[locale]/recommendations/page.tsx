@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { setRequestLocale } from 'next-intl/server'
 import PersonalizedRecommendations from '@/components/recommendations/PersonalizedRecommendations'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -25,8 +24,6 @@ export function generateStaticParams() {
 }
 
 export default function RecommendationsPage({ params }: RecommendationsPageProps) {
-  // Enable static rendering for next-intl
-  setRequestLocale(params.locale)
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

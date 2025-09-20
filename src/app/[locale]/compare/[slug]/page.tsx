@@ -207,7 +207,7 @@ export default function ComparisonPage({ params }: ComparisonPageProps) {
   const { locale, slug } = params
   
   // Enable static rendering for next-intl
-  setRequestLocale(locale)
+  
   
   const comparison = toolComparisons.find(c => c.slug === slug)
   

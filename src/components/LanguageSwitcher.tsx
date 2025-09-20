@@ -1,17 +1,37 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { useLocale } from "next-intl"
 import { useRouter, usePathname } from "next/navigation"
 import { Globe, Check, ChevronDown } from "lucide-react"
-import { locales, localeNames, localeFlagEmojis, type Locale } from "@/i18n/config"
+
+// 简化的语言配置
+const locales = ['en', 'zh'] as const
+type Locale = typeof locales[number]
+
+const localeNames: Record<Locale, string> = {
+  en: 'English',
+  zh: '简体中文',
+}
+
+const localeFlagEmojis: Record<Locale, string> = {
+  en: '🇺🇸',
+  zh: '🇨🇳',
+}
 
 export function LanguageSwitcher() {
-  const locale = useLocale() as Locale
   const router = useRouter()
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  
+  // 从路径中提取当前语言
+  const getCurrentLocale = (): Locale => {
+    const segments = pathname.split('/')
+    const localeFromPath = segments[1] as Locale
+    return locales.includes(localeFromPath) ? localeFromPath : 'en'
+  }
+  
+  const locale = getCurrentLocale()
 
   // Handle click outside
   useEffect(() => {
