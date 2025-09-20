@@ -7,12 +7,35 @@ import { ToolDetailSkeleton } from "@/components/ui/skeleton"
 import { PageTransition } from "@/components/common/PageTransition"
 import { PageErrorBoundary } from "@/components/ui/error-boundary"
 import { toolsApi } from "@/lib/api/tools"
+import { generateLocaleStaticParams } from "@/lib/static-params"
 
 interface PageProps {
   params: {
     slug: string
     locale: string
   }
+}
+
+// 为静态导出生成工具页面参数
+export async function generateStaticParams() {
+  // 常用的AI工具列表，用于静态生成
+  const popularTools = [
+    'chatgpt', 'claude', 'midjourney', 'stable-diffusion', 'github-copilot',
+    'jasper', 'copy-ai', 'grammarly', 'notion-ai', 'canva-ai',
+    'runway-ml', 'luma-ai', 'pika-labs', 'leonardo-ai', 'adobe-firefly',
+    'openai-dall-e', 'anthropic-claude', 'google-bard', 'microsoft-bing-ai'
+  ]
+  
+  const locales = ['en', 'zh']
+  const params = []
+  
+  for (const locale of locales) {
+    for (const slug of popularTools) {
+      params.push({ locale, slug })
+    }
+  }
+  
+  return params
 }
 
 // 获取工具数据
