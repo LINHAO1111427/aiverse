@@ -12,7 +12,7 @@ interface ComparisonPageProps {
 }
 
 // 生成所有可能的静态路径
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const paths: Array<{ locale: string; slug: string }> = []
   
   for (const comparison of toolComparisons) {

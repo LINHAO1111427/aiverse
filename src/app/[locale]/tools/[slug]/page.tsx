@@ -16,8 +16,8 @@ interface PageProps {
   }
 }
 
-// 为静态导出生成工具页面参数
-export async function generateStaticParams() {
+// 生成静态参数 - Next.js 14 App Router 标准格式
+export function generateStaticParams() {
   // 常用的AI工具列表，用于静态生成
   const popularTools = [
     'chatgpt', 'claude', 'midjourney', 'stable-diffusion', 'github-copilot',
@@ -27,7 +27,7 @@ export async function generateStaticParams() {
   ]
   
   const locales = ['en', 'zh']
-  const params = []
+  const params: { locale: string; slug: string }[] = []
   
   for (const locale of locales) {
     for (const slug of popularTools) {
