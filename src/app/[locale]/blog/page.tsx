@@ -9,10 +9,18 @@ interface Props {
   params: {
     locale: string
   }
-  searchParams: {
+  searchParams?: {
     category?: string
     search?: string
   }
+}
+
+// 为静态生成添加参数
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'zh' }
+  ]
 }
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
@@ -57,26 +65,8 @@ export default async function BlogPage({ params, searchParams }: Props) {
   const t = await getTranslations({ locale: params.locale })
   const isZh = params.locale === 'zh'
   
-  // 获取博客文章
+  // 获取博客文章 - 静态导出时显示所有文章
   let posts = blogPosts.filter(post => post.status === 'published')
-  
-  // 筛选功能
-  if (searchParams.category) {
-    posts = getPostsByCategory(searchParams.category)
-  }
-  
-  if (searchParams.search) {
-    const searchTerm = searchParams.search.toLowerCase()
-    posts = posts.filter(post => {
-      const title = isZh ? post.titleZh : post.title
-      const excerpt = isZh ? post.excerptZh : post.excerpt
-      const tags = isZh ? post.tagsZh : post.tags
-      
-      return title.toLowerCase().includes(searchTerm) ||
-             excerpt.toLowerCase().includes(searchTerm) ||
-             tags.some(tag => tag.toLowerCase().includes(searchTerm))
-    })
-  }
   
   const featuredPosts = getFeaturedPosts()
   const categories = Array.from(new Set(blogPosts.map(post => isZh ? post.categoryZh : post.category)))
@@ -132,7 +122,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
 
         <div className="max-w-7xl mx-auto px-4 py-12">
           {/* Featured Posts */}
-          {!searchParams.category && !searchParams.search && featuredPosts.length > 0 && (
+          {featuredPosts.length > 0 && (
             <section className="mb-16">
               <h2 className="text-2xl font-bold text-gray-900 mb-8">
                 {isZh ? '精选文章' : 'Featured Articles'}
@@ -224,11 +214,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
                   <div className="space-y-2">
                     <Link
                       href={`/${params.locale}/blog`}
-                      className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
-                        !searchParams.category 
-                          ? 'bg-blue-100 text-blue-700' 
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                      className="block px-3 py-2 rounded-lg text-sm transition-colors bg-blue-100 text-blue-700"
                     >
                       {isZh ? '全部文章' : 'All Articles'}
                     </Link>
@@ -236,11 +222,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
                       <Link
                         key={category}
                         href={`/${params.locale}/blog?category=${encodeURIComponent(category)}`}
-                        className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
-                          searchParams.category === category
-                            ? 'bg-blue-100 text-blue-700'
-                            : 'text-gray-700 hover:bg-gray-100'
-                        }`}
+                        className="block px-3 py-2 rounded-lg text-sm transition-colors text-gray-700 hover:bg-gray-100"
                       >
                         {category}
                       </Link>
@@ -273,15 +255,10 @@ export default async function BlogPage({ params, searchParams }: Props) {
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">
-                    {searchParams.category 
-                      ? `${searchParams.category} ${isZh ? '文章' : 'Articles'}`
-                      : searchParams.search
-                      ? `${isZh ? '搜索结果' : 'Search Results'}: "${searchParams.search}"`
-                      : isZh ? '最新文章' : 'Latest Articles'
-                    }
+                    {isZh ? '最新文章' : 'Latest Articles'}
                   </h2>
                   <p className="text-gray-600 mt-1">
-                    {isZh ? `找到 ${posts.length} 篇文章` : `Found ${posts.length} articles`}
+                    {isZh ? `共 ${posts.length} 篇文章` : `${posts.length} articles`}
                   </p>
                 </div>
               </div>

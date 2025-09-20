@@ -1,8 +1,4 @@
-import { Suspense } from 'react'
-import { getServerSession } from 'next-auth/next'
 import { setRequestLocale } from 'next-intl/server'
-import { authOptions } from '@/lib/auth'
-import { redirect } from 'next/navigation'
 import AuthForm from '@/components/auth/AuthForm'
 import { AuthErrorBoundary } from '@/components/auth/AuthErrorBoundary'
 
@@ -10,38 +6,28 @@ interface SignUpPageProps {
   params: {
     locale: string
   }
-  searchParams?: {
-    callbackUrl?: string
-    error?: string
-  }
 }
 
-export default async function SignUpPage({ params, searchParams }: SignUpPageProps) {
+// 为静态生成添加参数
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'zh' }
+  ]
+}
+
+export default function SignUpPage({ params }: SignUpPageProps) {
   // Enable static rendering for next-intl
   setRequestLocale(params.locale)
-  
-  const session = await getServerSession(authOptions)
-  
-  if (session) {
-    const redirectUrl = searchParams?.callbackUrl || `/${params.locale}`
-    redirect(redirectUrl)
-  }
 
   return (
     <AuthErrorBoundary>
       <div className="min-h-screen">
-        <Suspense fallback={
-          <div className="flex items-center justify-center min-h-screen">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          </div>
-        }>
-          <AuthForm 
-            mode="register" 
-            locale={params.locale}
-            redirectTo={searchParams?.callbackUrl || `/${params.locale}/onboarding`}
-            error={searchParams?.error}
-          />
-        </Suspense>
+        <AuthForm 
+          mode="register" 
+          locale={params.locale}
+          redirectTo={`/${params.locale}/onboarding`}
+        />
       </div>
     </AuthErrorBoundary>
   )

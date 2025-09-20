@@ -1,8 +1,5 @@
 import { Metadata } from 'next'
-import { getServerSession } from 'next-auth'
 import { setRequestLocale } from 'next-intl/server'
-import { authOptions } from '@/lib/auth'
-import { redirect } from 'next/navigation'
 import PersonalizedRecommendations from '@/components/recommendations/PersonalizedRecommendations'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -19,15 +16,17 @@ interface RecommendationsPageProps {
   }
 }
 
-export default async function RecommendationsPage({ params }: RecommendationsPageProps) {
+// 为静态生成添加参数
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'zh' }
+  ]
+}
+
+export default function RecommendationsPage({ params }: RecommendationsPageProps) {
   // Enable static rendering for next-intl
   setRequestLocale(params.locale)
-  
-  const session = await getServerSession(authOptions)
-
-  if (!session) {
-    redirect(`/${params.locale}/auth/signin?callbackUrl=/${params.locale}/recommendations`)
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

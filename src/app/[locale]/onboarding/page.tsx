@@ -1,9 +1,4 @@
-import { Suspense } from 'react'
-import { getServerSession } from 'next-auth/next'
 import { setRequestLocale } from 'next-intl/server'
-import { authOptions } from '@/lib/auth'
-import { redirect } from 'next/navigation'
-import { prisma } from '@/lib/prisma'
 import OnboardingClient from './OnboardingClient'
 
 interface OnboardingPageProps {
@@ -12,34 +7,19 @@ interface OnboardingPageProps {
   }
 }
 
-export default async function OnboardingPage({ params }: OnboardingPageProps) {
+// 为静态生成添加参数
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'zh' }
+  ]
+}
+
+export default function OnboardingPage({ params }: OnboardingPageProps) {
   // Enable static rendering for next-intl
   setRequestLocale(params.locale)
-  
-  const session = await getServerSession(authOptions)
-  
-  if (!session?.user?.id) {
-    redirect(`/${params.locale}/auth/signin?callbackUrl=/${params.locale}/onboarding`)
-  }
 
-  // Check if user profile already exists and is completed
-  const userProfile = await prisma.userProfile.findUnique({
-    where: { userId: session.user.id }
-  })
-
-  if (userProfile?.isCompleted) {
-    redirect(`/${params.locale}`)
-  }
-
-  return (
-    <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      </div>
-    }>
-      <OnboardingClient locale={params.locale} />
-    </Suspense>
-  )
+  return <OnboardingClient locale={params.locale} />
 }
 
 export async function generateMetadata({ params }: OnboardingPageProps) {
