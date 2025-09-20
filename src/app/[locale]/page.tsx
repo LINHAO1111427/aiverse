@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { generateLocaleStaticParams } from '@/lib/static-params'
 import { FeaturedToolsGrid, PopularToolsGrid } from '@/components/features/tools/ToolGrid'
 import { MockedToolGrid } from '@/components/features/tools/MockedToolGrid'
 import { 
@@ -28,6 +29,9 @@ interface HomePageProps {
     locale: string
   }
 }
+
+// 为静态生成生成所有支持的路由
+export const generateStaticParams = generateLocaleStaticParams
 
 export default async function HomePage({ params: { locale } }: HomePageProps) {
   // Enable static rendering for next-intl

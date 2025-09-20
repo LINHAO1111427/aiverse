@@ -27,8 +27,8 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // 输出配置
-  output: 'standalone',
+  // 输出配置 - 移除standalone以支持静态部署
+  // output: 'standalone',
   
   // 压缩配置
   compress: true,

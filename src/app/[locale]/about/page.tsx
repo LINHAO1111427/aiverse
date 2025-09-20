@@ -2,6 +2,14 @@ import { getTranslations } from 'next-intl/server'
 import { Metadata } from 'next'
 import { Users, Target, Zap, Shield, Globe, Award } from 'lucide-react'
 
+// 为静态生成生成所有支持的路由
+export function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'zh' }
+  ]
+}
+
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: 'about' })
   
