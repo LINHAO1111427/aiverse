@@ -38,6 +38,7 @@ export interface LLMConfig {
   // API配置
   api_endpoint: string | null
   api_key_encrypted: string | null
+  api_key_decrypted?: string | null
   api_version: string | null
   
   // 模型参数
