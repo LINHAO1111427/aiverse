@@ -7,6 +7,11 @@ interface RouteParams {
   }
 }
 
+// 为静态导出生成参数（空数组，因为我们不想预生成所有工具）
+export async function generateStaticParams() {
+  return []
+}
+
 export async function GET(
   request: NextRequest,
   { params }: RouteParams

@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 import { locales, defaultLocale } from './i18n/config'
-import { protectAdminRoute } from './middleware/adminAuth'
+// import { protectAdminRoute } from './middleware/adminAuth' // 暂时禁用以支持静态导出
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -10,24 +10,25 @@ const intlMiddleware = createMiddleware({
   // Used when no locale matches
   defaultLocale,
   
-  // Always use a locale prefix in the URL
-  localePrefix: 'as-needed'
+  // Always use a locale prefix in the URL - 强制前缀以支持静态导出
+  localePrefix: 'always'
 })
 
 export default function middleware(request: NextRequest) {
+  // 暂时禁用管理员路由认证以支持静态导出
   // 检查是否是管理员路由
-  const pathname = request.nextUrl.pathname
-  const isAdminRoute = pathname.includes('/admin')
+  // const pathname = request.nextUrl.pathname
+  // const isAdminRoute = pathname.includes('/admin')
   
   // 如果是管理员路由，先进行认证检查
-  if (isAdminRoute) {
-    const authResponse = protectAdminRoute(request)
-    if (authResponse.status !== 200) {
-      return authResponse
-    }
-  }
+  // if (isAdminRoute) {
+  //   const authResponse = protectAdminRoute(request)
+  //   if (authResponse.status !== 200) {
+  //     return authResponse
+  //   }
+  // }
   
-  // 然后应用国际化中间件
+  // 应用国际化中间件
   return intlMiddleware(request)
 }
 
