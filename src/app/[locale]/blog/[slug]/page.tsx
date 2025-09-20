@@ -68,11 +68,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // 生成静态参数用于SEO
 export function generateStaticParams() {
-  // 这里可以返回所有已发布的博客文章slugs
   return [
-    { slug: 'best-ai-tools-2024-comprehensive-guide' },
-    { slug: 'chatgpt-vs-claude-comprehensive-comparison' },
-    { slug: 'free-ai-tools-ultimate-guide-2024' }
+    { locale: 'en', slug: 'best-ai-tools-2024-comprehensive-guide' },
+    { locale: 'zh', slug: 'best-ai-tools-2024-comprehensive-guide' },
+    { locale: 'en', slug: 'chatgpt-vs-claude-comprehensive-comparison' },
+    { locale: 'zh', slug: 'chatgpt-vs-claude-comprehensive-comparison' },
+    { locale: 'en', slug: 'free-ai-tools-ultimate-guide-2024' },
+    { locale: 'zh', slug: 'free-ai-tools-ultimate-guide-2024' }
   ]
 }
 

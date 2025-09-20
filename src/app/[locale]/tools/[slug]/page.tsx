@@ -16,26 +16,30 @@ interface PageProps {
   }
 }
 
-// 生成静态参数 - Next.js 14 App Router 标准格式
+// 必须导出generateStaticParams用于静态生成
 export function generateStaticParams() {
-  // 常用的AI工具列表，用于静态生成
-  const popularTools = [
-    'chatgpt', 'claude', 'midjourney', 'stable-diffusion', 'github-copilot',
-    'jasper', 'copy-ai', 'grammarly', 'notion-ai', 'canva-ai',
-    'runway-ml', 'luma-ai', 'pika-labs', 'leonardo-ai', 'adobe-firefly',
-    'openai-dall-e', 'anthropic-claude', 'google-bard', 'microsoft-bing-ai'
+  return [
+    { locale: 'en', slug: 'chatgpt' },
+    { locale: 'zh', slug: 'chatgpt' },
+    { locale: 'en', slug: 'claude' },
+    { locale: 'zh', slug: 'claude' },
+    { locale: 'en', slug: 'midjourney' },
+    { locale: 'zh', slug: 'midjourney' },
+    { locale: 'en', slug: 'stable-diffusion' },
+    { locale: 'zh', slug: 'stable-diffusion' },
+    { locale: 'en', slug: 'github-copilot' },
+    { locale: 'zh', slug: 'github-copilot' },
+    { locale: 'en', slug: 'jasper' },
+    { locale: 'zh', slug: 'jasper' },
+    { locale: 'en', slug: 'copy-ai' },
+    { locale: 'zh', slug: 'copy-ai' },
+    { locale: 'en', slug: 'grammarly' },
+    { locale: 'zh', slug: 'grammarly' },
+    { locale: 'en', slug: 'notion-ai' },
+    { locale: 'zh', slug: 'notion-ai' },
+    { locale: 'en', slug: 'canva-ai' },
+    { locale: 'zh', slug: 'canva-ai' }
   ]
-  
-  const locales = ['en', 'zh']
-  const params: { locale: string; slug: string }[] = []
-  
-  for (const locale of locales) {
-    for (const slug of popularTools) {
-      params.push({ locale, slug })
-    }
-  }
-  
-  return params
 }
 
 // 获取工具数据

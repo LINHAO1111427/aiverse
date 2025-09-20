@@ -11,18 +11,16 @@ interface ComparisonPageProps {
   }
 }
 
-// 生成所有可能的静态路径
+// 静态路径生成
 export function generateStaticParams() {
-  const paths: Array<{ locale: string; slug: string }> = []
-  
-  for (const comparison of toolComparisons) {
-    paths.push(
-      { locale: 'en', slug: comparison.slug },
-      { locale: 'zh', slug: comparison.slug }
-    )
-  }
-  
-  return paths
+  return [
+    { locale: 'en', slug: 'chatgpt-vs-claude' },
+    { locale: 'zh', slug: 'chatgpt-vs-claude' },
+    { locale: 'en', slug: 'midjourney-vs-dalle' },
+    { locale: 'zh', slug: 'midjourney-vs-dalle' },
+    { locale: 'en', slug: 'github-copilot-vs-cursor' },
+    { locale: 'zh', slug: 'github-copilot-vs-cursor' }
+  ]
 }
 
 // 动态生成SEO元数据
