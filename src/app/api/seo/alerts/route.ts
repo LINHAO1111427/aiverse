@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Internal server error',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )
@@ -122,7 +122,9 @@ export async function POST(request: NextRequest) {
       current_value,
       previous_value,
       threshold_value,
-      resolved: false
+      resolved: false,
+      resolved_at: null,
+      resolved_by: null
     })
 
     return NextResponse.json({
@@ -137,7 +139,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Failed to create alert',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )
@@ -193,7 +195,7 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Failed to update alert',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )

@@ -136,7 +136,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Internal server error',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )
@@ -221,7 +221,7 @@ export async function POST(request: NextRequest) {
         errors.push({
           competitor: competitor.competitor_domain,
           keyword: competitor.keyword,
-          error: error.message
+          error: (error as Error).message
         })
         console.error(`Error updating competitor "${competitor.competitor_domain}":`, error)
       }
@@ -244,7 +244,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Failed to update competitors',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )

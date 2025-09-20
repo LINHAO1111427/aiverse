@@ -53,11 +53,11 @@ export async function GET(request: NextRequest) {
       offset,
       sortBy,
       sortOrder,
-      searchEngine,
-      country,
-      search,
-      dateFrom,
-      dateTo
+      searchEngine: searchEngine || undefined,
+      country: country || undefined,
+      search: search || undefined,
+      dateFrom: dateFrom || undefined,
+      dateTo: dateTo || undefined
     }
     
     // 从数据库获取关键词数据
@@ -123,7 +123,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Internal server error',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )
@@ -205,7 +205,9 @@ export async function POST(request: NextRequest) {
               current_value: keyword.ranking_position,
               previous_value: keyword.previous_position,
               threshold_value: 5,
-              resolved: false
+              resolved: false,
+              resolved_at: null,
+              resolved_by: null
             })
           }
           
@@ -221,7 +223,9 @@ export async function POST(request: NextRequest) {
               current_value: keyword.ranking_position,
               previous_value: keyword.previous_position,
               threshold_value: 3,
-              resolved: false
+              resolved: false,
+              resolved_at: null,
+              resolved_by: null
             })
           }
         }
@@ -230,7 +234,7 @@ export async function POST(request: NextRequest) {
         errorCount++
         errors.push({
           keyword: keyword.keyword,
-          error: error.message
+          error: (error as Error).message
         })
         console.error(`Error updating keyword "${keyword.keyword}":`, error)
       }
@@ -253,7 +257,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Failed to update keywords',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )
@@ -296,7 +300,7 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Failed to update keyword',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )

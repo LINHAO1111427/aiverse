@@ -79,7 +79,7 @@ export default async function BlogPage({ params, searchParams }: Props) {
   }
   
   const featuredPosts = getFeaturedPosts()
-  const categories = [...new Set(blogPosts.map(post => isZh ? post.categoryZh : post.category))]
+  const categories = Array.from(new Set(blogPosts.map(post => isZh ? post.categoryZh : post.category)))
   
   // 生成博客页面结构化数据
   const blogSchema = {

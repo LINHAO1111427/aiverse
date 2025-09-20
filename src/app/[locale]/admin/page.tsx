@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import AdminLogin from '@/components/admin/AdminLogin'
 import SEOMonitoringDashboard from '@/components/admin/SEOMonitoringDashboard'
 import { ToolMonitoringDashboard } from '@/components/admin/ToolMonitoringDashboard'
-import { Shield, LogOut, BarChart3, Users, Settings, Database, Wrench } from 'lucide-react'
+import LLMConfigDashboard from '@/components/admin/LLMConfigDashboard'
+import { Shield, LogOut, BarChart3, Users, Settings, Database, Wrench, Brain } from 'lucide-react'
 
 interface Props {
   params: {
@@ -77,6 +78,7 @@ export default function AdminPage({ params }: Props) {
   const tabs = [
     { id: 'seo', name: 'SEO监控', icon: BarChart3 },
     { id: 'tools', name: '工具监控', icon: Wrench },
+    { id: 'llm', name: '大模型配置', icon: Brain },
     { id: 'users', name: '用户管理', icon: Users },
     { id: 'database', name: '数据管理', icon: Database },
     { id: 'settings', name: '系统设置', icon: Settings },
@@ -143,6 +145,8 @@ export default function AdminPage({ params }: Props) {
         {activeTab === 'seo' && <SEOMonitoringDashboard />}
         
         {activeTab === 'tools' && <ToolMonitoringDashboard />}
+        
+        {activeTab === 'llm' && <LLMConfigDashboard />}
         
         {activeTab === 'users' && (
           <div className="bg-white shadow rounded-lg p-6">

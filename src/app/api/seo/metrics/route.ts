@@ -117,7 +117,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Internal server error',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )
@@ -155,7 +155,7 @@ export async function POST(request: NextRequest) {
         return { jobType, status: 'triggered' }
       } catch (error) {
         console.error(`Failed to trigger ${jobType} data collection:`, error)
-        return { jobType, status: 'failed', error: error.message }
+        return { jobType, status: 'failed', error: (error as Error).message }
       }
     })
     
@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Failed to trigger update',
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       },
       { status: 500 }
     )
