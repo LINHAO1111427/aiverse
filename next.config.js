@@ -1,3 +1,5 @@
+const withNextIntl = require('next-intl/plugin')('./src/i18n.ts')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // 静态导出配置
@@ -13,4 +15,4 @@ const nextConfig = {
   distDir: 'out'
 }
 
-module.exports = nextConfig
+module.exports = withNextIntl(nextConfig)
