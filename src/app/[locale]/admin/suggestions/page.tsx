@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react'
 import { ToolComparison } from '@/components/tools/ToolComparison'
 import { Check, X, Clock, TrendingUp } from 'lucide-react'
 
+// 禁用静态生成，强制动态渲染
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+
 interface ReplacementSuggestion {
   id: string
   currentTool: {

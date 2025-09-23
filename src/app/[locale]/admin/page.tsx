@@ -8,6 +8,10 @@ import { ToolMonitoringDashboard } from '@/components/admin/ToolMonitoringDashbo
 import LLMConfigDashboard from '@/components/admin/LLMConfigDashboard'
 import { Shield, LogOut, BarChart3, Users, Settings, Database, Wrench, Brain } from 'lucide-react'
 
+// 禁用静态生成，强制动态渲染
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+
 interface Props {
   params: {
     locale: string
