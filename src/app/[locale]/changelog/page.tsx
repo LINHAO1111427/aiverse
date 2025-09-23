@@ -1,18 +1,19 @@
-import { getTranslations } from 'next-intl/server'
 import { Metadata } from 'next'
 import { Calendar, Tag, GitCommit } from 'lucide-react'
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  const t = await getTranslations({ locale })
+  const isZh = locale === 'zh' || locale === 'zh-TW'
   
   return {
-    title: t('footer.changelog') + ' - AIverse',
-    description: 'See what\'s new in AIverse - Latest updates, features, and improvements.',
+    title: isZh ? '更新日志 - AIverse' : 'Changelog - AIverse',
+    description: isZh 
+      ? '查看 AIverse 的最新更新、功能和改进。' 
+      : 'See what\'s new in AIverse - Latest updates, features, and improvements.',
   }
 }
 
-export default async function ChangelogPage({ params: { locale } }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale })
+export default function ChangelogPage({ params: { locale } }: { params: { locale: string } }) {
+  const isZh = locale === 'zh' || locale === 'zh-TW'
 
   const changelog = [
     {
@@ -118,9 +119,14 @@ export default async function ChangelogPage({ params: { locale } }: { params: { 
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">{t('footer.changelog')}</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            {isZh ? '更新日志' : 'Changelog'}
+          </h1>
           <p className="text-xl text-gray-600">
-            Track our progress and see what's new in AIverse
+            {isZh 
+              ? '跟踪我们的进展，查看 AIverse 的最新功能' 
+              : 'Track our progress and see what\'s new in AIverse'
+            }
           </p>
         </div>
 

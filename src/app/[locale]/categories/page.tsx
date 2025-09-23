@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { CategoryPage } from '@/components/features/categories/CategoryPage'
+import { StaticCategoryPage } from '@/components/features/categories/StaticCategoryPage'
 
 interface CategoriesPageProps {
   params: {
@@ -24,7 +24,7 @@ export default function CategoriesPage({ params }: CategoriesPageProps) {
 
   return (
     <div className="container mx-auto px-4 py-8 mt-16">
-      <CategoryPage locale={locale} />
+      <StaticCategoryPage locale={locale} />
     </div>
   )
 }

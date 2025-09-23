@@ -1,167 +1,70 @@
-import { getTranslations } from 'next-intl/server'
 import { Metadata } from 'next'
-import { Mail, MessageSquare, Phone, MapPin, Send } from 'lucide-react'
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  const t = await getTranslations({ locale, namespace: 'contact' })
+  const isZh = locale === 'zh' || locale === 'zh-TW'
   
   return {
-    title: t('pageTitle'),
-    description: t('pageDescription'),
+    title: isZh ? '联系我们 - AIverse' : 'Contact Us - AIverse',
+    description: isZh 
+      ? '与 AIverse 团队取得联系。我们在这里帮助您发现最好的 AI 工具。'
+      : 'Get in touch with the AIverse team. We\'re here to help you discover the best AI tools.',
   }
 }
 
-export default async function ContactPage({ params: { locale } }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale, namespace: 'contact' })
-
-  const contactMethods = [
-    {
-      icon: Mail,
-      title: t('methods.email.title'),
-      description: t('methods.email.description'),
-      value: 'hello@aiverse.com',
-      action: 'mailto:hello@aiverse.com',
-    },
-    {
-      icon: MessageSquare,
-      title: t('methods.chat.title'),
-      description: t('methods.chat.description'),
-      value: t('methods.chat.available'),
-      action: '#',
-    },
-    {
-      icon: Phone,
-      title: t('methods.phone.title'),
-      description: t('methods.phone.description'),
-      value: '+1 (555) 123-4567',
-      action: 'tel:+15551234567',
-    },
-    {
-      icon: MapPin,
-      title: t('methods.office.title'),
-      description: t('methods.office.description'),
-      value: '123 AI Street, Tech City, TC 12345',
-      action: '#',
-    },
-  ]
-
-  const faqItems = [
-    {
-      question: t('faq.q1.question'),
-      answer: t('faq.q1.answer'),
-    },
-    {
-      question: t('faq.q2.question'),
-      answer: t('faq.q2.answer'),
-    },
-    {
-      question: t('faq.q3.question'),
-      answer: t('faq.q3.answer'),
-    },
-    {
-      question: t('faq.q4.question'),
-      answer: t('faq.q4.answer'),
-    },
-  ]
+export default function ContactPage({ params: { locale } }: { params: { locale: string } }) {
+  const isZh = locale === 'zh' || locale === 'zh-TW'
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
       <section className="bg-gradient-to-b from-blue-50 to-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('hero.title')}</h1>
-            <p className="text-xl text-gray-600">{t('hero.subtitle')}</p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {isZh ? '联系我们' : 'Contact Us'}
+            </h1>
+            <p className="text-xl text-gray-600">
+              {isZh 
+                ? '我们很乐意听取您的意见和建议'
+                : 'We\'d love to hear from you'
+              }
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Methods */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {contactMethods.map((method) => {
-              const Icon = method.icon
-              return (
-                <div key={method.title} className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{method.title}</h3>
-                  <p className="text-gray-600 text-sm mb-2">{method.description}</p>
-                  <a
-                    href={method.action}
-                    className="text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    {method.value}
-                  </a>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Contact Form */}
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             <div className="bg-white rounded-lg shadow-sm p-8">
-              <h2 className="text-2xl font-bold mb-6 text-center">{t('form.title')}</h2>
+              <h2 className="text-2xl font-bold mb-6 text-center">
+                {isZh ? '发送消息' : 'Send us a message'}
+              </h2>
               <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                      {t('form.firstName')}
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                      {t('form.lastName')}
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                  </div>
-                </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    {t('form.email')}
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {isZh ? '邮箱' : 'Email'}
                   </label>
                   <input
                     type="email"
-                    id="email"
-                    name="email"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                    {t('form.subject')}
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {isZh ? '主题' : 'Subject'}
                   </label>
                   <input
                     type="text"
-                    id="subject"
-                    name="subject"
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    {t('form.message')}
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {isZh ? '消息' : 'Message'}
                   </label>
                   <textarea
-                    id="message"
-                    name="message"
                     rows={6}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
@@ -170,30 +73,12 @@ export default async function ContactPage({ params: { locale } }: { params: { lo
                 <div className="text-center">
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                   >
-                    <Send className="w-5 h-5" />
-                    {t('form.send')}
+                    {isZh ? '发送' : 'Send Message'}
                   </button>
                 </div>
               </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">{t('faq.title')}</h2>
-            <div className="space-y-6">
-              {faqItems.map((item, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-sm p-6">
-                  <h3 className="text-lg font-semibold mb-2">{item.question}</h3>
-                  <p className="text-gray-600">{item.answer}</p>
-                </div>
-              ))}
             </div>
           </div>
         </div>
