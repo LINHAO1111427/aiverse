@@ -12,7 +12,12 @@ const nextConfig = {
   },
   
   // 输出目录
-  distDir: 'out'
+  distDir: 'out',
+  
+  // 调试和错误处理
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 }
 
 module.exports = withNextIntl(nextConfig)
