@@ -1,84 +1,49 @@
 import { Metadata } from 'next'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { WorkflowsClient } from './workflows-client'
-import { getWorkflowCategories, getWorkflows } from '@/lib/server-api'
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
-  const t = await getTranslations({ locale, namespace: 'workflows' })
+  const isZh = locale === 'zh' || locale === 'zh-TW'
   
   return {
-    title: t('title'),
-    description: t('description'),
+    title: isZh ? 'AI工作流 - AIverse' : 'AI Workflows - AIverse',
+    description: isZh ? '发现和学习高效的AI工具工作流程组合' : 'Discover and learn efficient AI tool workflow combinations',
   }
 }
 
-export default async function WorkflowsPage({
-  params: { locale }
-}: {
-  params: { locale: string }
-}) {
-  // Enable static rendering for next-intl
-  
-  
-  const t = await getTranslations({ locale, namespace: 'workflows' })
-
-  // Fetch initial data
-  const [categoriesData, workflowsData] = await Promise.all([
-    getWorkflowCategories(),
-    getWorkflows({ limit: 20 })
-  ])
+export default function WorkflowsPage({ params: { locale } }: { params: { locale: string } }) {
+  const isZh = locale === 'zh' || locale === 'zh-TW'
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-purple-900/20" />
-        
-        <div className="container relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
-              {t('hero.title')}
+      <section className="bg-gradient-to-b from-blue-50 to-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {isZh ? 'AI 工作流' : 'AI Workflows'}
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-              {t('hero.subtitle')}
+            <p className="text-xl text-gray-600">
+              {isZh 
+                ? '发现高效的AI工具组合和工作流程' 
+                : 'Discover efficient AI tool combinations and workflows'
+              }
             </p>
           </div>
         </div>
       </section>
-
-      {/* Main Content */}
-      <WorkflowsClient 
-        locale={locale}
-        initialCategories={categoriesData.categories || []}
-        initialWorkflows={workflowsData.workflows || []}
-        initialPagination={workflowsData.pagination}
-        translations={{
-          categories: t('categories'),
-          allCategories: t('allCategories'),
-          difficulty: t('difficulty'),
-          allDifficulties: t('allDifficulties'),
-          beginner: t('beginner'),
-          intermediate: t('intermediate'),
-          advanced: t('advanced'),
-          maxCost: t('maxCost'),
-          sortBy: t('sortBy'),
-          featured: t('featured'),
-          newest: t('newest'),
-          popular: t('popular'),
-          rating: t('rating'),
-          costLow: t('costLow'),
-          costHigh: t('costHigh'),
-          search: t('search'),
-          searchPlaceholder: t('searchPlaceholder'),
-          showingResults: t('showingResults'),
-          noResults: t('noResults'),
-          loading: t('loading'),
-          searchResults: t('searchResults'),
-          tryDifferent: t('tryDifferent'),
-          bestMatch: t('bestMatch'),
-        }}
-      />
+      
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white rounded-lg shadow-sm p-8">
+              <p className="text-gray-600 leading-relaxed">
+                {isZh 
+                  ? '工作流功能正在开发中，敬请期待更多强大的AI工具组合。' 
+                  : 'Workflow features are under development. More powerful AI tool combinations coming soon.'
+                }
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

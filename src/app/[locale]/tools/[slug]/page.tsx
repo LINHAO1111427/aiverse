@@ -1,7 +1,6 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
-import { getTranslations } from "next-intl/server"
 import { ToolDetailContent } from "@/components/features/tools/ToolDetailContent"
 import { ToolDetailSkeleton } from "@/components/ui/skeleton"
 import { PageTransition } from "@/components/common/PageTransition"
