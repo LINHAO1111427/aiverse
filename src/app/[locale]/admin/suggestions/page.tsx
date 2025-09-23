@@ -1,218 +1,63 @@
-'use client'
+import { Metadata } from 'next'
 
-import { useState, useEffect } from 'react'
-import { ToolComparison } from '@/components/tools/ToolComparison'
-import { Check, X, Clock, TrendingUp } from 'lucide-react'
-
-// 禁用静态生成，强制动态渲染
-export const dynamic = 'force-dynamic'
-export const dynamicParams = true
-
-interface ReplacementSuggestion {
-  id: string
-  currentTool: {
-    id: string
-    name: string
-    avgRating: number
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const isZh = locale === 'zh' || locale === 'zh-TW'
+  
+  return {
+    title: isZh ? '建议管理 - AIverse' : 'Suggestions Management - AIverse',
+    description: isZh ? 'AIverse 建议管理' : 'AIverse Suggestions Management',
   }
-  suggestedTool: {
-    name: string
-    url: string
-    sourceId: string
-  }
-  reason: string
-  improvementPercentage: number
-  status: 'pending' | 'approved' | 'rejected' | 'implemented'
-  createdAt: string
 }
 
-export default function SuggestionsPage({ params }: { params: { locale: string } }) {
-  const [suggestions, setSuggestions] = useState<ReplacementSuggestion[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('pending')
-
-  useEffect(() => {
-    fetchSuggestions()
-  }, [])
-
-  const fetchSuggestions = async () => {
-    setIsLoading(true)
-    try {
-      // 模拟API调用 - 实际项目中替换为真实API
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      // 模拟数据
-      setSuggestions([
-        {
-          id: '1',
-          currentTool: {
-            id: 'grammarly',
-            name: 'Grammarly',
-            avgRating: 3.2
-          },
-          suggestedTool: {
-            name: 'QuillBot',
-            url: 'https://quillbot.com',
-            sourceId: 'quillbot'
-          },
-          reason: 'Better AI capabilities, More affordable pricing, Additional paraphrasing features',
-          improvementPercentage: 35,
-          status: 'pending',
-          createdAt: new Date().toISOString()
-        },
-        {
-          id: '2',
-          currentTool: {
-            id: 'canva',
-            name: 'Canva',
-            avgRating: 4.1
-          },
-          suggestedTool: {
-            name: 'Figma',
-            url: 'https://figma.com',
-            sourceId: 'figma'
-          },
-          reason: 'Better collaboration features, More professional tools',
-          improvementPercentage: 15,
-          status: 'pending',
-          createdAt: new Date().toISOString()
-        }
-      ])
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleApprove = async (suggestionId: string) => {
-    // 实际项目中调用API
-    setSuggestions(prev => 
-      prev.map(s => s.id === suggestionId ? { ...s, status: 'approved' } : s)
-    )
-  }
-
-  const handleReject = async (suggestionId: string) => {
-    // 实际项目中调用API
-    setSuggestions(prev => 
-      prev.map(s => s.id === suggestionId ? { ...s, status: 'rejected' } : s)
-    )
-  }
-
-  const filteredSuggestions = suggestions.filter(s => 
-    filter === 'all' || s.status === filter
-  )
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading suggestions...</p>
-        </div>
-      </div>
-    )
-  }
+export default function SuggestionsPage({ params: { locale } }: { params: { locale: string } }) {
+  const isZh = locale === 'zh' || locale === 'zh-TW'
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Tool Replacement Suggestions
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Review and approve AI tool replacement recommendations
-          </p>
+    <div className="min-h-screen">
+      <section className="bg-gradient-to-b from-blue-50 to-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {isZh ? '建议管理' : 'Suggestions Management'}
+            </h1>
+            <p className="text-xl text-gray-600">
+              {isZh 
+                ? '建议管理功能正在开发中' 
+                : 'Suggestions management features are under development'
+              }
+            </p>
+          </div>
         </div>
-
-        {/* Filter Tabs */}
-        <div className="flex space-x-1 mb-8 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
-          {(['all', 'pending', 'approved', 'rejected'] as const).map((status) => (
-            <button
-              key={status}
-              onClick={() => setFilter(status)}
-              className={`flex-1 px-4 py-2 rounded-md font-medium transition-colors ${
-                filter === status
-                  ? 'bg-white dark:bg-gray-700 text-blue-600 dark:text-blue-400 shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-              }`}
-            >
-              {status.charAt(0).toUpperCase() + status.slice(1)}
-              {status !== 'all' && (
-                <span className="ml-2 text-sm">
-                  ({suggestions.filter(s => s.status === status).length})
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* Suggestions List */}
-        <div className="space-y-6">
-          {filteredSuggestions.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500 dark:text-gray-400">
-                No {filter !== 'all' ? filter : ''} suggestions found
+      </section>
+      
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white rounded-lg shadow-sm p-8">
+              <p className="text-gray-600 leading-relaxed">
+                {isZh 
+                  ? '建议管理功能将在后续版本中提供，敬请期待。' 
+                  : 'Suggestions management features will be available in future releases. Stay tuned.'
+                }
               </p>
-            </div>
-          ) : (
-            filteredSuggestions.map((suggestion) => (
-              <div key={suggestion.id} className="relative">
-                {/* Status Badge */}
-                {suggestion.status !== 'pending' && (
-                  <div className={`absolute top-4 right-4 z-10 px-3 py-1 rounded-full text-sm font-medium ${
-                    suggestion.status === 'approved' 
-                      ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300'
-                      : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300'
-                  }`}>
-                    {suggestion.status === 'approved' ? 'Approved' : 'Rejected'}
-                  </div>
-                )}
-                
-                <ToolComparison
-                  currentTool={{
-                    name: suggestion.currentTool.name,
-                    features: ['Feature 1', 'Feature 2'], // 实际项目中从数据库获取
-                    pricing: 'From $10/month',
-                    rating: suggestion.currentTool.avgRating,
-                    pros: ['Easy to use', 'Popular'],
-                    cons: ['Limited features', 'Expensive']
-                  }}
-                  suggestedTool={{
-                    name: suggestion.suggestedTool.name,
-                    features: ['Feature 1', 'Feature 2', 'Feature 3'],
-                    pricing: 'Free tier available',
-                    rating: 4.5,
-                    pros: ['More features', 'Better pricing', 'Active development'],
-                    cons: ['Learning curve'],
-                    improvements: suggestion.reason.split(', ')
-                  }}
-                  locale={params.locale}
-                />
-
-                {/* Action Buttons */}
-                {suggestion.status === 'pending' && (
-                  <div className="mt-4 flex gap-3 justify-end">
-                    <button
-                      onClick={() => handleReject(suggestion.id)}
-                      className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center gap-2"
-                    >
-                      <X className="w-4 h-4" />
-                      Reject
-                    </button>
-                    <button
-                      onClick={() => handleApprove(suggestion.id)}
-                      className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2"
-                    >
-                      <Check className="w-4 h-4" />
-                      Approve Replacement
-                    </button>
-                  </div>
-                )}
+              <div className="mt-6">
+                <a 
+                  href={`/${locale}/admin`}
+                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors mr-4"
+                >
+                  {isZh ? '返回管理后台' : 'Back to Admin'}
+                </a>
+                <a 
+                  href={`/${locale}`}
+                  className="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  {isZh ? '返回首页' : 'Back to Home'}
+                </a>
               </div>
-            ))
-          )}
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }
