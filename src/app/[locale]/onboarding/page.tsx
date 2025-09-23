@@ -1,30 +1,25 @@
-import OnboardingClient from './OnboardingClient'
-
-interface OnboardingPageProps {
-  params: {
-    locale: string
-  }
+export const metadata = {
+  title: 'Onboarding - AIverse',
+  description: 'Get started with AIverse',
 }
 
-// 为静态生成添加参数
-export function generateStaticParams() {
-  return [
-    { locale: 'en' },
-    { locale: 'zh' }
-  ]
-}
-
-export default function OnboardingPage({ params }: OnboardingPageProps) {
-  return <OnboardingClient locale={params.locale} />
-}
-
-export async function generateMetadata({ params }: OnboardingPageProps) {
-  const isZh = params.locale === 'zh'
-  
-  return {
-    title: isZh ? '个人资料设置 - AIverse' : 'Profile Setup - AIverse',
-    description: isZh 
-      ? '设置您的个人资料，获取个性化的AI工具推荐'
-      : 'Set up your profile to get personalized AI tool recommendations',
-  }
+export default function OnboardingPage() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      <div className="max-w-md w-full">
+        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Welcome to AIverse</h1>
+          <p className="text-gray-600 mb-6">
+            Get started with discovering the best AI tools for your needs.
+          </p>
+          <a 
+            href="/en"
+            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          >
+            Get Started
+          </a>
+        </div>
+      </div>
+    </div>
+  )
 }
