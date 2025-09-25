@@ -147,6 +147,49 @@
 - E2E测试使用Playwright
 - 覆盖率目标：80%
 
+## 🚀 项目启动指南
+### 前置要求
+- Node.js 18.0.0+
+- PostgreSQL 15+
+- npm 或 pnpm
+
+### 环境配置
+1. 复制环境变量：`cp .env.example .env.local`
+2. 配置数据库连接字符串
+3. 设置 NextAuth 密钥：`openssl rand -base64 32`
+
+### 启动步骤
+```bash
+# 1. 安装依赖
+npm install
+
+# 2. 生成 Prisma 客户端
+npm run prisma:generate
+
+# 3. 数据库迁移
+npm run prisma:push
+
+# 4. (可选) 导入种子数据
+npm run prisma:seed
+
+# 5. 启动开发服务器
+npm run dev
+```
+
+### 其他常用命令
+- `npm run build` - 构建生产版本
+- `npm run start` - 启动生产服务器
+- `npm run prisma:studio` - 打开数据库管理界面
+- `npm run lint` - 代码检查
+- `npm run setup:monitoring` - 设置监控系统
+- `npm run setup:llm-config` - 配置LLM
+
+### Windows 端口权限问题解决
+如遇到 "EACCES: permission denied" 错误：
+1. 以管理员权限运行
+2. 或使用其他端口：`npm run dev -- -p 8081`
+3. 或修改 package.json：`"dev": "next dev -H 127.0.0.1"`
+
 ## 🔄 更新记录
 - 2025-01-21：初始创建，记录项目架构和核心功能
 - 2025-01-21：添加技术栈详情和开发规范
@@ -154,3 +197,4 @@
   - 添加 `export const dynamic = 'force-dynamic'` 到以下文件：
     - `src/app/[locale]/admin/page.tsx`
     - `src/app/[locale]/admin/suggestions/page.tsx`
+- 2025-01-25：添加详细启动指南和常用命令
