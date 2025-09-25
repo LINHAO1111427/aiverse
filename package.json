@@ -12,7 +12,6 @@
     "prisma:studio": "prisma studio",
     "prisma:seed": "tsx prisma/seed.ts",
     "setup:monitoring": "node src/scripts/setup-monitoring.js",
-    "setup:llm-config": "node src/scripts/init-llm-config-db.js",
     "test:monitor": "node -e \"fetch('http://localhost:3000/api/cron/monitor-tools', {method: 'POST'}).then(r => r.json()).then(console.log)\""
   },
   "dependencies": {

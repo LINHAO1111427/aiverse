@@ -173,6 +173,7 @@ export function StructuredData({ data }: StructuredDataProps) {
   return (
     <script
       type="application/ld+json"
+      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(data, null, 0)
       }}
