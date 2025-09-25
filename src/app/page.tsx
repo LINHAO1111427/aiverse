@@ -3,26 +3,116 @@ export const metadata = {
   description: 'Discover the best AI tools for your needs',
 }
 
-export default function RootPage() {
+export default function HomePage() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold mb-8">Welcome to AIverse</h1>
-        <div className="space-y-4">
-          <a 
-            href="/en" 
-            className="block px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-          >
-            Continue in English
-          </a>
-          <a 
-            href="/zh" 
-            className="block px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition"
-          >
-            继续使用中文
-          </a>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-blue-50 to-white py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Discover the Best AI Tools
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              Find the perfect AI tools for your workflow. Explore, compare, and get started with the latest AI technologies.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="/en/tools"
+                className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+              >
+                Explore Tools
+              </a>
+              <a
+                href="/en/workflows"
+                className="px-8 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition font-medium"
+              >
+                View Workflows
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Why Choose AIverse?</h2>
+            <p className="text-gray-600">The most comprehensive platform for AI tool discovery</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Fast Discovery</h3>
+              <p className="text-gray-600">Find the right AI tool in minutes, not hours</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Verified Tools</h3>
+              <p className="text-gray-600">All tools are tested and verified by our team</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Community Driven</h3>
+              <p className="text-gray-600">Powered by a community of AI enthusiasts</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">1,000+</div>
+              <div className="text-gray-600">AI Tools</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">50,000+</div>
+              <div className="text-gray-600">Happy Users</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">100+</div>
+              <div className="text-gray-600">Categories</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+            <p className="text-gray-600 mb-8">
+              Join thousands of users who have already discovered their perfect AI workflow
+            </p>
+            <a
+              href="/en/tools"
+              className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+            >
+              Start Exploring
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
